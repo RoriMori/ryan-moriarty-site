@@ -23,10 +23,15 @@ export default function Nav() {
   const [scrolled, setScrolled]   = useState(false)
   const [menuOpen, setMenuOpen]   = useState(false)
 
-  // Track scroll position
+  // Re-check scroll on every route change — scroll state persists across
+  // navigations because Nav never unmounts from the root layout.
+  useEffect(() => {
+    setScrolled(window.scrollY > 40)
+  }, [pathname])
+
+  // Continuous scroll tracking
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
-    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -58,7 +63,7 @@ export default function Nav() {
           <Link
             href="/"
             className={[
-              'font-sans font-medium transition-colors duration-300',
+              'font-sans font-bold transition-colors duration-300',
               'text-[20px] tracking-wide',
               transparent ? 'text-white' : 'text-text-primary',
             ].join(' ')}
@@ -75,7 +80,7 @@ export default function Nav() {
                   <Link
                     href={href}
                     className={[
-                      'font-sans text-p1 transition-colors duration-200',
+                      'font-sans text-[18px] transition-colors duration-200',
                       active && 'underline underline-offset-4',
                       active
                         ? transparent ? 'text-white font-medium'           : 'text-text-primary font-medium'
@@ -110,7 +115,7 @@ export default function Nav() {
           <div className="flex items-center justify-between px-sm h-16 border-b border-surface shrink-0">
             <Link
               href="/"
-              className="font-sans font-medium text-[20px] text-text-primary tracking-wide"
+              className="font-sans font-bold text-[20px] text-text-primary tracking-wide"
               onClick={() => setMenuOpen(false)}
             >
               Rori Mori

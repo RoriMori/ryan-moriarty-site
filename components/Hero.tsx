@@ -1,27 +1,28 @@
-import Image from 'next/image'
-
 export default function Hero() {
   return (
-    <section className="relative h-[85vh] md:h-screen overflow-hidden bg-[#28261A]">
+    <section
+      className="relative overflow-hidden bg-[#28261A] h-screen min-h-screen"
+      style={{ height: '100vh', minHeight: '100vh' }}
+    >
 
       {/* Mobile image */}
-      <Image
-        src="/images/hero/home-hero-mobile.jpg"
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover object-top md:hidden"
-        priority
+      <div
+        className="absolute inset-0 md:hidden"
+        style={{
+          backgroundImage: 'url(/images/hero/home-hero-mobile.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+        }}
       />
 
       {/* Desktop image */}
-      <Image
-        src="/images/hero/home-hero-desktop.jpg"
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover object-top hidden md:block"
-        priority
+      <div
+        className="absolute inset-0 hidden md:block"
+        style={{
+          backgroundImage: 'url(/images/hero/home-hero-desktop.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+        }}
       />
 
       {/* Gradient: transparent → rgba(0,0,0,0.3) at bottom */}
@@ -33,11 +34,11 @@ export default function Hero() {
 
       {/* Text: lower-left */}
       <div className="absolute bottom-0 left-0 z-10 px-sm pb-xl md:px-2xl md:pb-2xl">
-        <h1 className="font-sans font-bold text-white leading-none tracking-tight text-[clamp(2.75rem,8vw,5rem)]">
+        <h1 className="font-sans font-normal text-white leading-none tracking-tight text-[clamp(2.75rem,8vw,5rem)]">
           Rori Mori
         </h1>
         <p className="font-serif italic text-white/90 mt-md text-[clamp(1rem,2vw,1.375rem)]">
-          Writer. Creative. Taking the long way in.
+          I write, make music, design, and build. Apparently that's unexpected.
         </p>
       </div>
 
