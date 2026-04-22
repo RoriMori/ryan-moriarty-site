@@ -14,7 +14,7 @@ The writing is the main event. Every design and build decision serves that.
 - **Styling:** Tailwind CSS
 - **CMS:** Sanity (headless) — required for rich content support: inline images, audio embeds, external plugins, portable text
 - **Hosting:** Cloudflare Pages
-- **Domain:** [PLACEHOLDER — to be confirmed, likely ryanmoriarty.com] via Cloudflare Registrar
+- **Domain:** rorimori.com via Cloudflare Registrar
 - **Icons:** Feather Icons (https://feathericons.com)
 - **Fonts:** Google Fonts (Work Sans, Merriweather)
 
