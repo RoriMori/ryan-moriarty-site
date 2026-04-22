@@ -6,7 +6,7 @@ export default function Hero() {
 
       {/* Mobile image */}
       <Image
-        src="/images/hero/hero-mobile.jpg"
+        src="/images/hero/home-hero-mobile.jpg"
         alt=""
         fill
         sizes="100vw"
@@ -16,7 +16,7 @@ export default function Hero() {
 
       {/* Desktop image */}
       <Image
-        src="/images/hero/hero-desktop.jpg"
+        src="/images/hero/home-hero-desktop.jpg"
         alt=""
         fill
         sizes="100vw"
