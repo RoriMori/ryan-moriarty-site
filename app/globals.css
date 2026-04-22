@@ -63,3 +63,74 @@
     box-sizing: border-box;
   }
 }
+
+/* ─── Essay reading styles ───────────────────────────────────── */
+
+@layer components {
+
+  .essay-body {
+    font-family: var(--font-merriweather), Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--color-text-primary);
+    font-weight: 400;
+  }
+
+  .essay-body p {
+    margin-bottom: 1.75rem;
+  }
+
+  /* Drop cap — first letter, three lines tall */
+  .essay-body .drop-cap::first-letter {
+    font-family: var(--font-merriweather), Georgia, serif;
+    font-weight: 400;
+    font-size: 5.25em;
+    line-height: 0.75;
+    float: left;
+    margin-right: 0.07em;
+    margin-top: 0.09em;
+    color: var(--color-text-primary);
+  }
+
+  /* Pull quote — centered, Merriweather italic, accent rules above/below */
+  .essay-body .pull-quote {
+    font-family: var(--font-merriweather), Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.5vw, 1.375rem);
+    line-height: 1.5;
+    text-align: center;
+    color: var(--color-text-primary);
+    border-top: 2px solid var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+    padding: 1.75rem 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  /* Inline image + caption */
+  .essay-body .essay-figure {
+    margin: 2.25rem 0;
+  }
+
+  .essay-body .essay-figure figcaption {
+    font-family: var(--font-work-sans), system-ui, sans-serif;
+    font-size: 12.8px;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    opacity: 0.45;
+    margin-top: 0.625rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+
+  /* Section break ornament */
+  .essay-body .section-break {
+    font-family: var(--font-work-sans), system-ui, sans-serif;
+    font-size: 0.875rem;
+    text-align: center;
+    color: var(--color-text-primary);
+    opacity: 0.3;
+    letter-spacing: 0.5em;
+    margin: 3rem 0;
+    user-select: none;
+  }
+}
