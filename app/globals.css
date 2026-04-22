@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design tokens ──────────────────────────────────────────── */
+
+:root {
+  /* Light mode */
+  --color-bg:           #FDFAEA;
+  --color-surface:      #DDEDF3;
+  --color-surface-alt:  #AFD4E4;
+  --color-text-primary: #28261A;
+  --color-accent:       #EDD543;
+  --color-accent-mid:   #F2E17B;
+  --color-white:        #FFFFFF;
+}
+
+.dark {
+  --color-bg:           #28261A;
+  --color-surface:      #2E3F46;
+  --color-surface-alt:  #2E3F46;
+  --color-text-primary: #FDFAEA;
+  --color-accent:       #EDD543;
+  --color-accent-mid:   #F2E17B;
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+
+@layer base {
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-work-sans), system-ui, sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Essay body copy always uses the serif */
+  article,
+  .prose-serif {
+    font-family: var(--font-merriweather), Georgia, serif;
+    font-weight: 400;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-work-sans), system-ui, sans-serif;
+    color: var(--color-text-primary);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
