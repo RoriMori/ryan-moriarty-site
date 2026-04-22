@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Work_Sans, Merriweather } from 'next/font/google'
+import Nav from '@/components/Nav'
 import './globals.css'
 
 const workSans = Work_Sans({
@@ -32,7 +33,10 @@ export default function RootLayout({
       className={`${workSans.variable} ${merriweather.variable}`}
       suppressHydrationWarning
     >
-      <body>{children}</body>
+      <body>
+        <Nav />
+        {children}
+      </body>
     </html>
   )
 }
