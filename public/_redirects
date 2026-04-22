@@ -1,0 +1,3 @@
+# Cloudflare Pages — serve the studio shell for all /studio/* paths
+# so Sanity Studio's client-side router can take over.
+/studio/* /studio.html 200

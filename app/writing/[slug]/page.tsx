@@ -1,30 +1,134 @@
+import { PortableText, type PortableTextComponents } from '@portabletext/react'
+import { client, isSanityConfigured } from '@/sanity/lib/client'
+import { essaySlugsQuery, essayBySlugQuery } from '@/sanity/lib/queries'
+import { urlFor } from '@/sanity/lib/image'
+import type { Essay } from '@/sanity/lib/types'
+
 type Props = {
   params: Promise<{ slug: string }>
 }
 
-// Placeholder — replace with Sanity fetch once CMS is wired up
-const ESSAY = {
-  title:    'The Long Way In',
-  subhead:  'On the parts of a career that metrics can\'t capture',
-  author:   'Ryan Moriarty',
-  date:     'April 2026',
-  readTime: '~16 min read',
-}
-
-export function generateStaticParams() {
-  return [{ slug: 'the-long-way-in' }]
+export async function generateStaticParams() {
+  if (!isSanityConfigured) return [{ slug: 'the-long-way-in' }]
+  const slugs = await client.fetch<string[]>(essaySlugsQuery).catch(() => [])
+  return slugs.map(slug => ({ slug }))
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { slug: _slug } = await params
+  const { slug } = await params
+  if (!isSanityConfigured) return { title: 'Essay — Rori Mori' }
+
+  const essay = await client
+    .fetch<Essay | null>(essayBySlugQuery, { slug })
+    .catch(() => null)
+
   return {
-    title:       `${ESSAY.title} — Rori Mori`,
-    description: ESSAY.subhead,
+    title: essay ? `${essay.title} — Rori Mori` : 'Essay — Rori Mori',
+    description: essay?.subhead ?? undefined,
   }
 }
 
+const ptComponents: PortableTextComponents = {
+  types: {
+    image: ({ value }) => {
+      if (!value?.asset?._ref) return null
+      const src = urlFor(value).width(1200).url()
+      return (
+        <figure className="essay-figure my-xl">
+          <img
+            src={src}
+            alt={value.alt ?? ''}
+            className="w-full rounded-sm"
+          />
+          {value.caption && (
+            <figcaption>{value.caption}</figcaption>
+          )}
+        </figure>
+      )
+    },
+    pullQuote: ({ value }) => (
+      <blockquote className="pull-quote">{value.text}</blockquote>
+    ),
+    externalEmbed: ({ value }) => {
+      if (!value?.url) return null
+      return (
+        <figure className="essay-figure my-xl">
+          <iframe
+            src={value.url}
+            className="w-full rounded-sm"
+            style={{ height: '166px', border: 'none' }}
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title={value.caption ?? 'Embedded content'}
+          />
+          {value.caption && (
+            <figcaption>{value.caption}</figcaption>
+          )}
+        </figure>
+      )
+    },
+  },
+  block: {
+    h2: ({ children }) => (
+      <h2 className="font-sans font-normal text-h5 text-text-primary mt-2xl mb-md leading-tight">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="font-sans font-normal text-h6 text-text-primary mt-xl mb-sm leading-tight">
+        {children}
+      </h3>
+    ),
+    normal: ({ children }) => <p>{children}</p>,
+  },
+  marks: {
+    link: ({ value, children }) => {
+      const isExternal = value?.href?.startsWith('http')
+      return (
+        <a
+          href={value?.href}
+          className="underline decoration-accent decoration-2 underline-offset-4 hover:decoration-[3px] transition-all"
+          {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          {children}
+        </a>
+      )
+    },
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="list-disc list-outside pl-lg mb-[1.75rem] space-y-xs">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal list-outside pl-lg mb-[1.75rem] space-y-xs">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li>{children}</li>,
+    number: ({ children }) => <li>{children}</li>,
+  },
+}
+
 export default async function EssayPage({ params }: Props) {
-  await params
+  const { slug } = await params
+
+  const essay: Essay | null = isSanityConfigured
+    ? await client.fetch<Essay | null>(essayBySlugQuery, { slug }).catch(() => null)
+    : null
+
+  const date = essay?.publishedAt
+    ? new Date(essay.publishedAt).toLocaleDateString('en-US', {
+        month: 'long',
+        year: 'numeric',
+      })
+    : null
+
+  const heroImageUrl = essay?.heroImage
+    ? urlFor(essay.heroImage).width(2400).url()
+    : null
+
+  const title = essay?.title ?? 'Essay'
+  const subhead = essay?.subhead ?? null
 
   return (
     <main>
@@ -34,22 +138,35 @@ export default async function EssayPage({ params }: Props) {
         className="relative overflow-hidden bg-[#28261A]"
         style={{ height: '60vh', minHeight: '360px' }}
       >
-        <div
-          className="absolute inset-0 md:hidden"
-          style={{
-            backgroundImage: 'url(/images/hero/home-hero-mobile.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center top',
-          }}
-        />
-        <div
-          className="absolute inset-0 hidden md:block"
-          style={{
-            backgroundImage: 'url(/images/hero/home-hero-desktop.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center top',
-          }}
-        />
+        {heroImageUrl ? (
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${heroImageUrl})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center top',
+            }}
+          />
+        ) : (
+          <>
+            <div
+              className="absolute inset-0 md:hidden"
+              style={{
+                backgroundImage: 'url(/images/hero/home-hero-mobile.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center top',
+              }}
+            />
+            <div
+              className="absolute inset-0 hidden md:block"
+              style={{
+                backgroundImage: 'url(/images/hero/home-hero-desktop.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center top',
+              }}
+            />
+          </>
+        )}
         <div
           aria-hidden="true"
           className="absolute inset-0 pointer-events-none"
@@ -57,11 +174,13 @@ export default async function EssayPage({ params }: Props) {
         />
         <div className="absolute bottom-0 left-0 z-10 px-sm pb-xl md:px-2xl md:pb-2xl" style={{ maxWidth: '48rem' }}>
           <h1 className="font-sans font-normal text-white leading-tight text-[clamp(1.75rem,4vw,3rem)]">
-            {ESSAY.title}
+            {title}
           </h1>
-          <p className="font-serif italic text-white/80 mt-xs text-[clamp(0.95rem,1.8vw,1.125rem)]">
-            {ESSAY.subhead}
-          </p>
+          {subhead && (
+            <p className="font-serif italic text-white/80 mt-xs text-[clamp(0.95rem,1.8vw,1.125rem)]">
+              {subhead}
+            </p>
+          )}
         </div>
       </section>
 
@@ -71,83 +190,43 @@ export default async function EssayPage({ params }: Props) {
 
           {/* Metadata */}
           <div className="flex flex-wrap items-center gap-x-md gap-y-xs font-sans text-caption text-text-primary/50 mb-xl border-b border-surface pb-lg">
-            <span>{ESSAY.author}</span>
-            <span aria-hidden="true">·</span>
-            <time>{ESSAY.date}</time>
-            <span aria-hidden="true">·</span>
-            <span>{ESSAY.readTime}</span>
+            <span>Ryan Moriarty</span>
+            {date && (
+              <>
+                <span aria-hidden="true">·</span>
+                <time dateTime={essay?.publishedAt}>{date}</time>
+              </>
+            )}
+            {essay?.estimatedReadTime && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>~{essay.estimatedReadTime} min read</span>
+              </>
+            )}
           </div>
 
           {/* Body */}
           <article className="essay-body">
-
-            <p className="drop-cap">
-              There is a version of this essay that starts with a job title and ends with a lesson
-              learned. That version is easier to write. It has a clear shape — a before, a during,
-              an after. It knows where it's going before it starts. This is not that version.
-            </p>
-
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
-
-            <p>
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit
-              voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab
-              illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            </p>
-
-            <blockquote className="pull-quote">
-              The parts of a career worth keeping are rarely the parts you planned for.
-            </blockquote>
-
-            <p>
-              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-              consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro
-              quisquam est qui dolorem ipsum quia dolor sit amet, consectetur adipisci velit, sed
-              quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam.
-            </p>
-
-            <p>
-              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-              voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
-              occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-              mollitia animi, id est laborum et dolorum fuga.
-            </p>
-
-            <figure className="essay-figure">
-              <div className="w-full bg-surface rounded-sm" style={{ aspectRatio: '3/2' }} />
-              <figcaption>
-                Placeholder caption — a short description of what the image shows and why it matters.
-              </figcaption>
-            </figure>
-
-            <div className="section-break" aria-hidden="true">* * *</div>
-
-            <p>
-              Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-              eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum
-              rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-              consequatur aut perferendis doloribus asperiores repellat.
-            </p>
-
-            <p>
-              Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus
-              id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor
-              repellendus. Et harum quidem rerum facilis est et expedita distinctio.
-            </p>
-
-            <p>
-              Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
-              molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.
-              Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
-            </p>
-
+            {essay?.body ? (
+              <PortableText
+                value={essay.body as Parameters<typeof PortableText>[0]['value']}
+                components={ptComponents}
+                onMissingComponent={false}
+              />
+            ) : (
+              <p className="text-text-primary/40 italic">Content coming soon.</p>
+            )}
           </article>
+
+          {/* Attribution */}
+          <footer className="mt-3xl pt-lg border-t border-surface">
+            <p className="font-sans text-caption text-text-primary/40 leading-relaxed">
+              Written by Ryan Moriarty with Claude. Ryan drives everything: the material, memories,
+              corrections, voice, ending. Claude shapes sentences and holds architecture. The work is
+              Ryan&rsquo;s in every way that matters.
+            </p>
+          </footer>
+
         </div>
       </div>
 

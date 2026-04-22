@@ -1,6 +1,22 @@
 import Link from 'next/link'
+import type { EssayListItem } from '@/sanity/lib/types'
 
-export default function FeaturedEssay() {
+interface Props {
+  essay: EssayListItem | null
+}
+
+export default function FeaturedEssay({ essay }: Props) {
+  if (!essay) return null
+
+  const date = essay.publishedAt
+    ? new Date(essay.publishedAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+    : null
+
+  const meta = [
+    essay.estimatedReadTime ? `~${essay.estimatedReadTime} min read` : null,
+    date ? `Published ${date}` : null,
+  ].filter(Boolean).join('. ')
+
   return (
     <section className="bg-bg py-2xl md:py-3xl">
       <div className="max-w-5xl mx-auto px-sm md:px-2xl">
@@ -10,20 +26,22 @@ export default function FeaturedEssay() {
         </p>
 
         <h2 className="font-serif font-normal text-text-primary mt-md leading-tight text-[clamp(2rem,4.5vw,3.5rem)]">
-          The Long Way In
+          {essay.title}
         </h2>
 
-        <p className="font-serif font-normal text-text-primary/60 mt-sm leading-snug text-[clamp(1.1rem,1.8vw,1.375rem)]">
-          On the parts of a career that metrics can't capture
-        </p>
+        {essay.subhead && (
+          <p className="font-serif font-normal text-text-primary/60 mt-sm leading-snug text-[clamp(1.1rem,1.8vw,1.375rem)]">
+            {essay.subhead}
+          </p>
+        )}
 
         <p className="font-sans text-p2 text-text-primary/40 mt-md">
-          Seven sections. Approximately 3,500 words. Published April 2026.
+          {essay.excerpt ?? meta}
         </p>
 
         <Link
-          href="/writing/the-long-way-in"
-          className="inline-block font-sans text-p1 text-accent mt-lg hover:underline underline-offset-4 transition-opacity hover:opacity-80"
+          href={`/writing/${essay.slug}`}
+          className="inline-block font-sans text-p1 text-text-primary mt-lg underline decoration-accent decoration-2 underline-offset-4 hover:decoration-[3px] transition-all"
         >
           Read essay →
         </Link>
