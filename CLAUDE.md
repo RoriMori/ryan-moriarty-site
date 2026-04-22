@@ -24,12 +24,19 @@ Note: Vercel is not used. Cloudflare Pages is the deliberate choice.
 
 ## Site Architecture
 
-Four pages at launch:
+Five pages at launch:
 
-1. **Home** — Name, a short honest opening statement. Not a bio. More like a first line.
-2. **Writing** — Where essays live. Simple list or grid, chronological.
-3. **About** — Human version of the bio, essay voice not LinkedIn voice.
-4. **Links** — opscraft.notion.site, LinkedIn, SoundCloud, and wherever the work lives.
+1. **Home** — Large full-width hero image with name and short opening statement overlaid. Below the hero, a featured or most recent essay section: title, subhead, and link to the full essay page.
+
+2. **Writing** — Full list of all essays, chronological. Each entry shows title, subhead, and date. Each links to its own individual essay page.
+
+3. **Individual essay page** — Large full-width hero image with essay title and subhead overlaid. Drop cap on the opening paragraph. Full Merriweather reading experience with generous column width (65–75 characters). Supports inline images with captions, pull quotes, and audio embeds via Sanity portable text. Metadata (author, date, word count) in a header or sidebar. If audio exists for the essay, a Listen option appears at the top.
+
+4. **About** — Human bio in essay voice. Not a resume.
+
+5. **Links** — opscraft.notion.site, LinkedIn, SoundCloud, and other relevant links.
+
+**Navigation** — Name or logo links to Home. Three nav links: Writing, About, Links.
 
 Cross-linking: this site links to opscraft for professional proof points. opscraft links here for the human context behind the work.
 
@@ -118,10 +125,11 @@ Feather Icons only. Consistent stroke weight throughout. No filled icons.
 
 Build in this order:
 
-1. **Essay reading view** — the most important component. Merriweather body, generous line length (65–75 characters), ample vertical spacing, support for inline images and audio embeds via Sanity portable text.
-2. **Homepage**
-3. **Navigation**
-4. **About page**
+1. **Individual essay page** — the most important component. Full-width hero image with title/subhead overlay, drop cap on opening paragraph, Merriweather body at 65–75 character line length, ample vertical spacing. Supports inline images with captions, pull quotes, and audio embeds via Sanity portable text. Metadata header with author, date, word count. Conditional Listen button if audio exists.
+2. **Homepage** — full-width hero with name and opening statement overlaid, featured essay section below.
+3. **Navigation** — name/logo to Home, three links: Writing, About, Links.
+4. **Writing index** — chronological essay list with title, subhead, date.
+5. **About page**
 
 ---
 
