@@ -80,19 +80,7 @@
     margin-bottom: 1.75rem;
   }
 
-  /* Drop cap — first letter, three lines tall */
-  .essay-body .drop-cap::first-letter {
-    font-family: var(--font-merriweather), Georgia, serif;
-    font-weight: 400;
-    font-size: 5.25em;
-    line-height: 0.75;
-    float: left;
-    margin-right: 0.07em;
-    margin-top: 0.09em;
-    color: var(--color-text-primary);
-  }
-
-  /* Pull quote — centered, Merriweather italic, accent rules above/below */
+/* Pull quote — centered, Merriweather italic, accent rules above/below */
   .essay-body .pull-quote {
     font-family: var(--font-merriweather), Georgia, serif;
     font-style: italic;
