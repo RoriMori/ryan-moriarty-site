@@ -18,7 +18,7 @@ export default function FeaturedEssay({ essay }: Props) {
   ].filter(Boolean).join('. ')
 
   return (
-    <section className="bg-bg py-2xl md:py-3xl">
+    <section className="bg-bg pt-2xl pb-xl md:pt-3xl md:pb-2xl">
       <div className="max-w-5xl mx-auto px-sm md:px-2xl">
 
         <p className="font-sans text-caption uppercase tracking-[0.18em] text-text-primary/40">
