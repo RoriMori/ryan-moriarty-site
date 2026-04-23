@@ -11,7 +11,7 @@ export default function Hero() {
         style={{
           backgroundImage: 'url(/images/hero/home-hero-mobile.jpg)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center top',
+          backgroundPosition: '50% 0%',
         }}
       />
 
@@ -21,7 +21,7 @@ export default function Hero() {
         style={{
           backgroundImage: 'url(/images/hero/home-hero-desktop.jpg)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center top',
+          backgroundPosition: '50% 0%',
         }}
       />
 
