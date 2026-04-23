@@ -54,7 +54,7 @@ export default function Nav() {
           'fixed top-0 left-0 right-0 z-40 transition-all duration-300',
           transparent
             ? 'bg-transparent'
-            : 'bg-bg border-b border-surface',
+            : 'bg-[#FEFCF4]',
         ].join(' ')}
       >
         <nav className="max-w-5xl mx-auto px-sm flex items-center justify-between h-16">
@@ -110,9 +110,9 @@ export default function Nav() {
 
       {/* Mobile full-screen overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-bg flex flex-col md:hidden">
+        <div className="fixed inset-0 z-50 bg-[#FEFCF4] flex flex-col md:hidden">
           {/* Overlay header row */}
-          <div className="flex items-center justify-between px-sm h-16 border-b border-surface shrink-0">
+          <div className="flex items-center justify-between px-sm h-16 shrink-0">
             <Link
               href="/"
               className="font-sans font-bold text-[20px] text-text-primary tracking-wide"

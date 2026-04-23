@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Work_Sans, Merriweather } from 'next/font/google'
 import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 import './globals.css'
 
 const workSans = Work_Sans({
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body>
         <Nav />
         {children}
+        <Footer />
       </body>
     </html>
   )
