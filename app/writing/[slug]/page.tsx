@@ -123,6 +123,8 @@ export default async function EssayPage({ params }: Props) {
       })
     : null
 
+  console.log('body:', JSON.stringify(essay?.body, null, 2))
+
   const heroImageUrl = essay?.heroImage
     ? urlFor(essay.heroImage).width(2400).url()
     : null
