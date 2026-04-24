@@ -62,11 +62,18 @@ export const essay = defineType({
             { title: 'Normal', value: 'normal' },
             { title: 'H2', value: 'h2' },
             { title: 'H3', value: 'h3' },
-            { title: 'Section Opener', value: 'sectionOpener' },
           ],
           lists: [
             { title: 'Bullet', value: 'bullet' },
             { title: 'Numbered', value: 'number' },
+          ],
+          // @ts-expect-error — fields on block members are valid in Sanity v3 at runtime
+          fields: [
+            defineField({
+              name: 'sectionOpener',
+              title: 'Section Opener (drop cap)',
+              type: 'boolean',
+            }),
           ],
           marks: {
             decorators: [

@@ -125,9 +125,9 @@
     user-select: none;
   }
 
-  /* Drop cap — first paragraph and sectionOpener blocks */
+  /* Drop cap — first paragraph and blocks with sectionOpener toggle */
   .essay-body > p:first-child::first-letter,
-  .essay-body .section-opener::first-letter {
+  .essay-body .drop-cap::first-letter {
     font-family: var(--font-merriweather), Georgia, serif;
     font-size: 3.5em;
     float: left;

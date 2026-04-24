@@ -80,8 +80,10 @@ const ptComponents: PortableTextComponents = {
         {children}
       </h3>
     ),
-    normal: ({ children }) => <p>{children}</p>,
-    sectionOpener: ({ children }) => <p className="section-opener">{children}</p>,
+    normal: ({ value, children }) => {
+      const hasDrop = (value as unknown as { sectionOpener?: boolean }).sectionOpener === true
+      return <p className={hasDrop ? 'drop-cap' : undefined}>{children}</p>
+    },
   },
   marks: {
     link: ({ value, children }) => {
