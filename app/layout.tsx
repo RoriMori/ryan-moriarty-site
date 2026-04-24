@@ -23,6 +23,9 @@ const merriweather = Merriweather({
 export const metadata: Metadata = {
   title: 'Ryan Moriarty',
   description: 'Writing and whatever else.',
+  verification: {
+    google: '9vVZ4QtaEooSRiTv1EGISN3sYyZGTbGswMR5_wyQqwc',
+  },
 }
 
 export default function RootLayout({
