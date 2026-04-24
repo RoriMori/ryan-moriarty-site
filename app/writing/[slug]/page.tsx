@@ -208,6 +208,12 @@ export default async function EssayPage({ params }: Props) {
             )}
           </div>
 
+          {/* Share */}
+          <ShareRow
+            title={title}
+            url={`https://rorimori.com/writing/${slug}`}
+          />
+
           {/* Body */}
           <article className="essay-body">
             {essay?.body ? (
@@ -220,21 +226,6 @@ export default async function EssayPage({ params }: Props) {
               <p className="text-text-primary/40 italic">Content coming soon.</p>
             )}
           </article>
-
-          {/* Share */}
-          <ShareRow
-            title={title}
-            url={`https://rorimori.com/writing/${slug}`}
-          />
-
-          {/* Attribution */}
-          <footer className="mt-xl pt-lg border-t border-surface">
-            <p className="font-sans text-caption text-text-primary/40 leading-relaxed">
-              Written by Ryan Moriarty with Claude. Ryan drives everything: the material, memories,
-              corrections, voice, ending. Claude shapes sentences and holds architecture. The work is
-              Ryan&rsquo;s in every way that matters.
-            </p>
-          </footer>
 
         </div>
       </div>
