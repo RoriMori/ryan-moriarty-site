@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Work_Sans, Merriweather } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import './globals.css'
@@ -38,6 +39,7 @@ export default function RootLayout({
         <Nav />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   )
