@@ -4,7 +4,7 @@ import { essayListQuery } from '@/sanity/lib/queries'
 import type { EssayListItem } from '@/sanity/lib/types'
 
 export const metadata = {
-  title: 'Writing — Rori Mori',
+  title: 'Writing — RoriMori',
   description: 'Essays by Ryan Moriarty.',
 }
 

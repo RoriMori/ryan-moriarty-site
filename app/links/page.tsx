@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Links — Rori Mori',
+  title: 'Links — RoriMori',
   description: 'Where else to find Ryan Moriarty.',
 }
 
@@ -10,13 +10,13 @@ const links = [
     href: 'https://opscraft.notion.site/Home-1c0b2fb5d158805e82dbc8eb18968a71?pvs=74',
     icon: (
       <svg viewBox="0 0 80 80" width="80" height="80">
-        <circle cx="40" cy="40" r="36" fill="none" stroke="#28261A" strokeWidth="3"/>
+        <circle cx="40" cy="40" r="36" fill="none" stroke="currentColor" strokeWidth="3"/>
         <circle cx="40" cy="40" r="18" fill="none" stroke="#EDD543" strokeWidth="3"/>
-        <circle cx="40" cy="40" r="5" fill="#28261A"/>
-        <line x1="4" y1="40" x2="22" y2="40" stroke="#28261A" strokeWidth="2"/>
-        <line x1="58" y1="40" x2="76" y2="40" stroke="#28261A" strokeWidth="2"/>
-        <line x1="40" y1="4" x2="40" y2="22" stroke="#28261A" strokeWidth="2"/>
-        <line x1="40" y1="58" x2="40" y2="76" stroke="#28261A" strokeWidth="2"/>
+        <circle cx="40" cy="40" r="5" fill="currentColor"/>
+        <line x1="4" y1="40" x2="22" y2="40" stroke="currentColor" strokeWidth="2"/>
+        <line x1="58" y1="40" x2="76" y2="40" stroke="currentColor" strokeWidth="2"/>
+        <line x1="40" y1="4" x2="40" y2="22" stroke="currentColor" strokeWidth="2"/>
+        <line x1="40" y1="58" x2="40" y2="76" stroke="currentColor" strokeWidth="2"/>
       </svg>
     ),
   },
@@ -27,11 +27,11 @@ const links = [
     icon: (
       <svg viewBox="0 0 80 80" width="80" height="80">
         <line x1="12" y1="60" x2="68" y2="60" stroke="#EDD543" strokeWidth="3.5" strokeLinecap="round"/>
-        <line x1="40" y1="18" x2="12" y2="60" stroke="#28261A" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="3 3"/>
-        <line x1="40" y1="18" x2="68" y2="60" stroke="#28261A" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="3 3"/>
-        <circle cx="40" cy="18" r="10" fill="#28261A"/>
-        <circle cx="12" cy="60" r="10" fill="#28261A"/>
-        <circle cx="68" cy="60" r="10" fill="#28261A"/>
+        <line x1="40" y1="18" x2="12" y2="60" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="3 3"/>
+        <line x1="40" y1="18" x2="68" y2="60" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="3 3"/>
+        <circle cx="40" cy="18" r="10" fill="currentColor"/>
+        <circle cx="12" cy="60" r="10" fill="currentColor"/>
+        <circle cx="68" cy="60" r="10" fill="currentColor"/>
       </svg>
     ),
   },
@@ -41,11 +41,11 @@ const links = [
     href: 'https://soundcloud.com/ryan-moriarty-1',
     icon: (
       <svg viewBox="0 0 80 80" width="80" height="80">
-        <rect x="8" y="46" width="8" height="26" rx="4" fill="#28261A"/>
+        <rect x="8" y="46" width="8" height="26" rx="4" fill="currentColor"/>
         <rect x="22" y="32" width="8" height="40" rx="4" fill="#EDD543"/>
-        <rect x="36" y="20" width="8" height="52" rx="4" fill="#28261A"/>
+        <rect x="36" y="20" width="8" height="52" rx="4" fill="currentColor"/>
         <rect x="50" y="28" width="8" height="44" rx="4" fill="#EDD543"/>
-        <rect x="64" y="40" width="8" height="32" rx="4" fill="#28261A"/>
+        <rect x="64" y="40" width="8" height="32" rx="4" fill="currentColor"/>
       </svg>
     ),
   },

@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'react-feather'
+import { Menu, X, Sun, Moon } from 'react-feather'
+import { useTheme } from 'next-themes'
 
 const NAV_LINKS = [
   { href: '/writing', label: 'Writing' },
@@ -11,10 +12,35 @@ const NAV_LINKS = [
   { href: '/links',   label: 'Links'   },
 ] as const
 
-// Routes where the nav starts transparent and overlays a hero image.
-// Individual essay pages (/writing/[slug]) are also hero routes.
 function isHeroRoute(pathname: string) {
   return pathname === '/' || /^\/writing\/.+/.test(pathname)
+}
+
+function ThemeToggle({ transparent }: { transparent: boolean }) {
+  const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
+
+  if (!mounted) return <div className="w-[22px] h-[22px]" />
+
+  const isDark = resolvedTheme === 'dark'
+
+  return (
+    <button
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      className={[
+        'p-xs rounded transition-colors duration-300',
+        transparent ? 'text-white/70 hover:text-white' : 'text-text-primary/50 hover:text-text-primary',
+      ].join(' ')}
+    >
+      {isDark
+        ? <Sun size={18} strokeWidth={1.5} />
+        : <Moon size={18} strokeWidth={1.5} />
+      }
+    </button>
+  )
 }
 
 export default function Nav() {
@@ -23,23 +49,18 @@ export default function Nav() {
   const [scrolled, setScrolled]   = useState(false)
   const [menuOpen, setMenuOpen]   = useState(false)
 
-  // Re-check scroll on every route change — scroll state persists across
-  // navigations because Nav never unmounts from the root layout.
   useEffect(() => {
     setScrolled(window.scrollY > 40)
   }, [pathname])
 
-  // Continuous scroll tracking
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Close mobile menu on navigation
   useEffect(() => { setMenuOpen(false) }, [pathname])
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -52,9 +73,7 @@ export default function Nav() {
       <header
         className={[
           'fixed top-0 left-0 right-0 z-40 transition-all duration-300',
-          transparent
-            ? 'bg-transparent'
-            : 'bg-[#FEFCF4]',
+          transparent ? 'bg-transparent' : 'bg-bg',
         ].join(' ')}
       >
         <nav className="max-w-5xl mx-auto px-sm flex items-center justify-between h-16">
@@ -71,46 +90,52 @@ export default function Nav() {
             RoriMori
           </Link>
 
-          {/* Desktop links */}
-          <ul className="hidden md:flex items-center gap-lg list-none">
-            {NAV_LINKS.map(({ href, label }) => {
-              const active = pathname === href
-              return (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className={[
-                      'font-sans text-[18px] transition-colors duration-200',
-                      active && 'underline underline-offset-4',
-                      active
-                        ? transparent ? 'text-white font-medium'           : 'text-text-primary font-medium'
-                        : transparent ? 'text-white/75 hover:text-white'   : 'text-text-primary/60 hover:text-text-primary',
-                    ].filter(Boolean).join(' ')}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
+          {/* Desktop: links + theme toggle */}
+          <div className="hidden md:flex items-center gap-lg">
+            <ul className="flex items-center gap-lg list-none">
+              {NAV_LINKS.map(({ href, label }) => {
+                const active = pathname === href
+                return (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className={[
+                        'font-sans text-[18px] transition-colors duration-200',
+                        active && 'underline underline-offset-4',
+                        active
+                          ? transparent ? 'text-white font-medium'           : 'text-text-primary font-medium'
+                          : transparent ? 'text-white/75 hover:text-white'   : 'text-text-primary/60 hover:text-text-primary',
+                      ].filter(Boolean).join(' ')}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+            <ThemeToggle transparent={transparent} />
+          </div>
 
-          {/* Mobile menu button */}
-          <button
-            className={[
-              'md:hidden p-xs rounded transition-colors duration-300',
-              transparent ? 'text-white' : 'text-text-primary',
-            ].join(' ')}
-            onClick={() => setMenuOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu size={22} strokeWidth={1.5} />
-          </button>
+          {/* Mobile: theme toggle + menu button */}
+          <div className="md:hidden flex items-center gap-xs">
+            <ThemeToggle transparent={transparent} />
+            <button
+              className={[
+                'p-xs rounded transition-colors duration-300',
+                transparent ? 'text-white' : 'text-text-primary',
+              ].join(' ')}
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu size={22} strokeWidth={1.5} />
+            </button>
+          </div>
         </nav>
       </header>
 
       {/* Mobile full-screen overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-[#FEFCF4] flex flex-col md:hidden">
+        <div className="fixed inset-0 z-50 bg-bg flex flex-col md:hidden">
           {/* Overlay header row */}
           <div className="flex items-center justify-between px-sm h-16 shrink-0">
             <Link

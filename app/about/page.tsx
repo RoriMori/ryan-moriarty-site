@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'About — Rori Mori',
+  title: 'About — RoriMori',
   description: 'The human version of Ryan Moriarty.',
 }
 

@@ -8,15 +8,15 @@ const NAV_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#FEFCF4] px-sm py-2xl md:px-2xl">
+    <footer className="bg-bg px-sm py-2xl md:px-2xl">
       <div className="max-w-5xl mx-auto flex flex-col gap-xl md:flex-row md:gap-0 md:items-start">
 
         {/* Left column: attribution + copyright */}
         <div className="flex-1 flex flex-col gap-sm text-center md:text-left">
-          <p className="font-serif text-p2 text-[#28261A]/60 leading-relaxed">
+          <p className="font-serif text-p2 text-text-primary/60 leading-relaxed">
             Ryan Moriarty owns the content and drives the work. Claude edits and organizes. For a neuro-spicy brain, AI lifts the constraints of linear thinking. Like a door finally unlocked. The puzzle pieces just move.
           </p>
-          <p className="font-sans text-p2 text-[#28261A]">
+          <p className="font-sans text-p2 text-text-primary">
             &copy; 2026 Ryan Moriarty
           </p>
         </div>
@@ -31,7 +31,7 @@ export default function Footer() {
               <li key={href}>
                 <Link
                   href={href}
-                  className="font-sans text-p2 text-[#28261A] underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-accent transition-all duration-200"
+                  className="font-sans text-p2 text-text-primary underline decoration-transparent decoration-2 underline-offset-4 hover:decoration-accent transition-all duration-200"
                 >
                   {label}
                 </Link>
