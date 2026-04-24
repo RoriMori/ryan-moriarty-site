@@ -38,6 +38,12 @@ export const essay = defineType({
       ],
     }),
     defineField({
+      name: 'heroCaption',
+      title: 'Hero Image Caption',
+      type: 'string',
+      description: 'Optional caption displayed below the hero image, right-aligned.',
+    }),
+    defineField({
       name: 'excerpt',
       title: 'Excerpt',
       description: 'Short summary shown on the homepage and writing list.',
@@ -56,6 +62,7 @@ export const essay = defineType({
             { title: 'Normal', value: 'normal' },
             { title: 'H2', value: 'h2' },
             { title: 'H3', value: 'h3' },
+            { title: 'Section Opener', value: 'sectionOpener' },
           ],
           lists: [
             { title: 'Bullet', value: 'bullet' },

@@ -37,6 +37,7 @@ export const essayBySlugQuery = groq`
     subhead,
     publishedAt,
     heroImage,
+    heroCaption,
     excerpt,
     body,
     estimatedReadTime

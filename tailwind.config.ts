@@ -19,6 +19,7 @@ const config: Config = {
         'text-primary': 'var(--color-text-primary)',
         accent: 'var(--color-accent)',
         'accent-mid': 'var(--color-accent-mid)',
+        divider: 'var(--color-divider)',
       },
       spacing: {
         // 8px grid scale from design system

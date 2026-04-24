@@ -13,6 +13,7 @@
   --color-accent:       #EDD543;
   --color-accent-mid:   #F2E17B;
   --color-white:        #FFFFFF;
+  --color-divider:      rgba(40, 38, 26, 0.15);
 }
 
 .dark {
@@ -22,6 +23,7 @@
   --color-text-primary: #FDFAEA;
   --color-accent:       #EDD543;
   --color-accent-mid:   #F2E17B;
+  --color-divider:      rgba(253, 250, 234, 0.15);
 }
 
 /* ─── Base ───────────────────────────────────────────────────── */
@@ -121,5 +123,16 @@
     letter-spacing: 0.5em;
     margin: 3rem 0;
     user-select: none;
+  }
+
+  /* Drop cap — first paragraph and sectionOpener blocks */
+  .essay-body > p:first-child::first-letter,
+  .essay-body .section-opener::first-letter {
+    font-family: var(--font-merriweather), Georgia, serif;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.8;
+    margin-right: 0.1em;
+    font-weight: 400;
   }
 }

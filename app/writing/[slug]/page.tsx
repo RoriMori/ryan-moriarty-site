@@ -3,7 +3,7 @@ import { client, isSanityConfigured } from '@/sanity/lib/client'
 import { essaySlugsQuery, essayBySlugQuery } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
 import type { Essay } from '@/sanity/lib/types'
-import ShareRow from '@/components/ShareRow'
+import ShareIcons from '@/components/ShareRow'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -76,11 +76,12 @@ const ptComponents: PortableTextComponents = {
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="font-sans font-normal text-h6 text-text-primary mt-xl mb-sm leading-tight">
+      <h3 className="font-sans font-normal text-[18px] text-text-primary mt-xl mb-sm leading-tight">
         {children}
       </h3>
     ),
     normal: ({ children }) => <p>{children}</p>,
+    sectionOpener: ({ children }) => <p className="section-opener">{children}</p>,
   },
   marks: {
     link: ({ value, children }) => {
@@ -124,10 +125,8 @@ export default async function EssayPage({ params }: Props) {
       })
     : null
 
-  console.log('body:', JSON.stringify(essay?.body, null, 2))
-
   const heroImageUrl = essay?.heroImage
-    ? urlFor(essay.heroImage).width(2400).url()
+    ? urlFor(essay.heroImage).width(1400).url()
     : null
 
   const title = essay?.title ?? 'Essay'
@@ -135,84 +134,60 @@ export default async function EssayPage({ params }: Props) {
 
   return (
     <main>
-
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden bg-[#28261A]"
-        style={{ height: '60vh', minHeight: '360px' }}
-      >
-        {heroImageUrl ? (
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url(${heroImageUrl})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center top',
-            }}
-          />
-        ) : (
-          <>
-            <div
-              className="absolute inset-0 md:hidden"
-              style={{
-                backgroundImage: 'url(/images/hero/home-hero-mobile.jpg)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center top',
-              }}
-            />
-            <div
-              className="absolute inset-0 hidden md:block"
-              style={{
-                backgroundImage: 'url(/images/hero/home-hero-desktop.jpg)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center top',
-              }}
-            />
-          </>
-        )}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: 'linear-gradient(to bottom, transparent 25%, rgba(0,0,0,0.65) 100%)' }}
-        />
-        <div className="absolute bottom-0 left-0 z-10 px-sm pb-xl md:px-2xl md:pb-2xl" style={{ maxWidth: '48rem' }}>
-          <h1 className="font-sans font-normal text-white leading-tight text-[clamp(1.75rem,4vw,3rem)]">
-            {title}
-          </h1>
-          {subhead && (
-            <p className="font-serif italic text-white/80 mt-xs text-[clamp(0.95rem,1.8vw,1.125rem)]">
-              {subhead}
-            </p>
-          )}
-        </div>
-      </section>
-
-      {/* ── Content ──────────────────────────────────────────── */}
       <div className="bg-bg py-2xl md:py-3xl px-sm">
         <div className="max-w-[68ch] mx-auto">
 
-          {/* Metadata */}
-          <div className="flex flex-wrap items-center gap-x-md gap-y-xs font-sans text-caption text-text-primary/50 mb-xl border-b border-surface pb-lg">
-            <span>Ryan Moriarty</span>
-            {date && (
-              <>
-                <span aria-hidden="true">·</span>
-                <time dateTime={essay?.publishedAt}>{date}</time>
-              </>
-            )}
-            {essay?.estimatedReadTime && (
-              <>
-                <span aria-hidden="true">·</span>
-                <span>~{essay.estimatedReadTime} min read</span>
-              </>
-            )}
-          </div>
+          {/* Hero image — constrained, above title */}
+          {heroImageUrl && (
+            <div className="mb-xl">
+              <img
+                src={heroImageUrl}
+                alt={essay?.heroImage?.alt ?? ''}
+                className="w-full rounded-sm"
+              />
+              {essay?.heroCaption && (
+                <p className="font-serif italic text-[12px] text-right mt-sm leading-relaxed"
+                   style={{ color: 'rgba(40, 38, 26, 0.5)' }}>
+                  {essay.heroCaption}
+                </p>
+              )}
+            </div>
+          )}
 
-          {/* Share */}
-          <ShareRow
-            title={title}
-            url={`https://rorimori.com/writing/${slug}`}
-          />
+          {/* Title */}
+          <h1 className="font-sans font-normal text-[clamp(1.75rem,4vw,3rem)] text-text-primary leading-tight mb-sm">
+            {title}
+          </h1>
+
+          {/* Subhead */}
+          {subhead && (
+            <p className="font-serif italic text-text-primary/60 text-[clamp(0.95rem,1.8vw,1.125rem)] mb-xl">
+              {subhead}
+            </p>
+          )}
+
+          {/* Metadata + Share icons */}
+          <div className="flex items-center justify-between flex-wrap gap-y-sm font-sans text-caption text-text-primary/50 mb-xl border-b border-divider pb-lg">
+            <div className="flex flex-wrap items-center gap-x-md gap-y-xs">
+              <span>Ryan Moriarty</span>
+              {date && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <time dateTime={essay?.publishedAt}>{date}</time>
+                </>
+              )}
+              {essay?.estimatedReadTime && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>~{essay.estimatedReadTime} min read</span>
+                </>
+              )}
+            </div>
+            <ShareIcons
+              title={title}
+              url={`https://rorimori.com/writing/${slug}`}
+            />
+          </div>
 
           {/* Body */}
           <article className="essay-body">
@@ -229,7 +204,6 @@ export default async function EssayPage({ params }: Props) {
 
         </div>
       </div>
-
     </main>
   )
 }
