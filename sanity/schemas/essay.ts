@@ -61,7 +61,11 @@ export const essay = defineType({
           styles: [
             { title: 'Normal', value: 'normal' },
             { title: 'H2', value: 'h2' },
+            { title: 'H2 — Center', value: 'h2Center' },
+            { title: 'H2 — Right', value: 'h2Right' },
             { title: 'H3', value: 'h3' },
+            { title: 'H3 — Center', value: 'h3Center' },
+            { title: 'H3 — Right', value: 'h3Right' },
             { title: 'Section Opener', value: 'sectionOpener' },
           ],
           lists: [

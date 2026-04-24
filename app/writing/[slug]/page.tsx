@@ -71,14 +71,22 @@ const ptComponents: PortableTextComponents = {
   },
   block: {
     h2: ({ children }) => (
-      <h2 className="font-sans font-normal text-h5 text-text-primary mt-2xl mb-md leading-tight">
-        {children}
-      </h2>
+      <h2 className="font-sans font-normal text-h5 text-text-primary mt-2xl mb-md leading-tight">{children}</h2>
+    ),
+    h2Center: ({ children }) => (
+      <h2 className="font-sans font-normal text-h5 text-text-primary mt-2xl mb-md leading-tight text-center">{children}</h2>
+    ),
+    h2Right: ({ children }) => (
+      <h2 className="font-sans font-normal text-h5 text-text-primary mt-2xl mb-md leading-tight text-right">{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 className="font-sans font-normal text-[18px] text-text-primary mt-xl mb-sm leading-tight">
-        {children}
-      </h3>
+      <h3 className="font-sans font-normal text-[18px] text-text-primary mt-xl mb-sm leading-tight">{children}</h3>
+    ),
+    h3Center: ({ children }) => (
+      <h3 className="font-sans font-normal text-[18px] text-text-primary mt-xl mb-sm leading-tight text-center">{children}</h3>
+    ),
+    h3Right: ({ children }) => (
+      <h3 className="font-sans font-normal text-[18px] text-text-primary mt-xl mb-sm leading-tight text-right">{children}</h3>
     ),
     normal: ({ children }) => <p>{children}</p>,
     sectionOpener: ({ children }) => <p className="drop-cap">{children}</p>,
