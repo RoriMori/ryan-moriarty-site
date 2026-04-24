@@ -13,12 +13,10 @@ The writing is the main event. Every design and build decision serves that.
 - **Framework:** Next.js 14 with App Router
 - **Styling:** Tailwind CSS
 - **CMS:** Sanity (headless) — required for rich content support: inline images, audio embeds, external plugins, portable text
-- **Hosting:** Cloudflare Pages
-- **Domain:** rorimori.com via Cloudflare Registrar
+- **Hosting:** Vercel — every git push to main auto-deploys to rorimori.com
+- **Domain:** rorimori.com via Cloudflare Registrar (DNS only)
 - **Icons:** Feather Icons (https://feathericons.com)
 - **Fonts:** Google Fonts (Work Sans, Merriweather)
-
-Note: Vercel is not used. Cloudflare Pages is the deliberate choice.
 
 ---
 
