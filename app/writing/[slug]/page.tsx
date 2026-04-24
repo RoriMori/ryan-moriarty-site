@@ -134,40 +134,45 @@ export default async function EssayPage({ params }: Props) {
 
   return (
     <main>
-      <div className="bg-bg py-2xl md:py-3xl px-sm">
-        <div className="max-w-[68ch] mx-auto">
+      {/* pt-16 = nav height (64px), no gap between nav and hero */}
+      <div className="bg-bg pt-16 pb-3xl">
 
-          {/* Hero image — constrained, above title */}
-          {heroImageUrl && (
-            <div className="mb-xl">
+        {/* Hero image — full width on mobile, capped at 1000px on desktop */}
+        {heroImageUrl && (
+          <div className="mb-md">
+            <div className="w-full max-w-[1000px] mx-auto">
               <img
                 src={heroImageUrl}
                 alt={essay?.heroImage?.alt ?? ''}
-                className="w-full rounded-sm"
+                className="block w-full md:rounded-sm"
               />
-              {essay?.heroCaption && (
-                <p className="font-serif italic text-[12px] text-right mt-sm leading-relaxed"
-                   style={{ color: 'rgba(40, 38, 26, 0.5)' }}>
-                  {essay.heroCaption}
-                </p>
-              )}
             </div>
-          )}
+            {essay?.heroCaption && (
+              <p className="font-serif italic text-[12px] text-right mt-xs leading-relaxed max-w-[1000px] mx-auto px-sm"
+                 style={{ color: 'rgba(40, 38, 26, 0.5)' }}>
+                {essay.heroCaption}
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Content column */}
+        <div className="max-w-[68ch] mx-auto px-sm">
 
           {/* Title */}
-          <h1 className="font-sans font-normal text-[clamp(1.75rem,4vw,3rem)] text-text-primary leading-tight mb-sm">
+          <h1 className="font-sans font-normal text-[clamp(1.75rem,4vw,3rem)] text-text-primary leading-tight mb-xs">
             {title}
           </h1>
 
           {/* Subhead */}
           {subhead && (
-            <p className="font-serif italic text-text-primary/60 text-[clamp(0.95rem,1.8vw,1.125rem)] mb-xl">
+            <p className="font-serif italic text-text-primary/60 text-[clamp(0.95rem,1.8vw,1.125rem)] mb-md">
               {subhead}
             </p>
           )}
 
           {/* Metadata + Share icons */}
-          <div className="flex items-center justify-between flex-wrap gap-y-sm font-sans text-caption text-text-primary/50 mb-xl border-b border-divider pb-lg">
+          <div className="flex items-center justify-between flex-wrap gap-y-sm font-sans text-caption text-text-primary/50 mb-lg border-b border-divider pb-sm">
             <div className="flex flex-wrap items-center gap-x-md gap-y-xs">
               <span>Ryan Moriarty</span>
               {date && (

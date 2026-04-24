@@ -13,7 +13,7 @@ const NAV_LINKS = [
 ] as const
 
 function isHeroRoute(pathname: string) {
-  return pathname === '/' || /^\/writing\/.+/.test(pathname)
+  return pathname === '/'
 }
 
 function ThemeToggle({ transparent }: { transparent: boolean }) {
