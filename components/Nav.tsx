@@ -68,7 +68,7 @@ export default function Nav() {
               transparent ? 'text-white' : 'text-text-primary',
             ].join(' ')}
           >
-            Rori Mori
+            RoriMori
           </Link>
 
           {/* Desktop links */}
@@ -118,7 +118,7 @@ export default function Nav() {
               className="font-sans font-bold text-[20px] text-text-primary tracking-wide"
               onClick={() => setMenuOpen(false)}
             >
-              Rori Mori
+              RoriMori
             </Link>
             <button
               className="p-xs text-text-primary"

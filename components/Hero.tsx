@@ -35,12 +35,23 @@ export default function Hero() {
       {/* Text: lower-left */}
       <div className="absolute bottom-0 left-0 z-10 px-sm pb-xl md:px-2xl md:pb-2xl">
         <h1 className="font-sans font-normal text-white leading-none tracking-tight text-[clamp(2.75rem,8vw,5rem)]">
-          Rori Mori
+          RoriMori
         </h1>
         <p className="font-serif italic text-white/90 mt-md text-[clamp(1rem,2vw,1.375rem)]">
           I write, make music, design, and build. Apparently that's unexpected.
         </p>
       </div>
+
+      {/* Scroll indicator */}
+      <a
+        href="#featured-essay"
+        aria-label="Scroll to content"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-white/40 hover:text-white/70 transition-colors duration-200 animate-bounce"
+      >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </a>
 
     </section>
   )

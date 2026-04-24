@@ -3,6 +3,7 @@ import { client, isSanityConfigured } from '@/sanity/lib/client'
 import { essaySlugsQuery, essayBySlugQuery } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
 import type { Essay } from '@/sanity/lib/types'
+import ShareRow from '@/components/ShareRow'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -16,14 +17,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params
-  if (!isSanityConfigured) return { title: 'Essay — Rori Mori' }
+  if (!isSanityConfigured) return { title: 'Essay — RoriMori' }
 
   const essay = await client
     .fetch<Essay | null>(essayBySlugQuery, { slug })
     .catch(() => null)
 
   return {
-    title: essay ? `${essay.title} — Rori Mori` : 'Essay — Rori Mori',
+    title: essay ? `${essay.title} — RoriMori` : 'Essay — RoriMori',
     description: essay?.subhead ?? undefined,
   }
 }
@@ -220,8 +221,14 @@ export default async function EssayPage({ params }: Props) {
             )}
           </article>
 
+          {/* Share */}
+          <ShareRow
+            title={title}
+            url={`https://rorimori.com/writing/${slug}`}
+          />
+
           {/* Attribution */}
-          <footer className="mt-3xl pt-lg border-t border-surface">
+          <footer className="mt-xl pt-lg border-t border-surface">
             <p className="font-sans text-caption text-text-primary/40 leading-relaxed">
               Written by Ryan Moriarty with Claude. Ryan drives everything: the material, memories,
               corrections, voice, ending. Claude shapes sentences and holds architecture. The work is
