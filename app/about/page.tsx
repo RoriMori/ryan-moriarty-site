@@ -48,7 +48,7 @@ export default function About() {
           <p>
             The professional version of all this lives at{' '}
             <a
-              href="https://opscraft.notion.site"
+              href="https://opscraft.notion.site/Home-1c0b2fb5d158805e82dbc8eb18968a71?pvs=74"
               target="_blank"
               rel="noopener noreferrer"
               className="underline decoration-accent decoration-2 underline-offset-4 hover:decoration-[3px] transition-all"
