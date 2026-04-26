@@ -79,15 +79,13 @@ export default function Nav() {
         <nav className="max-w-5xl mx-auto px-sm flex items-center justify-between h-16">
 
           {/* Logo */}
-          <Link
-            href="/"
-            className={[
-              'font-sans font-bold transition-colors duration-300',
-              'text-[20px] tracking-wide',
-              transparent ? 'text-white' : 'text-text-primary',
-            ].join(' ')}
-          >
-            RoriMori
+          <Link href="/" aria-label="Home">
+            <img
+              src="/RoriMori-stacked.svg"
+              alt="RoriMori"
+              className="w-auto"
+              style={{ height: '28px' }}
+            />
           </Link>
 
           {/* Desktop: links + theme toggle */}
@@ -138,12 +136,13 @@ export default function Nav() {
         <div className="fixed inset-0 z-50 bg-bg flex flex-col md:hidden">
           {/* Overlay header row */}
           <div className="flex items-center justify-between px-sm h-16 shrink-0">
-            <Link
-              href="/"
-              className="font-sans font-bold text-[20px] text-text-primary tracking-wide"
-              onClick={() => setMenuOpen(false)}
-            >
-              RoriMori
+            <Link href="/" aria-label="Home" onClick={() => setMenuOpen(false)}>
+              <img
+                src="/RoriMori-stacked.svg"
+                alt="RoriMori"
+                className="w-auto"
+              style={{ height: '28px' }}
+              />
             </Link>
             <button
               className="p-xs text-text-primary"

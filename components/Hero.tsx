@@ -34,9 +34,11 @@ export default function Hero() {
 
       {/* Text: lower-left */}
       <div className="absolute bottom-0 left-0 z-10 px-sm pb-xl md:px-2xl md:pb-2xl">
-        <h1 className="font-sans font-normal text-white leading-none tracking-tight text-[clamp(2.75rem,8vw,5rem)]">
-          RoriMori
-        </h1>
+        <img
+          src="/RoriMori.svg"
+          alt="RoriMori"
+          style={{ height: 'clamp(2.75rem, 8vw, 5rem)', width: 'auto' }}
+        />
         <p className="font-serif italic text-white/90 mt-md text-[clamp(1rem,2vw,1.375rem)]">
           I write, make music, design, and build. Apparently that's unexpected.
         </p>
