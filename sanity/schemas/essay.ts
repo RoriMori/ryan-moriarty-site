@@ -136,6 +136,27 @@ export const essay = defineType({
       title: 'Estimated Read Time (minutes)',
       type: 'number',
     }),
+    defineField({
+      name: 'attribution',
+      title: 'Attribution',
+      type: 'string',
+      initialValue: 'general',
+      options: {
+        list: [
+          { title: 'General', value: 'general' },
+          { title: 'AI', value: 'ai' },
+          { title: 'Custom', value: 'custom' },
+        ],
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
+      name: 'customAttributionText',
+      title: 'Custom Attribution Text',
+      type: 'text',
+      rows: 4,
+      hidden: ({ document }) => document?.attribution !== 'custom',
+    }),
   ],
   preview: {
     select: { title: 'title', date: 'publishedAt', media: 'heroImage' },

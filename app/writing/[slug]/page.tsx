@@ -215,6 +215,19 @@ export default async function EssayPage({ params }: Props) {
             )}
           </article>
 
+          {/* Attribution */}
+          {essay && (
+            <div className="mt-2xl pt-md border-t border-divider">
+              <p className="font-serif italic text-[13px] text-text-primary/50 leading-relaxed">
+                {essay.attribution === 'ai'
+                  ? 'Ryan develops all source material, strategy, and structure through conversation and outlined direction. Claude takes a first pass at shaping that raw material into draft form. From there Ryan directs a collaborative refinement process, section by section and sentence by sentence, until the voice, tone, and content are entirely his. The thinking, the memories, the instincts, and all editorial decisions belong to Ryan throughout.'
+                  : essay.attribution === 'custom' && essay.customAttributionText
+                  ? essay.customAttributionText
+                  : 'Written by Ryan Moriarty. All views and memories his own.'}
+              </p>
+            </div>
+          )}
+
         </div>
       </div>
     </main>

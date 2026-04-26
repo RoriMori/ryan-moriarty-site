@@ -40,6 +40,8 @@ export const essayBySlugQuery = groq`
     heroCaption,
     excerpt,
     body,
-    estimatedReadTime
+    estimatedReadTime,
+    attribution,
+    customAttributionText
   }
 `

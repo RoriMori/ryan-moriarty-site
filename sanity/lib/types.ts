@@ -18,5 +18,7 @@ export interface EssayListItem {
 
 export interface Essay extends EssayListItem {
   heroCaption?: string
-  body?: unknown[] // Sanity PortableText blocks
+  body?: unknown[]
+  attribution?: 'general' | 'ai' | 'custom'
+  customAttributionText?: string
 }
