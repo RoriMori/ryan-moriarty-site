@@ -141,6 +141,7 @@ The Sanity schema must support:
 - Audio embeds (SoundCloud and similar)
 - External plugin embeds via iframe or oEmbed
 - Essay metadata: title, subhead, publish date, slug
+- Optional essay attribution with predefinedoptions via dropdown
 
 ---
 
@@ -159,7 +160,7 @@ Same voice as the essay "The Long Way In." Used as the reference for all copy on
 - Conversational, direct, first person
 - Thinks out loud
 - Comfortable with unresolved questions
-- Short sentences when landing a point, longer when building toward something
+- Short sentences when landing a point (but used sparingly to mitigate cliche/redundency/Idiosyncratic Tendency), longer when building toward something
 - Fragments used deliberately
 - Humor arrives quietly, as an afterthought not a setup
 - Self-correction mid-thought is fine
@@ -171,6 +172,8 @@ Same voice as the essay "The Long Way In." Used as the reference for all copy on
 - Polished closing lines that are too quotable
 - Anything that sounds like a cover letter or capabilities summary
 - Signpost pivot lines ("And then something unexpected happened," "Here's what I learned," "What followed surprised me")
+- overusing Idiosyncratic Tendencies that create reduncy patterns in any one essay
+
 
 **The test:** Would this appear in a personal essay by someone who has been honest about neurodivergence, imposter syndrome, and not knowing what comes next?
 
