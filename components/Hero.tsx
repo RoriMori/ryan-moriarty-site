@@ -29,7 +29,8 @@ export default function Hero() {
       const naturalWidth = probe.offsetWidth
       document.body.removeChild(probe)
 
-      p.style.fontSize = `${16 * (targetWidth / naturalWidth)}px`
+      // 0.97 safety factor prevents sub-pixel rounding from clipping the last glyph
+      p.style.fontSize = `${16 * (targetWidth / naturalWidth) * 0.99}px`
     }
 
     const img = imgRef.current
@@ -80,7 +81,7 @@ export default function Hero() {
 
       {/* Text: lower-left */}
       <div className="absolute bottom-0 left-0 z-10 px-sm pb-xl md:px-2xl md:pb-2xl">
-        <div style={{ width: 'clamp(200px, 38vw, 480px)' }}>
+        <div style={{ width: 'clamp(280px, 70vw, 480px)' }}>
           <img
             ref={imgRef}
             src="/wordmark-nav.svg"
@@ -93,7 +94,6 @@ export default function Hero() {
             style={{
               display: 'block',
               whiteSpace: 'nowrap',
-              overflow: 'hidden',
               // Align tagline to the actual letter bounds, not the SVG bounding box
               marginLeft:  `${SVG_LEFT_PAD  * 100}%`,
               width:       `${SVG_CONTENT_W * 100}%`,
