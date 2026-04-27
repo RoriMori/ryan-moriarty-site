@@ -20,6 +20,8 @@ const config: Config = {
         accent: 'var(--color-accent)',
         'accent-mid': 'var(--color-accent-mid)',
         divider: 'var(--color-divider)',
+        'rori-red':   '#F05555',
+        'rori-coral': '#F57A7A',
       },
       spacing: {
         // 8px grid scale from design system

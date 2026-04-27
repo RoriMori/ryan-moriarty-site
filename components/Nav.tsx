@@ -81,7 +81,7 @@ export default function Nav() {
           {/* Logo */}
           <Link href="/" aria-label="Home">
             <img
-              src="/RoriMori-stacked.svg"
+              src="/wordmark-nav.svg"
               alt="RoriMori"
               className="w-auto"
               style={{ height: '28px' }}
@@ -138,7 +138,7 @@ export default function Nav() {
           <div className="flex items-center justify-between px-sm h-16 shrink-0">
             <Link href="/" aria-label="Home" onClick={() => setMenuOpen(false)}>
               <img
-                src="/RoriMori-stacked.svg"
+                src="/wordmark-nav.svg"
                 alt="RoriMori"
                 className="w-auto"
               style={{ height: '28px' }}

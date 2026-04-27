@@ -1,4 +1,50 @@
+'use client'
+
+import { useRef, useEffect } from 'react'
+
+// SVG coordinate constants (viewBox 0 0 358 123)
+// "R" left edge: x=39, "i" right edge: x=319, content width: 280
+const SVG_LEFT_PAD  = 39  / 358  // 10.89%
+const SVG_CONTENT_W = 280 / 358  // 78.21%
+
 export default function Hero() {
+  const imgRef     = useRef<HTMLImageElement>(null)
+  const taglineRef = useRef<HTMLParagraphElement>(null)
+
+  useEffect(() => {
+    async function fit() {
+      await document.fonts.ready
+      const img = imgRef.current
+      const p   = taglineRef.current
+      if (!img || !p || img.offsetWidth === 0) return
+
+      // Target width is just the letter span, not the full SVG width
+      const targetWidth = img.offsetWidth * SVG_CONTENT_W
+      const { fontFamily } = window.getComputedStyle(p)
+
+      const probe = document.createElement('span')
+      probe.style.cssText = `position:absolute;visibility:hidden;white-space:nowrap;font-family:${fontFamily};font-style:italic;font-size:16px`
+      probe.textContent = p.textContent
+      document.body.appendChild(probe)
+      const naturalWidth = probe.offsetWidth
+      document.body.removeChild(probe)
+
+      p.style.fontSize = `${16 * (targetWidth / naturalWidth)}px`
+    }
+
+    const img = imgRef.current
+    img?.addEventListener('load', fit)
+    fit()
+
+    const ro = new ResizeObserver(fit)
+    if (img) ro.observe(img)
+
+    return () => {
+      ro.disconnect()
+      img?.removeEventListener('load', fit)
+    }
+  }, [])
+
   return (
     <section
       className="relative overflow-hidden bg-[#28261A] h-screen min-h-screen"
@@ -25,7 +71,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Gradient: transparent → rgba(0,0,0,0.3) at bottom */}
+      {/* Gradient overlay */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
@@ -34,14 +80,34 @@ export default function Hero() {
 
       {/* Text: lower-left */}
       <div className="absolute bottom-0 left-0 z-10 px-sm pb-xl md:px-2xl md:pb-2xl">
-        <img
-          src="/RoriMori.svg"
-          alt="RoriMori"
-          style={{ height: 'clamp(2.75rem, 8vw, 5rem)', width: 'auto' }}
-        />
-        <p className="font-serif italic text-white/90 mt-md text-[clamp(1rem,2vw,1.375rem)]">
-          I write, make music, design, and build. Apparently that's unexpected.
-        </p>
+        <div style={{ width: 'clamp(200px, 38vw, 480px)' }}>
+          <img
+            ref={imgRef}
+            src="/wordmark-nav.svg"
+            alt="RoriMori"
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
+          <p
+            ref={taglineRef}
+            className="font-serif italic"
+            style={{
+              display: 'block',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              // Align tagline to the actual letter bounds, not the SVG bounding box
+              marginLeft:  `${SVG_LEFT_PAD  * 100}%`,
+              width:       `${SVG_CONTENT_W * 100}%`,
+              // Cancel the SVG's bottom whitespace (34.58/358 ≈ 9.66% of container width)
+              marginTop: 'calc(-9.66% + 8px)',
+              background: 'linear-gradient(to right, #F05555, #F57A7A)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            A spot for the thought, a rest for the note
+          </p>
+        </div>
       </div>
 
       {/* Scroll indicator */}
