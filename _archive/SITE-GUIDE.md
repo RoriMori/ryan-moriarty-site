@@ -6,10 +6,7 @@
 
 ## Starting a Work Session
 
-**Step 1 — Update STATUS.md first:**
-Open `docs/context/STATUS.md` and set the Active Task before doing anything else. One line is fine. This is what orients Claude Code for the session.
-
-**Step 2 — Open two terminal tabs:**
+Open two terminal tabs every time.
 
 **Tab 1 — Dev server:**
 ```
@@ -23,33 +20,7 @@ Site previews at http://localhost:3000. Leave this running.
 cd ~/ryan-moriarty-site
 claude
 ```
-Claude Code reads CLAUDE.md automatically. For context on current state, point it at `docs/context/STATUS.md` at the start of a session.
-
----
-
-## Context Files (docs/context/)
-
-These files keep Claude Code oriented without re-explaining the project each session.
-
-| File | Purpose | When to update |
-|---|---|---|
-| `STATUS.md` | Current state, active task, known issues | Start and end of every session |
-| `BACKLOG.md` | Future ideas and tasks, not urgent | When you think of something new, or when an item ships |
-| `DECISIONS.md` | Why things were built the way they were | After any non-obvious architectural or design decision |
-
-**Claude Code usage:** At the start of a session, you can say:
-> "Read docs/context/STATUS.md for current state, then [task]."
-
-Keep STATUS.md short. Claude Code reads it every session — it should be scannable in 10 seconds.
-
----
-
-## End of Session
-
-Before closing:
-1. Update STATUS.md — mark the Active Task done, move it to Recently Completed
-2. Add anything new to BACKLOG.md if it came up
-3. Commit and push (see below)
+Claude Code reads CLAUDE.md automatically. Give it instructions from here.
 
 ---
 
@@ -101,30 +72,36 @@ Then go to: http://localhost:3000/studio
 3. Click Publish
 4. Make a git commit and push to trigger redeploy
 
+**To add images to an essay:**
+Use the inline image block in the body editor. Images are hosted by Sanity — no manual uploads needed.
+
 ---
 
 ## Publishing a New Essay (Full Content Workflow)
 
+**To publish and cross-post an essay:**
+
 1. Write and finalize the essay in Sanity Studio
 2. Click Publish in Sanity
 3. Make a git commit and push — essay is now live at rorimori.com
-4. Wait 1–2 days before cross-posting (gives Google time to index the original)
-5. Cross-post to Medium using **Import Story** (not copy/paste)
+4. Wait 1–2 days if possible before cross-posting (gives Google time to index the original)
+5. Submit rorimori.com to Google Search Console (one-time setup) to speed up indexing
+6. Cross-post to Medium using **Import Story** (not copy/paste)
    - Medium's Import feature automatically sets the canonical URL back to rorimori.com
+   - This tells Google the original lives on your site, protecting your SEO
    - Never paste the full essay text directly into Medium — always use Import
 
-**Cross-post order always:** rorimori.com first → push → wait → Medium import
+**Cross-post order always:**
+rorimori.com first → push → wait → Medium import
 
 ---
 
 ## Full Workflow (Start to Finish)
 
 ```
-1. Update STATUS.md → Active Task
-2. npm run dev                                      → start local preview
-3. claude                                           → open Claude Code
-4. git add . && git commit -m "..." && git push     → auto-deploys live
-5. Update STATUS.md → Recently Completed
+1. npm run dev                                      → start local preview
+2. claude                                           → open Claude Code for changes
+3. git add . && git commit -m "..." && git push     → saves to Git and auto-deploys live
 ```
 
 ---
@@ -160,7 +137,7 @@ Then go to: http://localhost:3000/studio
 - Tailwind CSS
 - Sanity (headless CMS)
 - Vercel (hosting — auto-deploys on every git push)
-- Cloudflare Registrar (domain only)
+- Cloudflare Registrar (domain)
 - Google Fonts: Work Sans + Merriweather
 
 ---
