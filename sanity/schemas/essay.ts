@@ -19,9 +19,26 @@ export const essay = defineType({
       validation: Rule => Rule.required(),
     }),
     defineField({
+      name: 'contentType',
+      title: 'Content Type',
+      type: 'string',
+      initialValue: 'Essay',
+      validation: Rule => Rule.required(),
+      options: {
+        list: [
+          { title: 'Essay', value: 'Essay' },
+          { title: 'Poem', value: 'Poem' },
+          { title: 'Fragment', value: 'Fragment' },
+          { title: 'Field Note', value: 'Field Note' },
+        ],
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
       name: 'subhead',
       title: 'Subhead',
       type: 'string',
+      hidden: ({ document }) => !!document?.contentType && document.contentType !== 'Essay',
     }),
     defineField({
       name: 'publishedAt',
@@ -49,6 +66,12 @@ export const essay = defineType({
       description: 'Short summary shown on the homepage and writing list.',
       type: 'text',
       rows: 3,
+    }),
+    defineField({
+      name: 'audioEmbed',
+      title: 'Audio Embed URL',
+      type: 'url',
+      description: 'SoundCloud or similar iframe embed URL. Shows a Listen player above the content.',
     }),
     defineField({
       name: 'body',

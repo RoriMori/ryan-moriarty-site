@@ -9,6 +9,7 @@ export interface EssayListItem {
   _id: string
   title: string
   slug: string
+  contentType?: 'Essay' | 'Poem' | 'Fragment' | 'Field Note'
   subhead?: string
   publishedAt?: string
   excerpt?: string
@@ -18,6 +19,7 @@ export interface EssayListItem {
 
 export interface Essay extends EssayListItem {
   heroCaption?: string
+  audioEmbed?: string
   body?: unknown[]
   attribution?: 'general' | 'ai' | 'custom'
   customAttributionText?: string

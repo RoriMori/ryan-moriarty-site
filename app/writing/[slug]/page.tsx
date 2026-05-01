@@ -119,6 +119,35 @@ const ptComponents: PortableTextComponents = {
   },
 }
 
+const poemPtComponents: PortableTextComponents = {
+  types: {
+    image: ptComponents.types!.image,
+    pullQuote: ptComponents.types!.pullQuote,
+    externalEmbed: ptComponents.types!.externalEmbed,
+  },
+  block: {
+    normal: ({ children }) => <p>{children}</p>,
+  },
+  marks: ptComponents.marks,
+}
+
+function AttributionBlock({ essay }: { essay: Essay }) {
+  const text =
+    essay.attribution === 'ai'
+      ? 'Ryan develops all source material, strategy, and structure through conversation and outlined direction. Claude takes a first pass at shaping that raw material into draft form. From there Ryan directs a collaborative refinement process, section by section and sentence by sentence, until the voice, tone, and content are entirely his. The thinking, the memories, the instincts, and all editorial decisions belong to Ryan throughout.'
+      : essay.attribution === 'custom' && essay.customAttributionText
+      ? essay.customAttributionText
+      : 'Written by Ryan Moriarty. All views and memories his own.'
+
+  return (
+    <div className="mt-2xl pt-md border-t border-divider">
+      <p className="font-serif italic text-[13px] text-text-primary/50 leading-relaxed">
+        {text}
+      </p>
+    </div>
+  )
+}
+
 export default async function EssayPage({ params }: Props) {
   const { slug } = await params
 
@@ -133,11 +162,73 @@ export default async function EssayPage({ params }: Props) {
       })
     : null
 
+  const title = essay?.title ?? 'Writing'
+
+  // ── Poem template ────────────────────────────────────────────
+  if (essay?.contentType === 'Poem') {
+    return (
+      <main>
+        <div className="bg-bg pt-16 pb-3xl">
+          <div className="max-w-[52ch] mx-auto px-sm pt-2xl">
+
+            <h1 className="font-sans font-normal text-h3 text-text-primary leading-tight mb-xl">
+              {title}
+            </h1>
+
+            {essay.audioEmbed && (
+              <div className="mb-lg">
+                <iframe
+                  src={essay.audioEmbed}
+                  className="w-full rounded-sm"
+                  style={{ height: '166px', border: 'none' }}
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                  title="Listen"
+                />
+              </div>
+            )}
+
+            <div className="flex items-center justify-between flex-wrap gap-y-sm font-sans text-caption text-text-primary/50 mb-2xl border-b border-divider pb-sm">
+              <div className="flex flex-wrap items-center gap-x-md gap-y-xs">
+                <span>Ryan Moriarty</span>
+                {date && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <time dateTime={essay.publishedAt}>{date}</time>
+                  </>
+                )}
+              </div>
+              <ShareIcons
+                title={title}
+                url={`https://rorimori.com/writing/${slug}`}
+              />
+            </div>
+
+            <article className="poem-body">
+              {essay.body ? (
+                <PortableText
+                  value={essay.body as Parameters<typeof PortableText>[0]['value']}
+                  components={poemPtComponents}
+                  onMissingComponent={false}
+                />
+              ) : (
+                <p className="font-serif text-text-primary/40 italic">Content coming soon.</p>
+              )}
+            </article>
+
+            <AttributionBlock essay={essay} />
+
+          </div>
+        </div>
+      </main>
+    )
+  }
+
+  // ── Essay template (default) ──────────────────────────────────
   const heroImageUrl = essay?.heroImage
     ? urlFor(essay.heroImage).width(1400).url()
     : null
 
-  const title = essay?.title ?? 'Essay'
   const subhead = essay?.subhead ?? null
 
   return (
@@ -216,17 +307,7 @@ export default async function EssayPage({ params }: Props) {
           </article>
 
           {/* Attribution */}
-          {essay && (
-            <div className="mt-2xl pt-md border-t border-divider">
-              <p className="font-serif italic text-[13px] text-text-primary/50 leading-relaxed">
-                {essay.attribution === 'ai'
-                  ? 'Ryan develops all source material, strategy, and structure through conversation and outlined direction. Claude takes a first pass at shaping that raw material into draft form. From there Ryan directs a collaborative refinement process, section by section and sentence by sentence, until the voice, tone, and content are entirely his. The thinking, the memories, the instincts, and all editorial decisions belong to Ryan throughout.'
-                  : essay.attribution === 'custom' && essay.customAttributionText
-                  ? essay.customAttributionText
-                  : 'Written by Ryan Moriarty. All views and memories his own.'}
-              </p>
-            </div>
-          )}
+          {essay && <AttributionBlock essay={essay} />}
 
         </div>
       </div>

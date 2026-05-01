@@ -26,6 +26,8 @@ export default async function Writing() {
         ) : (
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-lg list-none">
             {essays.map(essay => {
+              const isEssay = !essay.contentType || essay.contentType === 'Essay'
+              const typeLabel = essay.contentType ?? 'Essay'
               const date = essay.publishedAt
                 ? new Date(essay.publishedAt).toLocaleDateString('en-US', {
                     month: 'long',
@@ -33,6 +35,7 @@ export default async function Writing() {
                     year: 'numeric',
                   })
                 : null
+              const metaLine = [typeLabel, date].filter(Boolean).join(' · ')
 
               return (
                 <li key={essay._id} className="flex">
@@ -40,22 +43,17 @@ export default async function Writing() {
                     href={`/writing/${essay.slug}`}
                     className="flex flex-col w-full bg-surface rounded-lg p-lg hover:-translate-y-1 hover:shadow-sm transition-all duration-200"
                   >
-                    {date && (
-                      <time
-                        dateTime={essay.publishedAt}
-                        className="font-sans text-caption uppercase tracking-[0.12em] text-text-primary/40 mb-xs"
-                      >
-                        {date}
-                      </time>
-                    )}
-                    <h2 className="font-sans font-medium text-h6 text-text-primary leading-snug mb-sm">
+                    <h2 className="font-sans font-medium text-h6 text-text-primary leading-snug mb-xs">
                       {essay.title}
                     </h2>
-                    {essay.subhead && (
-                      <p className="font-serif text-p1 text-text-primary/70 leading-relaxed mt-auto pt-xs">
+                    {isEssay && essay.subhead && (
+                      <p className="font-serif text-p1 text-text-primary/70 leading-relaxed mb-sm">
                         {essay.subhead}
                       </p>
                     )}
+                    <p className="font-sans text-caption text-text-primary/40 mt-auto pt-xs">
+                      {metaLine}
+                    </p>
                   </Link>
                 </li>
               )

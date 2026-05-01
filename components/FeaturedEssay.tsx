@@ -12,6 +12,8 @@ export default function FeaturedEssay({ essay }: Props) {
     ? new Date(essay.publishedAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
     : null
 
+  const typeLabel = essay.contentType ?? 'Essay'
+
   const meta = [
     essay.estimatedReadTime ? `~${essay.estimatedReadTime} min read` : null,
     date ? `Published ${date}` : null,
@@ -22,7 +24,7 @@ export default function FeaturedEssay({ essay }: Props) {
       <div className="max-w-5xl mx-auto px-sm md:px-2xl">
 
         <p className="font-sans text-caption uppercase tracking-[0.18em] text-text-primary/40">
-          Featured Essay
+          Featured {typeLabel}
         </p>
 
         <h2 className="font-serif font-normal text-text-primary mt-md leading-tight text-[clamp(2rem,4.5vw,3.5rem)]">
@@ -43,7 +45,7 @@ export default function FeaturedEssay({ essay }: Props) {
           href={`/writing/${essay.slug}`}
           className="inline-block font-sans text-p1 text-text-primary mt-lg underline decoration-accent decoration-2 underline-offset-4 hover:decoration-[3px] transition-all"
         >
-          Read essay →
+          Read {typeLabel.toLowerCase()} →
         </Link>
 
       </div>

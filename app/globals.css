@@ -67,6 +67,30 @@
   }
 }
 
+/* ─── Poem reading styles ────────────────────────────────────── */
+
+@layer components {
+
+  .poem-body {
+    font-family: var(--font-merriweather), Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--color-text-primary);
+    font-weight: 400;
+  }
+
+  /* Each block = one stanza. Stanza gap ≈ 1.5× single line spacing */
+  .poem-body p {
+    white-space: pre-wrap;
+    margin-bottom: 2.5em;
+  }
+
+  .poem-body p:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
 /* ─── Essay reading styles ───────────────────────────────────── */
 
 @layer components {
