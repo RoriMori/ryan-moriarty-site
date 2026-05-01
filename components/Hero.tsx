@@ -80,7 +80,7 @@ export default function Hero() {
       />
 
       {/* Text: lower-left */}
-      <div className="absolute bottom-0 left-0 z-10 px-sm pb-xl md:px-2xl md:pb-2xl">
+      <div className="absolute bottom-0 left-0 z-10 px-sm pb-2xl md:px-2xl md:pb-2xl">
         <div style={{ width: 'clamp(280px, 70vw, 480px)' }}>
           <img
             ref={imgRef}

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Menu, X, Sun, Moon } from 'react-feather'
 import { useTheme } from 'next-themes'
+import DyslexiaToggle from './DyslexiaToggle'
 
 const NAV_LINKS = [
   { href: '/writing', label: 'Writing' },
@@ -88,7 +89,7 @@ export default function Nav() {
             />
           </Link>
 
-          {/* Desktop: links + theme toggle */}
+          {/* Desktop: links + separator + controls */}
           <div className="hidden md:flex items-center gap-lg">
             <ul className="flex items-center gap-lg list-none">
               {NAV_LINKS.map(({ href, label }) => {
@@ -111,11 +112,26 @@ export default function Nav() {
                 )
               })}
             </ul>
-            <ThemeToggle transparent={transparent} />
+
+            {/* Separator */}
+            <span
+              aria-hidden="true"
+              className={[
+                'block w-px h-[1em] self-center',
+                transparent ? 'bg-white/30' : 'bg-text-primary/20',
+              ].join(' ')}
+            />
+
+            {/* Controls */}
+            <div className="flex items-center gap-xs">
+              <DyslexiaToggle transparent={transparent} />
+              <ThemeToggle transparent={transparent} />
+            </div>
           </div>
 
-          {/* Mobile: theme toggle + menu button */}
+          {/* Mobile: dyslexia toggle + theme toggle + menu button */}
           <div className="md:hidden flex items-center gap-xs">
+            <DyslexiaToggle transparent={transparent} />
             <ThemeToggle transparent={transparent} />
             <button
               className={[
@@ -175,6 +191,7 @@ export default function Nav() {
               )
             })}
           </ul>
+
         </div>
       )}
     </>

@@ -5,6 +5,10 @@
 /* ─── Design tokens ──────────────────────────────────────────── */
 
 :root {
+  /* Font stacks — referenced by Tailwind font-sans / font-serif */
+  --font-body:    var(--font-merriweather), Georgia, serif;
+  --font-heading: var(--font-work-sans), system-ui, sans-serif;
+
   /* Light mode */
   --color-bg:           #FDFAEA;
   --color-surface:      #DDEDF3;
@@ -39,19 +43,19 @@
   body {
     background-color: var(--color-bg);
     color: var(--color-text-primary);
-    font-family: var(--font-work-sans), system-ui, sans-serif;
+    font-family: var(--font-heading);
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   /* Essay body copy always uses the serif */
   article,
   .prose-serif {
-    font-family: var(--font-merriweather), Georgia, serif;
+    font-family: var(--font-body);
     font-weight: 400;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-work-sans), system-ui, sans-serif;
+    font-family: var(--font-heading);
     color: var(--color-text-primary);
   }
 
@@ -67,12 +71,29 @@
   }
 }
 
+/* ─── Dyslexia-friendly reading mode ─────────────────────────── */
+/* Scoped to prose containers only — nav, headings, cards, hero untouched */
+
+[data-dyslexia="true"] .essay-body p,
+[data-dyslexia="true"] .essay-body li,
+[data-dyslexia="true"] .essay-body blockquote,
+[data-dyslexia="true"] .essay-body figcaption,
+[data-dyslexia="true"] .poem-body p {
+  font-family: var(--font-atkinson), 'Atkinson Hyperlegible', sans-serif;
+  font-size: 1.125rem;
+  letter-spacing: 0.35ch;
+  word-spacing: 1.225ch;
+  line-height: 2;
+  font-variant-ligatures: none;
+  margin-bottom: 1.5em;
+}
+
 /* ─── Poem reading styles ────────────────────────────────────── */
 
 @layer components {
 
   .poem-body {
-    font-family: var(--font-merriweather), Georgia, serif;
+    font-family: var(--font-body);
     font-size: 16px;
     line-height: 1;
     color: var(--color-text-primary);
@@ -96,7 +117,7 @@
 @layer components {
 
   .essay-body {
-    font-family: var(--font-merriweather), Georgia, serif;
+    font-family: var(--font-body);
     font-size: 16px;
     line-height: 1.75;
     color: var(--color-text-primary);
@@ -109,7 +130,7 @@
 
 /* Pull quote — centered, Merriweather italic, accent rules above/below */
   .essay-body .pull-quote {
-    font-family: var(--font-merriweather), Georgia, serif;
+    font-family: var(--font-body);
     font-style: italic;
     font-size: clamp(1.2rem, 2.5vw, 1.375rem);
     line-height: 1.5;
@@ -127,7 +148,7 @@
   }
 
   .essay-body .essay-figure figcaption {
-    font-family: var(--font-work-sans), system-ui, sans-serif;
+    font-family: var(--font-heading);
     font-size: 12.8px;
     line-height: 1.5;
     color: var(--color-text-primary);
@@ -139,7 +160,7 @@
 
   /* Section break ornament */
   .essay-body .section-break {
-    font-family: var(--font-work-sans), system-ui, sans-serif;
+    font-family: var(--font-heading);
     font-size: 0.875rem;
     text-align: center;
     color: var(--color-text-primary);
@@ -152,7 +173,7 @@
   /* Drop cap — first paragraph and blocks with sectionOpener toggle */
   .essay-body > p:first-child::first-letter,
   .essay-body .drop-cap::first-letter {
-    font-family: var(--font-merriweather), Georgia, serif;
+    font-family: var(--font-body);
     font-size: 4.5em;
     float: left;
     line-height: 0.65;

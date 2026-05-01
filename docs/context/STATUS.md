@@ -11,7 +11,7 @@ Site is in good shape. Design system implemented. Core pages functional. Essay p
 ## Active Task
 
 <!-- Replace this with what you're working on right now -->
-[No active task — update before starting a session]
+adding new content types to the writing page. Next one is poem. Is tere a tagging or label syste, for filering? Do we give the user a differnt way to select which content type to view? Does it not matter until ihave 10+? Do we need a new sanity content style?
 
 ## Known Issues
 

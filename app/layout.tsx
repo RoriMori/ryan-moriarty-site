@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import { Work_Sans, Merriweather } from 'next/font/google'
+import { Work_Sans, Merriweather, Atkinson_Hyperlegible } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ThemeProvider from '@/components/ThemeProvider'
+import DyslexiaProvider from '@/lib/dyslexia-context'
 import './globals.css'
 
 const workSans = Work_Sans({
@@ -16,6 +17,13 @@ const workSans = Work_Sans({
 const merriweather = Merriweather({
   subsets: ['latin'],
   variable: '--font-merriweather',
+  display: 'swap',
+  weight: ['400', '700'],
+})
+
+const atkinsonHyperlegible = Atkinson_Hyperlegible({
+  subsets: ['latin'],
+  variable: '--font-atkinson',
   display: 'swap',
   weight: ['400', '700'],
 })
@@ -36,14 +44,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${workSans.variable} ${merriweather.variable}`}
+      className={`${workSans.variable} ${merriweather.variable} ${atkinsonHyperlegible.variable}`}
       suppressHydrationWarning
     >
       <body>
         <ThemeProvider>
-          <Nav />
-          {children}
-          <Footer />
+          <DyslexiaProvider>
+            <Nav />
+            {children}
+            <Footer />
+          </DyslexiaProvider>
         </ThemeProvider>
         <Analytics />
       </body>
