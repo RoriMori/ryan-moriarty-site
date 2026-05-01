@@ -1,5 +1,6 @@
-// app/sitemap.ts
 import { MetadataRoute } from 'next'
+
+export const dynamic = 'force-static'
 import { createClient } from 'next-sanity'
 
 const client = createClient({
