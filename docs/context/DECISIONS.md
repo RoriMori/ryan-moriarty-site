@@ -20,10 +20,25 @@
 
 ---
 
+## Content types: single document schema with contentType field
+
+**Decision:** All writing lives in one Sanity document type (`essay`) with a `contentType` field (Essay / Poem / Fragment / Field Note), not separate schemas per type.
+**Why:** Low volume of content, shared fields (title, slug, body, publishedAt, attribution), and simpler Studio UX. The front-end branches on contentType to render different templates. Revisit if types diverge significantly in schema needs.
+
+---
+
 ## Typography: Work Sans + Merriweather
 
 **Decision:** Work Sans for UI/navigation, Merriweather for essay body.
-**Why:** Essay reading experience is the main event. Merriweather is a readable serif built for screens. Work Sans keeps navigation clean and distinct from reading mode. Both via Google Fonts.
+**Why:** Essay reading experience is the main event. Merriweather is a readable serif built for screens. Work Sans keeps navigation clean and distinct from reading mode. Both via Google Fonts / next/font.
+
+---
+
+## Dyslexia mode: scoped to prose only, not global
+
+**Decision:** `[data-dyslexia="true"]` CSS selectors target `.essay-body p` and `.poem-body p` only — not `html`, `body`, headings, nav, or cards.
+**Why:** Global application broke nav layout, heading sizes, and card typography. The mode is a reading aid for long-form body text only. Nav, headings, and UI elements should be identical whether mode is on or off.
+**Font:** Atkinson Hyperlegible (400/700) loaded via next/font/google, applied only within dyslexia selectors.
 
 ---
 
@@ -38,13 +53,6 @@
 
 **Decision:** Yellow as the single accent color.
 **Why:** Works in both light and dark mode without adjustment. Used as a background highlight (text marker effect) rather than as text color — contrast on warm white is insufficient for accessible text use.
-
----
-
-## Fonts loaded via Google Fonts (not self-hosted)
-
-**Decision:** Using Google Fonts CDN.
-**Why:** Simplest path. Acceptable for a personal writing site. Can revisit if performance becomes a concern.
 
 ---
 

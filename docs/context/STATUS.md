@@ -6,30 +6,33 @@
 
 ## Current State
 
-Site is in good shape. Design system implemented. Core pages functional. Essay publishing pipeline working via Sanity → git push → Vercel auto-deploy. Content work has been moved to a separate project.
+Site is in good shape. Core pages live. Essay + poem publishing pipeline working via Sanity → git push → Vercel auto-deploy. Multi-content-type support shipped. Dyslexia reading mode shipped.
 
 ## Active Task
 
 <!-- Replace this with what you're working on right now -->
-adding new content types to the writing page. Next one is poem. Is tere a tagging or label syste, for filering? Do we give the user a differnt way to select which content type to view? Does it not matter until ihave 10+? Do we need a new sanity content style?
+[No active task — update before starting a session]
 
 ## Known Issues
 
-- Hero section: spacing between site tagline and down arrow needs adjustment
-- Accessibility: text size switch not yet implemented
+- Dyslexia toggle: font swap (Atkinson Hyperlegible) not visually confirmed working — attribute sets correctly, CSS scoped correctly, but font rendering unverified in production
 - Follow/subscribe action not yet implemented
 
 ## Recently Completed
 
-- Design system implemented (typography, color, spacing)
-- Sanity CMS connected and essay publishing workflow confirmed
-- SITE-GUIDE.md created with full session and deploy workflow
-- CLAUDE.md updated with full design system reference
-- Writing work separated into its own project
+- Multi-content-type support: Essay, Poem, Fragment, Field Note (Sanity schema + writing index cards + homepage featured section)
+- Poem page template: narrow column, stanza spacing, audio embed support
+- audioEmbed field added to schema (available all content types)
+- Dyslexia-friendly reading mode: toggle in nav, localStorage persistence, scoped to .essay-body and .poem-body only
+- Hero wordmark/chevron overlap fix at smallest breakpoint
+- Essay attribution component (dropdown in Sanity schema)
+- contentType field in Sanity schema with Studio ordering
 
 ## Next Up (pull from BACKLOG.md)
 
-<!-- Move items here when you're ready to work on them -->
+- Verify Atkinson Hyperlegible font is loading in production
+- Google Search Console setup
+- Music page planning
 
 ---
 
