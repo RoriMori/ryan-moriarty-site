@@ -1,6 +1,7 @@
 export const metadata = {
   title: 'Links — RoriMori',
   description: 'Where else to find Ryan Moriarty.',
+  alternates: { canonical: '/links' },
 }
 
 const links = [

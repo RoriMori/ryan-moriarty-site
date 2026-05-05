@@ -1,6 +1,7 @@
 export const metadata = {
   title: 'About — RoriMori',
   description: 'The human version of Ryan Moriarty.',
+  alternates: { canonical: '/about' },
 }
 
 export default function About() {

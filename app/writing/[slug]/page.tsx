@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: essay ? `${essay.title} — RoriMori` : 'Essay — RoriMori',
     description: essay?.subhead ?? undefined,
+    alternates: { canonical: `/writing/${slug}` },
   }
 }
 

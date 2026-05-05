@@ -32,9 +32,7 @@ export const metadata: Metadata = {
   title: 'Ryan Moriarty',
   description: 'Writing and whatever else.',
   metadataBase: new URL('https://www.rorimori.com'),
-  alternates: {
-    canonical: 'https://www.rorimori.com',
-  },
+  alternates: { canonical: '/' },
   verification: {
     google: '9vVZ4QtaEooSRiTv1EGISN3sYyZGTbGswMR5_wyQqwc',
   },

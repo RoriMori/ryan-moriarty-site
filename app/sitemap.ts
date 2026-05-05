@@ -12,22 +12,22 @@ const client = createClient({
 
 const staticPages: MetadataRoute.Sitemap = [
   {
-    url: 'https://rorimori.com',
+    url: 'https://www.rorimori.com',
     changeFrequency: 'monthly',
     priority: 1,
   },
   {
-    url: 'https://rorimori.com/writing',
+    url: 'https://www.rorimori.com/writing',
     changeFrequency: 'weekly',
     priority: 0.8,
   },
   {
-    url: 'https://rorimori.com/about',
+    url: 'https://www.rorimori.com/about',
     changeFrequency: 'monthly',
     priority: 0.5,
   },
   {
-    url: 'https://rorimori.com/links',
+    url: 'https://www.rorimori.com/links',
     changeFrequency: 'monthly',
     priority: 0.4,
   },
@@ -43,7 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     )
 
   const essayPages: MetadataRoute.Sitemap = slugs.map(({ slug, publishedAt }) => ({
-    url: `https://rorimori.com/writing/${slug.current}`,
+    url: `https://www.rorimori.com/writing/${slug.current}`,
     lastModified: publishedAt ? new Date(publishedAt) : new Date(),
     changeFrequency: 'monthly',
     priority: 0.9,

@@ -6,6 +6,7 @@ import type { EssayListItem } from '@/sanity/lib/types'
 export const metadata = {
   title: 'Writing — RoriMori',
   description: 'Essays by Ryan Moriarty.',
+  alternates: { canonical: '/writing' },
 }
 
 export default async function Writing() {
