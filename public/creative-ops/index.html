@@ -3,460 +3,470 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creative Ops · Ryan</title>
+<title>Creative Ops · Ryan Moriarty</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --canvas:     #16140F;
-    --surface:    #1E1B14;
-    --surface-hi: #252118;
-    --border:     #2E2A22;
-    --border-hi:  #3D3830;
-    --muted:      #4A4640;
-    --secondary:  #C4B99A;
-    --primary:    #EDE7D9;
-    --accent:     #C05A2E;
-    --accent-hi:  #D96A38;
-    --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    --canvas:       #FAFAF8;
+    --surface:      #FFFFFF;
+    --surface-off:  #F4F3EF;
+    --border:       #E5E3DC;
+    --border-hi:    #D0CEC4;
+    --muted:        #9E9C94;
+    --secondary:    #6B6860;
+    --primary:      #1A1916;
+
+    --purple:       #5B4B8A;
+    --purple-light: #EDE9F5;
+    --purple-dark:  #3D3160;
+
+    --teal:         #2A7A6F;
+    --teal-light:   #E4F2F0;
+    --teal-dark:    #1A5049;
+
+    --amber:        #A06818;
+    --amber-light:  #FDF3E3;
+    --amber-border: #DEB96A;
+
+    --transition:   0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  html, body {
-    height: 100%;
+  html { scroll-behavior: smooth; }
+
+  body {
     background: var(--canvas);
     color: var(--primary);
     font-family: 'Instrument Sans', sans-serif;
     font-size: 15px;
-    line-height: 1.6;
-    overflow: hidden;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── PANELS ── */
-  .panel {
-    position: absolute;
-    inset: 0;
-    padding: 40px 60px 60px;
-    overflow-y: auto;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(10px);
-    transition: opacity var(--transition), transform var(--transition);
+  /* PAGE SYSTEM */
+  #page-1 {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
-  .panel.active { opacity: 1; pointer-events: all; transform: translateY(0); }
-  .panel::-webkit-scrollbar { width: 4px; }
-  .panel::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 2px; }
+  #page-1.exiting { opacity: 0; transform: translateY(-16px); pointer-events: none; }
+  #page-2 { display: none; opacity: 0; transition: opacity 0.5s ease; }
+  #page-2.visible { display: block; opacity: 0; }
+  #page-2.entered { opacity: 1; }
 
-  /* ── NAV ── */
-  nav {
+
+  /* ═══════════ PAGE 1 ═══════════ */
+
+  .p1-inner {
+    flex: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 68px 40px 80px;
+    width: 100%;
+  }
+
+  .p1-brand {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 72px;
+  }
+  .p1-brand strong { color: var(--primary); font-weight: 700; }
+
+  .p1-hero { margin-bottom: 52px; }
+  .p1-hero h1 {
+    font-size: clamp(40px, 6vw, 60px);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--primary);
+    margin-bottom: 18px;
+  }
+  .p1-hero p {
+    font-size: 17px;
+    color: var(--secondary);
+    line-height: 1.6;
+    max-width: 500px;
+  }
+
+  .p1-rule { border: none; border-top: 1px solid var(--border); margin: 0 0 48px; }
+
+  .p1-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  /* Pillars: open columns, no containers */
+  .p1-pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 14px;
+  }
+  .p1-pillar-dot { width: 7px; height: 7px; border-radius: 50%; margin-bottom: 10px; }
+  .p1-pillar-dot.purple { background: var(--purple); }
+  .p1-pillar-dot.teal   { background: var(--teal); }
+  .p1-pillar-dot.amber  { background: var(--amber); }
+  .p1-pillar h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 5px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .p1-pillar p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  .p1-pillar-note {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.55;
+    margin-bottom: 52px;
+  }
+
+  /* Path question */
+  .p1-path-q {
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+  }
+
+  /* Path buttons: clearly interactive, visually distinct from content cards */
+  .p1-paths { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .p1-path-btn {
+    padding: 22px 24px;
+    border-radius: 9px;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition);
+    text-align: left;
+    font-family: 'Instrument Sans', sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .p1-path-btn.build {
+    background: var(--teal);
+    color: white;
+  }
+  .p1-path-btn.run {
+    background: var(--purple);
+    color: white;
+  }
+  .p1-path-btn.build:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(42,122,111,0.25); }
+  .p1-path-btn.run:hover   { background: var(--purple-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(91,75,138,0.25); }
+
+  .p1-path-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .p1-path-btn h3 {
+    font-size: 19px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  .p1-path-btn p {
+    font-size: 12px;
+    color: white;
+    opacity: 0.75;
+  }
+  .p1-path-arrow {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) translateX(-3px);
+    font-size: 18px;
+    color: white;
+    opacity: 0.5;
+    transition: all var(--transition);
+  }
+  .p1-path-btn:hover .p1-path-arrow { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+
+  /* ═══════════ PAGE 2 NAV ═══════════ */
+
+  #page-2-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,250,248,0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 56px;
+    height: 54px;
   }
   .nav-brand {
     font-size: 13px;
     font-weight: 500;
     color: var(--secondary);
-    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-decoration: none;
+    flex-shrink: 0;
   }
-  .nav-brand span { color: var(--primary); font-weight: 700; }
-  .nav-right { display: flex; align-items: center; gap: 8px; }
-
-  .btn-nav {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .nav-brand strong { color: var(--primary); font-weight: 700; }
+  .nav-links { display: flex; align-items: center; gap: 2px; }
+  .nav-link {
+    font-size: 13px;
+    font-weight: 500;
     color: var(--secondary);
     cursor: pointer;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    padding: 7px 14px;
+    padding: 6px 13px;
     border-radius: 6px;
     transition: all var(--transition);
+    background: none;
+    border: none;
     font-family: 'Instrument Sans', sans-serif;
+    text-decoration: none;
+    display: inline-block;
   }
-  .btn-nav:hover { color: var(--primary); border-color: var(--border-hi); background: var(--surface); }
-  .btn-nav svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .nav-link:hover { color: var(--primary); background: var(--surface-off); }
+  .nav-link.active { color: var(--primary); font-weight: 700; }
 
-  /* ── TYPOGRAPHY ── */
-  h2 {
-    font-size: clamp(26px, 3vw, 38px);
-    font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-    color: var(--primary);
-    margin-bottom: 32px;
+  /* Breadcrumb */
+  .breadcrumb-bar {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 28px;
   }
+  .bc-item {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--border-hi);
+    transition: color var(--transition), font-weight var(--transition);
+  }
+  .bc-item.active { color: var(--primary); font-weight: 700; }
+  .bc-sep { font-size: 10px; color: var(--border); }
+
+
+  /* ═══════════ PAGE 2 CONTENT ═══════════ */
+
+  .p2-content { max-width: 860px; margin: 0 auto; padding: 0 40px 120px; }
+
+  .section { padding-top: 80px; }
+
   .eyebrow {
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--accent);
     margin-bottom: 10px;
   }
-  .section-label {
+  .eyebrow.teal    { color: var(--teal); }
+  .eyebrow.purple  { color: var(--purple); }
+  .eyebrow.amber   { color: var(--amber); }
+  .eyebrow.neutral { color: var(--muted); }
+
+  .section-headline {
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -0.022em;
+    color: var(--primary);
+    margin-bottom: 14px;
+  }
+  .section-intro {
+    font-size: 16px;
+    color: var(--secondary);
+    line-height: 1.6;
+    max-width: 580px;
+    margin-bottom: 40px;
+  }
+
+  .sublabel {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 14px;
-    margin-top: 28px;
+    margin-top: 36px;
   }
 
-  /* ── PROGRESS TRAIL ── */
-  .path-progress {
+  .section-rule { border: none; border-top: 1px solid var(--border); margin: 80px 0 0; }
+
+  /* Build-to-Run transition */
+  .path-transition {
+    margin-top: 72px;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 40px;
+    gap: 24px;
   }
-  .progress-step {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    color: var(--muted);
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1.5px solid var(--border);
-    white-space: nowrap;
-    cursor: pointer;
-    transition: all var(--transition);
-  }
-  .progress-step:hover { color: var(--secondary); border-color: var(--border-hi); }
-  .progress-step.active { color: var(--primary); border-color: var(--border-hi); background: var(--surface); }
-  .progress-step.done { color: var(--secondary); }
-  .progress-sep { color: var(--border-hi); font-size: 12px; user-select: none; }
-
-  /* ── CONTINUE BUTTON ── */
-  .continue-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 26px;
-    background: var(--accent);
-    color: var(--primary);
-    border-radius: 7px;
-    font-size: 13px;
+  .path-transition-label {
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    border: none;
-    font-family: 'Instrument Sans', sans-serif;
-    transition: background var(--transition), transform var(--transition);
-    margin-top: 32px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--border-hi);
+    white-space: nowrap;
   }
-  .continue-btn:hover { background: var(--accent-hi); transform: translateX(3px); }
-  .continue-btn.center { display: flex; margin: 32px auto 0; }
+  .path-transition-text h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.01em;
+    margin-bottom: 3px;
+  }
+  .path-transition-text p { font-size: 13px; color: var(--secondary); line-height: 1.5; }
 
-  /* ── HOME: LEVELS ── */
-  .levels-container {
+  /* Overview cards */
+  .overview-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .overview-card {
+    padding: 24px 22px 20px;
+    border-radius: 10px;
     border: 1.5px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
     background: var(--surface);
   }
-  .levels-header {
-    padding: 20px 26px 16px;
-    border-bottom: 1.5px solid var(--border);
-  }
-  .levels-header h3 {
+  .overview-card-num {
     font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 9px;
+  }
+  .overview-card h4 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 5px; line-height: 1.3; }
+  .overview-card p  { font-size: 13px; color: var(--secondary); line-height: 1.5; }
+
+  /* Always on */
+  .always-on {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+  }
+  .always-on-label {
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 4px;
-  }
-  .levels-header p { font-size: 13px; color: var(--secondary); }
-  .levels-body { display: grid; grid-template-columns: 1fr 1fr 1fr; }
-  .level-item { padding: 22px 24px; border-right: 1.5px solid var(--border); }
-  .level-item:last-child { border-right: none; }
-  .level-num {
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 10px;
-    color: var(--border-hi);
-    font-variant-numeric: tabular-nums;
-  }
-  .level-item h4 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
-  .level-item p { font-size: 12px; color: var(--secondary); line-height: 1.5; }
-
-  /* ── HOME: PATH ── */
-  .path-section { margin-top: 52px; }
-  .path-question {
-    font-size: clamp(28px, 3.5vw, 44px);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.08;
-    color: var(--primary);
-    margin-bottom: 28px;
-    text-align: center;
-  }
-  .path-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    max-width: 560px;
-    margin: 0 auto;
-  }
-  .path-btn {
-    padding: 26px 26px 22px;
-    border-radius: 10px;
-    cursor: pointer;
-    border: 1.5px solid var(--border);
-    background: var(--surface);
-    transition: all var(--transition);
-    text-align: left;
-    font-family: 'Instrument Sans', sans-serif;
-    position: relative;
-  }
-  .path-btn::after {
-    content: '→';
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    font-size: 16px;
-    color: var(--border-hi);
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all var(--transition);
-  }
-  .path-btn:hover { border-color: var(--accent); background: var(--surface-hi); }
-  .path-btn:hover::after { opacity: 1; transform: translateX(0); color: var(--accent); }
-  .path-tag {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-  .path-btn h3 { font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 4px; letter-spacing: -0.01em; }
-  .path-btn p { font-size: 12px; color: var(--secondary); }
-
-  /* ── OVERVIEW ── */
-  .overview-wrap {
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--surface);
-  }
-  .overview-zones { display: grid; grid-template-columns: 1fr 1fr 1fr; }
-  .overview-zone {
-    padding: 24px 22px;
-    border-right: 1.5px solid var(--border);
-    cursor: pointer;
-    transition: background var(--transition);
-  }
-  .overview-zone:last-child { border-right: none; }
-  .overview-zone.no-click { cursor: default; }
-  .overview-zone:not(.no-click):hover { background: var(--surface-hi); }
-  .zone-num {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-  .overview-zone h4 { font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
-  .overview-zone p { font-size: 12px; color: var(--secondary); line-height: 1.5; }
-  .zone-cta { font-size: 11px; color: var(--accent); margin-top: 14px; font-weight: 600; }
-
-  .overview-operating {
-    padding: 14px 22px;
-    background: var(--canvas);
-    border-top: 1.5px solid var(--border);
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-  }
-  .overview-operating-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
     white-space: nowrap;
   }
-  .operating-items { font-size: 12px; color: var(--secondary); }
+  .always-on-items { font-size: 13px; color: var(--secondary); }
 
-  /* ── DETAIL CARDS ── */
-  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
+  /* Detail cards */
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .detail-grid.three { grid-template-columns: 1fr 1fr 1fr; }
   .detail-card {
-    padding: 20px 22px;
+    padding: 22px 22px 20px;
     border-radius: 10px;
     background: var(--surface);
     border: 1.5px solid var(--border);
   }
-  .detail-card h4 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
-  .detail-card p { font-size: 12px; color: var(--secondary); line-height: 1.5; }
+  .detail-card h4 { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 10px; line-height: 1.3; }
   .card-bullets { list-style: none; padding: 0; margin: 0; }
   .card-bullets li {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--secondary);
-    line-height: 1.5;
-    padding: 4px 0;
+    line-height: 1.55;
+    padding: 3px 0;
     display: flex;
     gap: 8px;
   }
-  .card-bullets li::before { content: '–'; color: var(--muted); flex-shrink: 0; }
+  .card-bullets li::before { content: '/'; color: var(--border-hi); flex-shrink: 0; font-weight: 600; }
 
-  /* ── FLOW ── */
-  .flow-row { display: flex; align-items: center; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
-  .flow-step {
-    padding: 8px 14px;
-    border-radius: 6px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    white-space: nowrap;
-    text-align: center;
+  /* Tech + automation callout */
+  .ai-callout {
+    background: var(--amber-light);
+    border-top: 2px solid var(--amber-border);
+    border-radius: 0 0 8px 8px;
+    padding: 18px 22px 20px;
+    margin-top: 28px;
   }
-  .flow-step-name { font-size: 12px; font-weight: 700; color: var(--primary); }
-  .flow-step-sub { font-size: 11px; color: var(--secondary); margin-top: 2px; }
-  .flow-arrow { color: var(--muted); font-size: 13px; }
-
-  /* ── AI STRIP ── */
-  .ai-strip {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-left: 3px solid var(--accent);
-    border-radius: 8px;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 4px;
-  }
-  .ai-strip-label {
+  .ai-callout-header {
     font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 14px;
+  }
+  .ai-callout-groups { display: flex; flex-direction: column; gap: 12px; }
+  .ai-callout-sublabel {
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: var(--accent);
-    white-space: nowrap;
+    color: var(--amber);
+    opacity: 0.75;
+    margin-bottom: 5px;
   }
-  .ai-types { display: flex; gap: 0; }
-  .ai-type { font-size: 12px; color: var(--secondary); font-weight: 500; }
-  .ai-type + .ai-type::before { content: ' · '; opacity: 0.5; }
-
-  /* ── LOOP NOTE ── */
-  .loop-note {
+  .ai-callout ul { list-style: none; padding: 0; margin: 0; }
+  .ai-callout li {
     font-size: 12px;
-    color: var(--muted);
-    font-style: italic;
-    text-align: center;
-    margin: 16px 0 24px;
+    color: var(--secondary);
+    line-height: 1.55;
+    padding: 2px 0;
+    display: block;
   }
 
-  /* ── FORWARD BRIDGE ── */
-  .forward-bridge {
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 28px 32px;
-    margin-top: 32px;
+  /* Proof strip */
+  .proof-strip {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    background: var(--surface);
+    gap: 10px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
   }
-  .bridge-text h4 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 5px;
-    letter-spacing: -0.01em;
-  }
-  .bridge-text p { font-size: 13px; color: var(--secondary); max-width: 340px; }
-  .bridge-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: var(--accent);
-    color: var(--primary);
-    border-radius: 7px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    border: none;
-    font-family: 'Instrument Sans', sans-serif;
-    white-space: nowrap;
-    letter-spacing: 0.03em;
-    transition: background var(--transition), transform var(--transition);
-  }
-  .bridge-btn:hover { background: var(--accent-hi); transform: translateX(3px); }
-
-  /* ── AI DEEP DIVE ── */
-  .maturity-bar {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1.5px solid var(--border);
-    margin-bottom: 6px;
-  }
-  .maturity-seg {
-    padding: 16px 18px;
-    background: var(--surface);
-    border-right: 1.5px solid var(--border);
-  }
-  .maturity-seg:last-child { border-right: none; }
-  .maturity-seg h5 { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
-  .maturity-seg p { font-size: 11px; color: var(--secondary); line-height: 1.4; }
-
-  .ai-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 24px; }
-  .ai-table th {
-    text-align: left;
+  .proof-label {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.07em;
     text-transform: uppercase;
     color: var(--muted);
-    padding: 8px 12px;
-    border-bottom: 1.5px solid var(--border);
+    white-space: nowrap;
   }
-  .ai-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
-    color: var(--secondary);
-    vertical-align: top;
-  }
-  .ai-table td:first-child { color: var(--primary); font-weight: 600; }
-  .ai-table tr:last-child td { border-bottom: none; }
+  .proof-link { font-size: 12px; color: var(--teal); font-weight: 500; text-decoration: none; transition: color var(--transition); }
+  .proof-link:hover { color: var(--primary); }
+  .proof-sep { color: var(--border-hi); }
 
-  /* ── RUN CARDS ── */
-  .run-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-  .run-card {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 24px 22px;
-  }
-  .run-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
-  }
-  .run-card h4 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--primary);
-    letter-spacing: -0.01em;
-  }
+  /* Loop note */
+  .loop-note { font-size: 13px; color: var(--muted); font-style: italic; text-align: center; margin: 22px 0 8px; }
+
+  /* Run cards */
+  .run-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .run-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 24px 22px; }
+  .run-card-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; gap: 8px; }
+  .run-card h4 { font-size: 17px; font-weight: 700; color: var(--primary); letter-spacing: -0.01em; }
   .cadence-tag {
     font-size: 10px;
     font-weight: 700;
@@ -465,632 +475,796 @@
     color: var(--muted);
     border: 1.5px solid var(--border);
     border-radius: 20px;
-    padding: 3px 10px;
+    padding: 3px 9px;
     white-space: nowrap;
   }
   .run-list { list-style: none; padding: 0; margin: 0; }
-  .run-list li {
-    font-size: 13px;
-    color: var(--secondary);
-    padding: 7px 0;
-    border-bottom: 1px solid var(--border);
-    line-height: 1.4;
-    font-weight: 400;
-  }
+  .run-list li { font-size: 13px; color: var(--secondary); padding: 5px 0; border-bottom: 1px solid var(--border); line-height: 1.4; }
   .run-list li:last-child { border-bottom: none; }
 
-  /* ── CLOSING STATEMENT ── */
+  /* Closing statement */
   .closing-statement {
-    margin-top: 56px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-top: 52px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
   .closing-statement p {
-    font-size: clamp(18px, 2vw, 26px);
-    font-weight: 500;
-    font-style: italic;
+    font-size: clamp(17px, 2.2vw, 22px);
     color: var(--secondary);
-    line-height: 1.4;
+    line-height: 1.5;
+    font-style: italic;
     max-width: 560px;
   }
 
-  /* ── NORTH STAR ── */
-  .north-star-card {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-left: 3px solid var(--accent);
+  /* AI section */
+  .north-star { margin-bottom: 36px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+  .north-star p { font-size: 17px; color: var(--secondary); line-height: 1.65; font-style: italic; max-width: 620px; }
+
+  /* Maturity bar */
+  .maturity-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     border-radius: 10px;
-    padding: 24px 28px;
-  }
-  .north-star-card p { font-size: 15px; color: var(--secondary); line-height: 1.65; max-width: 680px; }
-
-  .section-intro { font-size: 13px; color: var(--secondary); margin-bottom: 0; }
-
-  .under-hood-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 32px; }
-  .hood-item {
-    padding: 16px 18px;
-    border-radius: 10px;
-    background: var(--surface);
+    overflow: hidden;
     border: 1.5px solid var(--border);
+    margin-bottom: 40px;
   }
-  .hood-item h5 { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
-  .hood-item p { font-size: 12px; color: var(--secondary); line-height: 1.5; }
+  .maturity-seg { padding: 18px 18px 16px; background: var(--surface); border-right: 1.5px solid var(--border); }
+  .maturity-seg:last-child { border-right: none; }
+  .maturity-seg::before { content: ''; display: block; height: 2px; border-radius: 2px; margin-bottom: 12px; }
+  .maturity-seg:nth-child(1)::before { background: var(--teal); }
+  .maturity-seg:nth-child(2)::before { background: var(--amber); }
+  .maturity-seg:nth-child(3)::before { background: var(--purple); }
+  .maturity-seg h5 { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
+  .maturity-seg p  { font-size: 12px; color: var(--secondary); line-height: 1.45; }
 
-  /* ── PROOF POINT STRIP ── */
-  .proof-strip {
-    margin-top: 56px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
+  /* Two-column workflow tables */
+  .workflow-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background: var(--surface);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    margin-bottom: 32px;
   }
-  .proof-label {
+  .workflow-table th {
+    text-align: left;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
     color: var(--muted);
-    white-space: nowrap;
-    margin-right: 4px;
+    padding: 12px 18px;
+    border-bottom: 1.5px solid var(--border);
+    background: var(--surface-off);
   }
-  .proof-link {
-    font-size: 12px;
-    font-weight: 500;
+  .workflow-table td {
+    padding: 11px 18px;
+    border-bottom: 1px solid var(--border);
     color: var(--secondary);
-    text-decoration: none;
-    border-bottom: 1px solid var(--border-hi);
-    padding-bottom: 1px;
-    transition: color var(--transition), border-color var(--transition);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .workflow-table td:first-child {
+    color: var(--primary);
+    font-weight: 600;
+    width: 160px;
     white-space: nowrap;
   }
-  .proof-link:hover { color: var(--primary); border-color: var(--secondary); }
-  .proof-sep { color: var(--border-hi); font-size: 11px; user-select: none; }
+  .workflow-table tr:last-child td { border-bottom: none; }
+
+  /* Table pair layout */
+  .table-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+  .table-block-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .table-block-note {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  /* POV paragraphs */
+  .pov-section { margin-bottom: 40px; }
+  .pov-section p { font-size: 15px; color: var(--secondary); line-height: 1.7; max-width: 640px; margin-bottom: 18px; }
+  .pov-section p:last-child { margin-bottom: 0; }
+
+  /* Principles */
+  .principles-list { display: flex; flex-direction: column; }
+  .principle-item {
+    padding: 20px 0 20px 40px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--secondary);
+    line-height: 1.65;
+    position: relative;
+  }
+  .principle-item:last-child { border-bottom: none; }
+  .principle-item::before { content: attr(data-n); position: absolute; left: 0; top: 22px; font-size: 11px; font-weight: 700; color: var(--border-hi); }
+  .principle-item strong { color: var(--primary); font-weight: 600; }
+
+  .back-to-top { display: block; text-align: center; padding: 40px 0 20px; font-size: 12px; color: var(--muted); cursor: pointer; text-decoration: none; transition: color var(--transition); }
+  .back-to-top:hover { color: var(--primary); }
+
+  /* ═══════════ MOBILE ═══════════ */
+  @media (max-width: 640px) {
+
+    /* Page 1 */
+    .p1-inner { padding: 48px 24px 60px; }
+    .p1-brand { margin-bottom: 48px; }
+    .p1-hero { margin-bottom: 40px; }
+    .p1-hero p { font-size: 15px; }
+    .p1-pillars { grid-template-columns: 1fr; gap: 20px; margin-bottom: 12px; }
+    .p1-pillar-note { margin-bottom: 40px; }
+    .p1-paths { grid-template-columns: 1fr; }
+    .p1-path-btn { padding: 20px 20px 18px; }
+    .p1-path-arrow { display: none; }
+
+    /* Nav */
+    .nav-main { padding: 0 20px; }
+    .nav-brand { font-size: 12px; }
+    .nav-link { font-size: 12px; padding: 6px 9px; }
+
+    /* Breadcrumb */
+    .breadcrumb-bar {
+      padding: 0 20px 10px;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .breadcrumb-bar::-webkit-scrollbar { display: none; }
+    .bc-item { white-space: nowrap; }
+
+    /* Page 2 content */
+    .p2-content { padding: 0 20px 80px; }
+    .section { padding-top: 56px; }
+    .section-intro { font-size: 15px; margin-bottom: 28px; }
+
+    /* Grids: all stack to single column */
+    .overview-grid { grid-template-columns: 1fr; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .detail-grid.three { grid-template-columns: 1fr; }
+    .run-grid { grid-template-columns: 1fr; }
+    .maturity-bar { grid-template-columns: 1fr; }
+    .maturity-seg { border-right: none; border-bottom: 1.5px solid var(--border); }
+    .maturity-seg:last-child { border-bottom: none; }
+
+    /* Path transition */
+    .path-transition { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+    /* Workflow tables: make stage col narrower */
+    .workflow-table td:first-child { width: 100px; white-space: normal; }
+
+    /* AI callout */
+    .ai-callout { padding: 16px 16px 18px; }
+
+    /* Proof strip */
+    .proof-strip { gap: 8px; }
+
+    /* Closing statement */
+    .closing-statement { padding: 28px 0; }
+
+    /* Principles */
+    .principle-item { padding-left: 32px; }
+  }
 </style>
 </head>
 <body>
 
 
-<!-- HOME -->
-<div class="panel active" id="home">
-  <nav>
-    <div class="nav-brand"><span>Ryan</span> · Creative Ops</div>
-  </nav>
+<!-- PAGE 1 -->
+<div id="page-1">
+  <div class="p1-inner">
 
-  <div class="levels-container">
-    <div class="levels-header">
-      <h3>My Approach</h3>
-      <p>Each level only works if the one before it is in place first</p>
+    <div class="p1-brand"><strong>Ryan Moriarty</strong> · Creative Ops</div>
+
+    <div class="p1-hero">
+      <h1>How I build<br>creative ops</h1>
+      <p>Creative ops is equal parts relationships, systems, and methodology. When done well, it eases friction, elevates the work, and feels like a seamless motion of people working well together.</p>
     </div>
-    <div class="levels-body">
-      <div class="level-item">
-        <div class="level-num">1</div>
-        <h4>Strategic partnership</h4>
+
+    <hr class="p1-rule">
+
+    <div class="p1-label">My approach: three concurrent categories</div>
+    <div class="p1-pillars">
+      <div class="p1-pillar">
+        <div class="p1-pillar-dot purple"></div>
+        <h3>Strategic partnerships</h3>
         <p>Creative as a proactive business partner, in the room before the brief exists</p>
       </div>
-      <div class="level-item">
-        <div class="level-num">2</div>
-        <h4>Operational foundation</h4>
+      <div class="p1-pillar">
+        <div class="p1-pillar-dot teal"></div>
+        <h3>Operational foundation</h3>
         <p>The system that makes creative predictable, scalable, and trusted</p>
       </div>
-      <div class="level-item">
-        <div class="level-num">3</div>
-        <h4>AI + automation</h4>
-        <p>Layered on a clean foundation to amplify speed, scale, and output</p>
+      <div class="p1-pillar">
+        <div class="p1-pillar-dot amber"></div>
+        <h3>Creative tech stack</h3>
+        <p>Selecting and deploying the best tools for the right use cases, AI-native from day one</p>
       </div>
     </div>
-  </div>
+    <p class="p1-pillar-note">AI-native from day one. GenAI for speed and scale. Agentic AI as the foundation matures.</p>
 
-  <div class="path-section">
-    <div class="path-question">Where is your team right now?</div>
-    <div class="path-buttons">
-      <div class="path-btn" onclick="show('build-overview')">
-        <div class="path-tag">Starting point</div>
+    <div class="p1-label">Where is your team right now?</div>
+    <p class="p1-path-q">Choose your starting point.</p>
+    <div class="p1-paths">
+      <button class="p1-path-btn build" onclick="enterPage2('build-overview')">
+        <span class="p1-path-tag">Starting point</span>
         <h3>Build the system</h3>
-        <p>0→1</p>
-      </div>
-      <div class="path-btn" onclick="show('run-overview')">
-        <div class="path-tag">Already running</div>
+        <p>0 to 1</p>
+        <span class="p1-path-arrow">→</span>
+      </button>
+      <button class="p1-path-btn run" onclick="enterPage2('run-overview')">
+        <span class="p1-path-tag">Already running</span>
         <h3>Run the system</h3>
         <p>Scale + efficiency</p>
-      </div>
+        <span class="p1-path-arrow">→</span>
+      </button>
     </div>
+
   </div>
 </div>
 
 
-<!-- BUILD — OVERVIEW -->
-<div class="panel" id="build-overview">
-  <nav>
-    <div class="nav-brand"><span>Ryan</span> · Creative Ops</div>
-    <div class="nav-right">
-      <button class="btn-nav" onclick="show('home')">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
-        Home
-      </button>
-    </div>
-  </nav>
+<!-- PAGE 2 -->
+<div id="page-2">
 
-  <div class="eyebrow">Build the system (0→1)</div>
-  <h2>Here's what it looks like,<br>end to end</h2>
-
-  <div class="overview-wrap">
-    <div class="overview-zones">
-      <div class="overview-zone" onclick="show('build-zone1')">
-        <div class="zone-num">01</div>
-        <h4>Before the work</h4>
-        <p>Strategic planning, upstream visibility, cross-functional partnership</p>
-        <div class="zone-cta">Explore →</div>
+  <div id="page-2-nav">
+    <nav class="nav-main">
+      <a class="nav-brand" onclick="goHome()"><strong>Ryan Moriarty</strong> · Creative Ops</a>
+      <div class="nav-links">
+        <a class="nav-link" onclick="scrollTo2('build-overview')">Build</a>
+        <a class="nav-link" onclick="scrollTo2('run-overview')">Run</a>
+        <a class="nav-link" onclick="scrollTo2('ai-section')">AI</a>
+        <a class="nav-link" onclick="scrollTo2('principles-section')">Principles</a>
       </div>
-      <div class="overview-zone" onclick="show('build-zone2')">
-        <div class="zone-num">02</div>
-        <h4>The work</h4>
-        <p>End-to-end creative ops engine, intake to delivery, fully owned</p>
-        <div class="zone-cta">Explore →</div>
+    </nav>
+    <div class="breadcrumb-bar" id="breadcrumb">
+      <span class="bc-item" data-section="build-overview">Build</span>
+      <span class="bc-sep">·</span>
+      <span class="bc-item" data-section="build-stage1">Before the work</span>
+      <span class="bc-sep">·</span>
+      <span class="bc-item" data-section="build-stage2">The work</span>
+      <span class="bc-sep">·</span>
+      <span class="bc-item" data-section="build-stage3">After the work</span>
+      <span class="bc-sep">·</span>
+      <span class="bc-item" data-section="run-overview">Run</span>
+      <span class="bc-sep">·</span>
+      <span class="bc-item" data-section="ai-section">AI</span>
+      <span class="bc-sep">·</span>
+      <span class="bc-item" data-section="principles-section">Principles</span>
+    </div>
+  </div>
+
+  <div class="p2-content">
+
+    <!-- BUILD OVERVIEW -->
+    <section class="section" id="build-overview">
+      <div class="eyebrow teal">Overview: Build the system</div>
+      <h2 class="section-headline">Here's what it looks like,<br>end to end</h2>
+      <p class="section-intro">Creative ops as the connector, the support structure, and the feedback loop. Three stages that build on each other, and a layer that keeps it all running.</p>
+
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="overview-card-num">Stage 01</div>
+          <h4>Before the work</h4>
+          <p>Strategic planning, upstream visibility, cross-functional partnership</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-num">Stage 02</div>
+          <h4>The work</h4>
+          <p>End-to-end creative ops engine, intake to delivery, fully owned</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-card-num">Stage 03</div>
+          <h4>After the work</h4>
+          <p>Performance, learnings, and the feedback loop that closes the system</p>
+        </div>
       </div>
-      <div class="overview-zone" onclick="show('build-zone3')">
-        <div class="zone-num">03</div>
-        <h4>After the work</h4>
-        <p>Performance, learnings, and the feedback loop that closes the system</p>
-        <div class="zone-cta">Explore →</div>
+      <div class="always-on">
+        <span class="always-on-label">Always on</span>
+        <span class="always-on-items">Enablement · Documentation + playbooks · Systems maintenance</span>
+      </div>
+    </section>
+
+    <hr class="section-rule">
+
+    <!-- BUILD STAGE 1 -->
+    <section class="section" id="build-stage1">
+      <div class="eyebrow teal">Stage 01: Before the work</div>
+      <h2 class="section-headline">Strategic planning,<br>upstream visibility</h2>
+      <p class="section-intro">Relationship building, strong foundations, knowledge sharing at the macro level. The goal is to be in the room before the brief exists, not reacting to requests, but shaping what gets requested.</p>
+
+      <div class="detail-grid">
+        <div class="detail-card">
+          <h4>Campaign + content planning</h4>
+          <ul class="card-bullets">
+            <li>Embedded in planning cycles early</li>
+            <li>Upstream visibility before requests arrive</li>
+            <li>No surprises at intake</li>
+          </ul>
+        </div>
+        <div class="detail-card">
+          <h4>Messaging house</h4>
+          <ul class="card-bullets">
+            <li>Brand voice and positioning locked first</li>
+            <li>PMM inputs in place before creative begins</li>
+            <li>Source of truth across every touchpoint</li>
+          </ul>
+        </div>
+        <div class="detail-card">
+          <h4>Cross-functional partnerships</h4>
+          <ul class="card-bullets">
+            <li>Regular cadence with Brand, Marketing, and key teams</li>
+            <li>Clear purpose and defined owners</li>
+            <li>Alignment before the brief lands</li>
+          </ul>
+        </div>
+        <div class="detail-card">
+          <h4>Trust over SLAs</h4>
+          <ul class="card-bullets">
+            <li>SLAs are a floor, not a ceiling</li>
+            <li>Goal is relationships, not compliance</li>
+            <li>Strong partnerships make the SLA almost irrelevant</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ai-callout">
+        <div class="ai-callout-header">Tech + automation in this stage</div>
+        <div class="ai-callout-groups">
+          <div>
+            <div class="ai-callout-sublabel">GenAI</div>
+            <ul>
+              <li>Campaign planning synthesis across historical briefs</li>
+              <li>Partner research and context prep before cross-functional meetings</li>
+            </ul>
+          </div>
+          <div>
+            <div class="ai-callout-sublabel">Agentic AI</div>
+            <ul>
+              <li>Messaging house agent reads PMM docs and flags creative drift</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="proof-strip">
+        <span class="proof-label">Related work from my portfolio →</span>
+        <a class="proof-link" href="https://opscraft.notion.site/Case-Studies-296b2fb5d15880b78d44e019982f9850?p=1c0b2fb5d15880d1a122d78257b040b0&pm=c" target="_blank">Content Ops Transformation</a>
+        <span class="proof-sep">·</span>
+        <a class="proof-link" href="https://opscraft.notion.site/Home-1c0b2fb5d158805e82dbc8eb18968a71?p=328b2fb5d15880f59355f6b9c7385141&pm=c" target="_blank">Cross-Functional Alignment Programs</a>
+      </div>
+    </section>
+
+    <hr class="section-rule">
+
+    <!-- BUILD STAGE 2 -->
+    <section class="section" id="build-stage2">
+      <div class="eyebrow teal">Stage 02: The work</div>
+      <h2 class="section-headline">End-to-end creative<br>ops engine</h2>
+      <p class="section-intro">Setting creative team members and project stakeholders up for success. Clarity, efficiency, and frictionless workflows, with the foundation locked before anything else is layered on.</p>
+
+      <div class="sublabel" style="margin-top:0">Foundation: locked before anything else</div>
+      <div class="detail-grid three">
+        <div class="detail-card">
+          <h4>Intake + brief readiness</h4>
+          <ul class="card-bullets">
+            <li>Decision-tree intake forms</li>
+            <li>Scope assessment at the front door</li>
+            <li>Tier assignment before production starts</li>
+          </ul>
+        </div>
+        <div class="detail-card">
+          <h4>RACIs + working agreements</h4>
+          <ul class="card-bullets">
+            <li>Clear ownership for every request type</li>
+            <li>Defined approval paths</li>
+            <li>Specific RACIs for complex workstreams</li>
+          </ul>
+        </div>
+        <div class="detail-card">
+          <h4>Project tiering system</h4>
+          <ul class="card-bullets">
+            <li>Complex / long-tail to simple / quick</li>
+            <li>Tier drives workflow and oversight level</li>
+            <li>Set at intake, not mid-production</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ai-callout">
+        <div class="ai-callout-header">Tech + automation in this stage</div>
+        <div class="ai-callout-groups">
+          <div>
+            <div class="ai-callout-sublabel">Automation</div>
+            <ul>
+              <li>Form routing, auto-tagging, tier assignment at intake</li>
+              <li>Kickoff scheduler handles logistics automatically</li>
+              <li>Tier-based load tracking at triage</li>
+              <li>Resizing, export, and variations in production</li>
+              <li>Review routing and notifications</li>
+              <li>DAM auto-tagging at delivery</li>
+            </ul>
+          </div>
+          <div>
+            <div class="ai-callout-sublabel">GenAI</div>
+            <ul>
+              <li>Brief gap detection flags incomplete briefs before kickoff</li>
+              <li>Brief drafting assist at kickoff</li>
+              <li>Rapid ideation, copy directions, and moodboards at concepting</li>
+              <li>Copy drafts and image gen in production</li>
+              <li>Feedback synthesis at review</li>
+              <li>Metadata and alt text at delivery</li>
+            </ul>
+          </div>
+          <div>
+            <div class="ai-callout-sublabel">Agentic AI</div>
+            <ul>
+              <li>Brief-to-project agent handles intake to task creation to assignment to notify</li>
+              <li>Capacity signal agent combines load and history to give a green / amber / red</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="proof-strip">
+        <span class="proof-label">Related work from my portfolio →</span>
+        <a class="proof-link" href="https://opscraft.notion.site/Case-Studies-296b2fb5d15880b78d44e019982f9850?p=1c4b2fb5d158802bba63efd742d8eb45&pm=c" target="_blank">Brand Ops Transformation</a>
+        <span class="proof-sep">·</span>
+        <a class="proof-link" href="https://opscraft.notion.site/Home-1c0b2fb5d158805e82dbc8eb18968a71?p=2dbb2fb5d15882db8d73019d3f2244a5&pm=c" target="_blank">Demand Gen: Ads In-House</a>
+      </div>
+    </section>
+
+    <hr class="section-rule">
+
+    <!-- BUILD STAGE 3 -->
+    <section class="section" id="build-stage3">
+      <div class="eyebrow teal">Stage 03: After the work</div>
+      <h2 class="section-headline">Performance, learnings,<br>continuous improvement</h2>
+      <p class="section-intro">We don't throw work over the fence and forget. Stage 3 is what makes this a system and not just a workflow. It feeds directly back into Stage 1 and makes every cycle smarter.</p>
+
+      <div class="detail-grid">
+        <div class="detail-card">
+          <h4>Performance data</h4>
+          <ul class="card-bullets">
+            <li>Demand gen, content, web metrics</li>
+            <li>Tied back to the projects that produced them</li>
+            <li>Creative sees the impact of its output</li>
+          </ul>
+        </div>
+        <div class="detail-card">
+          <h4>Asset longevity</h4>
+          <ul class="card-bullets">
+            <li>DAM tracking post-delivery</li>
+            <li>What's being used, how often, for how long</li>
+            <li>Informs future production decisions</li>
+          </ul>
+        </div>
+        <div class="detail-card">
+          <h4>Debrief + learnings</h4>
+          <ul class="card-bullets">
+            <li>Structured but lightweight</li>
+            <li>What worked, what didn't, what's next</li>
+            <li>Short enough that teams actually do it</li>
+          </ul>
+        </div>
+        <div class="detail-card">
+          <h4>Insights feed forward</h4>
+          <ul class="card-bullets">
+            <li>Learnings go back into planning</li>
+            <li>Briefs improve, estimates sharpen</li>
+            <li>Partnerships strengthen over time</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="loop-note">↺ Closes the loop back into Stage 1. The system gets smarter every cycle.</p>
+
+      <div class="ai-callout">
+        <div class="ai-callout-header">Tech + automation in this stage</div>
+        <div class="ai-callout-groups">
+          <div>
+            <div class="ai-callout-sublabel">Automation</div>
+            <ul>
+              <li>DAM usage tracking and asset longevity reporting</li>
+            </ul>
+          </div>
+          <div>
+            <div class="ai-callout-sublabel">GenAI</div>
+            <ul>
+              <li>Performance pattern analysis across campaigns</li>
+              <li>Debrief summarization from lightweight structured inputs</li>
+              <li>Insights-to-brief pipeline feeds learnings back into future briefs</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="proof-strip">
+        <span class="proof-label">Related work from my portfolio →</span>
+        <a class="proof-link" href="https://opscraft.notion.site/Case-Studies-296b2fb5d15880b78d44e019982f9850?p=233b2fb5d158805ca1f1fd15d5299b3a&pm=c" target="_blank">Brandfolder DAM</a>
+        <span class="proof-sep">·</span>
+        <a class="proof-link" href="https://opscraft.notion.site/Case-Studies-296b2fb5d15880b78d44e019982f9850?p=231b2fb5d158805ca1f1fd15d5299b3a&pm=c" target="_blank">Canva Enterprise</a>
+      </div>
+    </section>
+
+
+    <!-- BUILD TO RUN TRANSITION -->
+    <div class="path-transition">
+      <span class="path-transition-label">Shifting modes</span>
+      <div class="path-transition-text">
+        <h4>The foundation is built.</h4>
+        <p>Now it needs to be run, optimized, maintained, and scaled over time. Different mode, different cadence.</p>
       </div>
     </div>
-    <div class="overview-operating">
-      <span class="overview-operating-label">Always on</span>
-      <span class="operating-items">Enablement · Documentation + playbooks · Systems maintenance</span>
-    </div>
-  </div>
-</div>
 
 
-<!-- BUILD — ZONE 1 -->
-<div class="panel" id="build-zone1">
-  <nav>
-    <div class="nav-brand"><span>Ryan</span> · Creative Ops</div>
-    <div class="nav-right">
-      <button class="btn-nav" onclick="show('build-overview')">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
-        Overview
-      </button>
-      <button class="btn-nav" onclick="show('home')">Home</button>
-    </div>
-  </nav>
+    <!-- RUN OVERVIEW -->
+    <section class="section" id="run-overview">
+      <div class="eyebrow purple">Overview: Run the system</div>
+      <h2 class="section-headline">Running creative ops is<br>a practice, not a project</h2>
+      <p class="section-intro">Once the foundation is in place, the work shifts. Less building, more maintaining and continuously raising the ceiling. Three rhythms that keep the system healthy and moving forward.</p>
 
-  <div class="path-progress">
-    <span class="progress-step done" onclick="show('build-overview')">Overview</span>
-    <span class="progress-sep">·</span>
-    <span class="progress-step active">Before the work</span>
-    <span class="progress-sep">·</span>
-    <span class="progress-step" onclick="show('build-zone2')">The work</span>
-    <span class="progress-sep">·</span>
-    <span class="progress-step" onclick="show('build-zone3')">After the work</span>
-  </div>
-
-  <div class="eyebrow">Before the work</div>
-  <h2>Strategic planning,<br>upstream visibility</h2>
-
-  <div class="detail-grid">
-    <div class="detail-card">
-      <h4>Campaign + content planning</h4>
-      <ul class="card-bullets">
-        <li>Embedded in planning cycles early</li>
-        <li>Upstream visibility before requests arrive</li>
-        <li>No surprises at intake</li>
-      </ul>
-    </div>
-    <div class="detail-card">
-      <h4>Messaging house</h4>
-      <ul class="card-bullets">
-        <li>Brand voice and positioning locked first</li>
-        <li>PMM inputs in place before creative begins</li>
-        <li>Source of truth across every touchpoint</li>
-      </ul>
-    </div>
-    <div class="detail-card">
-      <h4>Cross-functional partnerships</h4>
-      <ul class="card-bullets">
-        <li>Regular cadence with Brand, Marketing, and key teams</li>
-        <li>Clear purpose and defined owners</li>
-        <li>Alignment before the brief lands</li>
-      </ul>
-    </div>
-    <div class="detail-card">
-      <h4>Trust over SLAs</h4>
-      <ul class="card-bullets">
-        <li>SLAs are a floor, not a ceiling</li>
-        <li>Goal is relationships, not compliance</li>
-        <li>Strong partnerships make the SLA almost irrelevant</li>
-      </ul>
-    </div>
-  </div>
-
-  <button class="continue-btn center" onclick="show('build-zone2')">The work →</button>
-
-  <div class="proof-strip">
-    <span class="proof-label">See it in action →</span>
-    <a class="proof-link" href="https://opscraft.notion.site/Case-Studies-296b2fb5d15880b78d44e019982f9850?p=1c0b2fb5d15880d1a122d78257b040b0&pm=c" target="_blank">Content Ops Transformation</a>
-    <span class="proof-sep">·</span>
-    <a class="proof-link" href="https://opscraft.notion.site/Home-1c0b2fb5d158805e82dbc8eb18968a71?p=328b2fb5d15880f59355f6b9c7385141&pm=c" target="_blank">Cross-Functional Alignment Programs</a>
-  </div>
-</div>
-
-
-<!-- BUILD — ZONE 2 -->
-<div class="panel" id="build-zone2">
-  <nav>
-    <div class="nav-brand"><span>Ryan</span> · Creative Ops</div>
-    <div class="nav-right">
-      <button class="btn-nav" onclick="show('build-zone1')">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
-        Before the work
-      </button>
-      <button class="btn-nav" onclick="show('home')">Home</button>
-    </div>
-  </nav>
-
-  <div class="path-progress">
-    <span class="progress-step done" onclick="show('build-overview')">Overview</span>
-    <span class="progress-sep">·</span>
-    <span class="progress-step done" onclick="show('build-zone1')">Before the work</span>
-    <span class="progress-sep">·</span>
-    <span class="progress-step active">The work</span>
-    <span class="progress-sep">·</span>
-    <span class="progress-step" onclick="show('build-zone3')">After the work</span>
-  </div>
-
-  <div class="eyebrow">The work</div>
-  <h2>End-to-end creative<br>ops engine</h2>
-
-  <div class="section-label" style="margin-top:0">Foundation: locked before anything else</div>
-  <div class="detail-grid three">
-    <div class="detail-card">
-      <h4>Intake + brief readiness</h4>
-      <ul class="card-bullets">
-        <li>Decision-tree intake forms</li>
-        <li>Scope assessment at the front door</li>
-        <li>Tier assignment before production starts</li>
-      </ul>
-    </div>
-    <div class="detail-card">
-      <h4>RACIs + working agreements</h4>
-      <ul class="card-bullets">
-        <li>Clear ownership for every request type</li>
-        <li>Defined approval paths</li>
-        <li>Specific RACIs for complex workstreams</li>
-      </ul>
-    </div>
-    <div class="detail-card">
-      <h4>Project tiering system</h4>
-      <ul class="card-bullets">
-        <li>Complex / long-tail → Simple / quick</li>
-        <li>Tier drives workflow and oversight level</li>
-        <li>Set at intake, not mid-production</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="section-label">Production engine</div>
-  <div class="flow-row">
-    <div class="flow-step">
-      <div class="flow-step-name">Triage</div>
-      <div class="flow-step-sub">Prioritize + assign</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-step">
-      <div class="flow-step-name">Brief + KO</div>
-      <div class="flow-step-sub">Align before starting</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-step">
-      <div class="flow-step-name">Production</div>
-      <div class="flow-step-sub">Make the work</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-step">
-      <div class="flow-step-name">Review</div>
-      <div class="flow-step-sub">Structured feedback</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-step">
-      <div class="flow-step-name">Delivery</div>
-      <div class="flow-step-sub">Hand off clean</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-step">
-      <div class="flow-step-name">Archive</div>
-      <div class="flow-step-sub">Tag + store</div>
-    </div>
-  </div>
-
-  <div class="ai-strip">
-    <span class="ai-strip-label">AI + automation overlay</span>
-    <div class="ai-types">
-      <span class="ai-type">Automation</span>
-      <span class="ai-type">GenAI</span>
-      <span class="ai-type">Agentic AI</span>
-    </div>
-  </div>
-
-  <button class="continue-btn center" onclick="show('build-zone3')">After the work →</button>
-
-  <div class="proof-strip">
-    <span class="proof-label">See it in action →</span>
-    <a class="proof-link" href="https://opscraft.notion.site/Case-Studies-296b2fb5d15880b78d44e019982f9850?p=1c4b2fb5d158802bba63efd742d8eb45&pm=c" target="_blank">Brand Ops Transformation</a>
-    <span class="proof-sep">·</span>
-    <a class="proof-link" href="https://opscraft.notion.site/Home-1c0b2fb5d158805e82dbc8eb18968a71?p=2dbb2fb5d15882db8d73019d3f2244a5&pm=c" target="_blank">Demand Gen: Ads In-House</a>
-  </div>
-</div>
-
-
-<!-- BUILD — ZONE 3 -->
-<div class="panel" id="build-zone3">
-  <nav>
-    <div class="nav-brand"><span>Ryan</span> · Creative Ops</div>
-    <div class="nav-right">
-      <button class="btn-nav" onclick="show('build-zone2')">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
-        The work
-      </button>
-      <button class="btn-nav" onclick="show('home')">Home</button>
-    </div>
-  </nav>
-
-  <div class="path-progress">
-    <span class="progress-step done" onclick="show('build-overview')">Overview</span>
-    <span class="progress-sep">·</span>
-    <span class="progress-step done" onclick="show('build-zone1')">Before the work</span>
-    <span class="progress-sep">·</span>
-    <span class="progress-step done" onclick="show('build-zone2')">The work</span>
-    <span class="progress-sep">·</span>
-    <span class="progress-step active">After the work</span>
-  </div>
-
-  <div class="eyebrow">After the work</div>
-  <h2>Performance, learnings,<br>continuous improvement</h2>
-
-  <div class="detail-grid">
-    <div class="detail-card">
-      <h4>Performance data</h4>
-      <ul class="card-bullets">
-        <li>Demand gen, content, web metrics</li>
-        <li>Tied back to the projects that produced them</li>
-        <li>Creative sees the impact of its output</li>
-      </ul>
-    </div>
-    <div class="detail-card">
-      <h4>Asset longevity</h4>
-      <ul class="card-bullets">
-        <li>DAM tracking post-delivery</li>
-        <li>What's being used, how often, for how long</li>
-        <li>Informs future production decisions</li>
-      </ul>
-    </div>
-    <div class="detail-card">
-      <h4>Debrief + learnings</h4>
-      <ul class="card-bullets">
-        <li>Structured but lightweight</li>
-        <li>What worked, what didn't, what's next</li>
-        <li>Short enough that teams actually do it</li>
-      </ul>
-    </div>
-    <div class="detail-card">
-      <h4>Insights feed forward</h4>
-      <ul class="card-bullets">
-        <li>Learnings go back into planning</li>
-        <li>Briefs improve, estimates sharpen</li>
-        <li>Partnerships strengthen over time</li>
-      </ul>
-    </div>
-  </div>
-
-  <p class="loop-note">↺ Closes the loop back into planning. The system gets smarter every cycle.</p>
-
-  <div class="forward-bridge">
-    <div class="bridge-text">
-      <h4>The foundation is built.</h4>
-      <p>Now it needs to be run, optimized, maintained, and scaled over time.</p>
-    </div>
-    <button class="bridge-btn" onclick="show('run-overview')">Run the system →</button>
-  </div>
-
-  <div class="proof-strip">
-    <span class="proof-label">See it in action →</span>
-    <a class="proof-link" href="https://opscraft.notion.site/Case-Studies-296b2fb5d15880b78d44e019982f9850?p=233b2fb5d15880d5a029c9a400bdf6c7&pm=c" target="_blank">Brandfolder DAM</a>
-    <span class="proof-sep">·</span>
-    <a class="proof-link" href="https://opscraft.notion.site/Case-Studies-296b2fb5d15880b78d44e019982f9850?p=231b2fb5d158805ca1f1fd15d5299b3a&pm=c" target="_blank">Canva Enterprise</a>
-  </div>
-</div>
-
-
-<!-- RUN — OVERVIEW -->
-<div class="panel" id="run-overview">
-  <nav>
-    <div class="nav-brand"><span>Ryan</span> · Creative Ops</div>
-    <div class="nav-right">
-      <button class="btn-nav" onclick="show('home')">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
-        Home
-      </button>
-    </div>
-  </nav>
-
-  <div class="eyebrow">Run the system (scale + efficiency)</div>
-  <h2>Running creative ops<br>is a practice, not a project</h2>
-
-  <div class="run-cards">
-    <div class="run-card">
-      <div class="run-card-header">
-        <h4>Optimize</h4>
-        <span class="cadence-tag">Weekly</span>
+      <div class="run-grid">
+        <div class="run-card">
+          <div class="run-card-header">
+            <h4>Optimize</h4>
+            <span class="cadence-tag">Weekly</span>
+          </div>
+          <ul class="run-list">
+            <li>Sprint health</li>
+            <li>Capacity monitoring</li>
+            <li>Process refinement</li>
+            <li>Friction removal</li>
+          </ul>
+        </div>
+        <div class="run-card">
+          <div class="run-card-header">
+            <h4>Scale</h4>
+            <span class="cadence-tag">Quarterly</span>
+          </div>
+          <ul class="run-list">
+            <li>AI + automation expansion</li>
+            <li>Self-serve growth</li>
+            <li>Agency + resource calibration</li>
+            <li>Tooling upgrades</li>
+          </ul>
+        </div>
+        <div class="run-card">
+          <div class="run-card-header">
+            <h4>Evolve</h4>
+            <span class="cadence-tag">Monthly / quarterly</span>
+          </div>
+          <ul class="run-list">
+            <li>New workstreams</li>
+            <li>Partnership deepening</li>
+            <li>Performance insights</li>
+            <li>Strategic alignment</li>
+          </ul>
+        </div>
       </div>
-      <ul class="run-list">
-        <li>Sprint health</li>
-        <li>Capacity monitoring</li>
-        <li>Process refinement</li>
-        <li>Friction removal</li>
-      </ul>
-    </div>
-    <div class="run-card">
-      <div class="run-card-header">
-        <h4>Scale</h4>
-        <span class="cadence-tag">Quarterly</span>
+
+      <div class="ai-callout">
+        <div class="ai-callout-header">Tech + automation in this stage</div>
+        <div class="ai-callout-groups">
+          <div>
+            <div class="ai-callout-sublabel">Automation</div>
+            <ul>
+              <li>Sprint health signals without manual tracking</li>
+              <li>Self-serve template maintenance and updates</li>
+            </ul>
+          </div>
+          <div>
+            <div class="ai-callout-sublabel">GenAI</div>
+            <ul>
+              <li>Identifying next highest-value automation opportunities</li>
+              <li>System drift detection flags when processes diverge from playbooks</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <ul class="run-list">
-        <li>AI + automation expansion</li>
-        <li>Self-serve growth</li>
-        <li>Agency + resource calibration</li>
-        <li>Tooling upgrades</li>
-      </ul>
-    </div>
-    <div class="run-card">
-      <div class="run-card-header">
-        <h4>Evolve</h4>
-        <span class="cadence-tag">Monthly / quarterly</span>
+
+      <div class="closing-statement">
+        <p>This is the work that never makes the brief, but makes everything else possible.</p>
       </div>
-      <ul class="run-list">
-        <li>New workstreams</li>
-        <li>Partnership deepening</li>
-        <li>Performance insights</li>
-        <li>Strategic alignment</li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="closing-statement">
-    <p>This is the work that never makes the brief — but makes everything else possible.</p>
-    <button class="btn-nav" onclick="show('home')" style="margin-top: 24px;">Home</button>
-  </div>
+      <div class="proof-strip">
+        <span class="proof-label">Related work from my portfolio →</span>
+        <a class="proof-link" href="https://opscraft.notion.site/Home-1c0b2fb5d158805e82dbc8eb18968a71?p=328b2fb5d15880b28526c9b1521a473f&pm=c" target="_blank">Agency Direction + Partnerships</a>
+        <span class="proof-sep">·</span>
+        <a class="proof-link" href="https://opscraft.notion.site/Home-1c0b2fb5d158805e82dbc8eb18968a71?p=328b2fb5d15880e09f9deb7288c62391&pm=c" target="_blank">AI + Automation Program</a>
+      </div>
+    </section>
 
-  <div class="proof-strip">
-    <span class="proof-label">See it in action →</span>
-    <a class="proof-link" href="https://opscraft.notion.site/Home-1c0b2fb5d158805e82dbc8eb18968a71?p=328b2fb5d15880b28526c9b1521a473f&pm=c" target="_blank">Agency Direction + Partnerships</a>
-    <span class="proof-sep">·</span>
-    <a class="proof-link" href="https://opscraft.notion.site/Home-1c0b2fb5d158805e82dbc8eb18968a71?p=328b2fb5d15880e09f9deb7288c62391&pm=c" target="_blank">AI + Automation Program</a>
-  </div>
-</div>
+    <hr class="section-rule">
 
+    <!-- AI SECTION -->
+    <section class="section" id="ai-section">
+      <div class="eyebrow amber">AI + Automation</div>
+      <h2 class="section-headline">How AI and automation<br>live in the work</h2>
+      <p class="section-intro">Three distinct tools with different costs, different requirements, and different returns. Knowing which to reach for, and when, is what makes the difference between a tech stack that scales and one that creates new problems.</p>
 
-<!-- AI DEEP DIVE (unlinked — available when ready) -->
-<div class="panel" id="ai">
-  <nav>
-    <div class="nav-brand"><span>Ryan</span> · Creative Ops</div>
-    <div class="nav-right">
-      <button class="btn-nav" onclick="show('build-zone2')">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
-        The work
-      </button>
-      <button class="btn-nav" onclick="show('home')">Home</button>
-    </div>
-  </nav>
+      <div class="north-star">
+        <p>AI is a tool I use to do better work, faster. The judgment, the relationships, the creative instincts stay human. The goal is always the same: work that connects with the right people and means something to the business.</p>
+      </div>
 
-  <div class="eyebrow">AI + Automation</div>
-  <h2>Where AI lives in the work<br>and how I use it</h2>
+      <div class="maturity-bar">
+        <div class="maturity-seg">
+          <h5>Automation</h5>
+          <p>Logic-based, no model. The cheapest and most reliable tool in the stack. Most teams underinvest here.</p>
+        </div>
+        <div class="maturity-seg">
+          <h5>GenAI</h5>
+          <p>Model-generated output. Copy, concepts, variations, summaries. Reach for it where judgment and creativity are actually needed.</p>
+        </div>
+        <div class="maturity-seg">
+          <h5>Agentic AI</h5>
+          <p>Multi-step, goal-directed. Highest value and highest cost. Requires a mature foundation before it delivers reliably.</p>
+        </div>
+      </div>
 
-  <div class="north-star-card">
-    <p>AI is a tool I use to do better work, faster. The judgment, the relationships, the creative instincts stay human. The goal is always the same: work that connects with the right people and means something to the business.</p>
-  </div>
+      <!-- Two-table split -->
+      <div class="sublabel" style="margin-top:0">Where automation runs</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;font-style:italic">Logic-based, no model. Reliable, low-cost, and the right first move at almost every stage.</p>
+      <table class="workflow-table">
+        <thead><tr><th>Stage</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>Intake</td><td>Form routing, auto-tagging, tier assignment</td></tr>
+          <tr><td>Triage</td><td>Tier-based load tracking</td></tr>
+          <tr><td>Brief + KO</td><td>Kickoff scheduling</td></tr>
+          <tr><td>Production</td><td>Resizing, export, asset variations</td></tr>
+          <tr><td>Review</td><td>Routing and stakeholder notifications</td></tr>
+          <tr><td>Delivery + archive</td><td>DAM auto-tagging</td></tr>
+        </tbody>
+      </table>
 
-  <div class="section-label" style="margin-top:28px">The order matters</div>
-  <div class="maturity-bar">
-    <div class="maturity-seg">
-      <h5>Automation</h5>
-      <p>Logic-based, no model. Cheapest and most reliable. Start here.</p>
-    </div>
-    <div class="maturity-seg">
-      <h5>GenAI</h5>
-      <p>Model-generated output. Copy, concepts, variations, summaries.</p>
-    </div>
-    <div class="maturity-seg">
-      <h5>Agentic AI</h5>
-      <p>Multi-step, goal-directed. Highest value. Requires a mature foundation.</p>
-    </div>
-  </div>
-  <p class="loop-note" style="margin-top:6px">Left to right. Don't skip steps.</p>
+      <div class="sublabel">Where AI runs</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;font-style:italic">GenAI and Agentic AI for the tasks that need judgment, creativity, or multi-step coordination.</p>
+      <table class="workflow-table">
+        <thead><tr><th>Stage</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>Intake</td><td>Brief gap detection via GenAI</td></tr>
+          <tr><td>Triage</td><td>Capacity signal agent combines load and history to give a green / amber / red</td></tr>
+          <tr><td>Brief + KO</td><td>Brief drafting assist via GenAI</td></tr>
+          <tr><td>Concepting</td><td>Rapid ideation, copy directions, moodboards via GenAI</td></tr>
+          <tr><td>Production</td><td>Copy drafts and image generation via GenAI</td></tr>
+          <tr><td>Review</td><td>Feedback synthesis via GenAI</td></tr>
+          <tr><td>Delivery + archive</td><td>Metadata and alt text via GenAI</td></tr>
+          <tr><td>Cross-stage</td><td>Brief-to-project agent handles intake to task creation to assignment to notify</td></tr>
+        </tbody>
+      </table>
 
-  <div class="section-label" style="margin-top:24px">In the creative workflow</div>
-  <table class="ai-table">
-    <thead>
-      <tr>
-        <th>Stage</th><th>Automation</th><th>GenAI</th><th>Agentic AI</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Intake</td><td>Form routing, auto-tagging, tier assignment</td><td>Brief gap detection</td><td></td></tr>
-      <tr><td>Triage</td><td>Tier-based load tracking</td><td></td><td>Capacity signal agent</td></tr>
-      <tr><td>Brief + KO</td><td>Kickoff scheduler</td><td>Brief drafting assist</td><td></td></tr>
-      <tr><td>Concepting</td><td></td><td>Rapid ideation, moodboards</td><td></td></tr>
-      <tr><td>Production</td><td>Resizing, export, variations</td><td>Copy drafts, image gen</td><td></td></tr>
-      <tr><td>Review</td><td>Routing, notifications</td><td>Feedback synthesis</td><td></td></tr>
-      <tr><td>Delivery + archive</td><td>DAM auto-tagging</td><td>Metadata, alt text</td><td></td></tr>
-    </tbody>
-  </table>
+      <div class="sublabel">Beyond the workflow</div>
+      <div class="pov-section">
+        <p>Beyond producing work, AI can help teams build and run better systems. I use it to accelerate the audit phase: faster gap analysis and pattern spotting across inherited tools and workflows that would otherwise take weeks to map manually. I use it to read demand data at scale, surfacing volume and request patterns that inform how the ops system should be designed. And I use it to get documentation off the ground faster: SOPs, RACIs, and playbook drafts that give the team something real to react to rather than a blank page.</p>
+        <p>Once the system is running, AI becomes part of how it stays honest. Sense-checking processes as things change and flagging drift before it compounds into a bigger problem.</p>
+      </div>
 
-  <div class="section-label">Beyond the workflow</div>
-  <p class="section-intro">Beyond producing work, AI can help teams build and run better systems.</p>
-  <div class="detail-grid" style="margin-top:14px">
-    <div class="detail-card">
-      <h4>Auditing what exists</h4>
-      <p>Faster gap analysis and pattern spotting across inherited systems, tools, and workflows</p>
-    </div>
-    <div class="detail-card">
-      <h4>Reading demand data</h4>
-      <p>Volume, types, sources. Surfaces patterns that would take a team weeks to pull manually</p>
-    </div>
-    <div class="detail-card">
-      <h4>Getting docs off the ground</h4>
-      <p>SOPs, RACIs, playbook drafts. AI gets the team to a working first draft faster</p>
-    </div>
-    <div class="detail-card">
-      <h4>Keeping the system honest</h4>
-      <p>Ongoing sense-checking as things change, flagging drift before it becomes a problem</p>
-    </div>
-  </div>
+      <div class="sublabel">How I work with it</div>
+      <div class="pov-section">
+        <p>Not every problem needs the same model or approach. Part of working well with AI is knowing which tool fits the task and connecting it properly to the stack so it's actually talking to the tools already in use. How you structure the input matters as much as the tool itself: context architecture, clear instructions, and thinking about what the model actually needs to produce something useful rather than plausible-sounding noise.</p>
+        <p>I keep a human in the loop on anything that matters. Hallucination awareness and output validation aren't optional. And I manage context deliberately. Not burning tokens on noise keeps performance high and costs predictable. The prompts and system instructions I build are designed for consistency across the team, not one-off personal shortcuts.</p>
+      </div>
 
-  <div class="section-label">Under the hood</div>
-  <p class="section-intro">A few things that make the difference between AI that helps and AI that wastes your time.</p>
-  <div class="under-hood-grid" style="margin-top:14px">
-    <div class="hood-item">
-      <h5>Right tool for the job</h5>
-      <p>Not every problem needs the same model or approach</p>
-    </div>
-    <div class="hood-item">
-      <h5>Connecting it to the stack</h5>
-      <p>Getting AI to actually talk to the tools already in use</p>
-    </div>
-    <div class="hood-item">
-      <h5>How you structure the input matters</h5>
-      <p>Context architecture, clear instructions, thinking about what the model actually needs</p>
-    </div>
-    <div class="hood-item">
-      <h5>Knowing when not to trust it</h5>
-      <p>Hallucination awareness, output validation, keeping a human in the loop</p>
-    </div>
-    <div class="hood-item">
-      <h5>Not burning tokens on noise</h5>
-      <p>Managing context deliberately so performance stays high</p>
-    </div>
-    <div class="hood-item">
-      <h5>Smart instructions</h5>
-      <p>Prompts and system instructions built for consistency, not one-offs</p>
-    </div>
-  </div>
+      <div class="proof-strip">
+        <span class="proof-label">Related work from my portfolio →</span>
+        <a class="proof-link" href="https://opscraft.notion.site/Case-Studies-296b2fb5d15880b78d44e019982f9850?p=233b2fb5d158804da425e1a12691ec90&pm=c" target="_blank">AI + Automation Program</a>
+      </div>
+    </section>
 
-  <div class="proof-strip">
-    <span class="proof-label">See it in action →</span>
-    <a class="proof-link" href="https://opscraft.notion.site/Case-Studies-296b2fb5d15880b78d44e019982f9850?p=233b2fb5d158804da425e1a12691ec90&pm=c" target="_blank">AI + Automation Program</a>
+    <hr class="section-rule">
+
+    <!-- PRINCIPLES -->
+    <section class="section" id="principles-section">
+      <div class="eyebrow neutral">Principles</div>
+      <h2 class="section-headline">How I think about<br>the work</h2>
+      <p class="section-intro">A few operating principles that run underneath everything, the reasoning behind the methodology.</p>
+
+      <div class="principles-list">
+        <div class="principle-item" data-n="01">
+          <strong>Connect early and often.</strong> Many things can be solved by opening a door and having a conversation. Relationships are the infrastructure everything else runs on.
+        </div>
+        <div class="principle-item" data-n="02">
+          <strong>Be programmatic in thinking, agile in doing.</strong> There are opportunities to carve out small wins and iterate often, while maintaining a clear path on the longer journey.
+        </div>
+        <div class="principle-item" data-n="03">
+          <strong>The tool is only as good as the process beneath it.</strong> The process is only as good as the methodology it's built on. And the methodology only works if you've earned the trust of your colleagues.
+        </div>
+        <div class="principle-item" data-n="04">
+          <strong>Enable functional clarity without sacrificing creative excellence.</strong> Operations exist to serve the work, not the other way around.
+        </div>
+      </div>
+    </section>
+
+    <a class="back-to-top" onclick="goHome()">Back to start</a>
+
   </div>
 </div>
 
 
 <script>
-  function show(id) {
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById(id);
-    if (target) { target.classList.add('active'); target.scrollTop = 0; }
+  function enterPage2(anchorId) {
+    const p1 = document.getElementById('page-1');
+    const p2 = document.getElementById('page-2');
+    p1.classList.add('exiting');
+    setTimeout(() => {
+      p1.style.display = 'none';
+      p2.style.display = 'block';
+      p2.classList.add('visible');
+      const target = document.getElementById(anchorId);
+      if (target) {
+        const navH = document.getElementById('page-2-nav').offsetHeight;
+        const top = target.getBoundingClientRect().top + window.scrollY - navH - 24;
+        window.scrollTo({ top, behavior: 'instant' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => { p2.classList.add('entered'); });
+      });
+    }, 480);
   }
+
+  function goHome() {
+    const p1 = document.getElementById('page-1');
+    const p2 = document.getElementById('page-2');
+    p2.classList.remove('entered');
+    setTimeout(() => {
+      p2.style.display = 'none';
+      p2.classList.remove('visible');
+      p1.style.display = 'flex';
+      p1.classList.remove('exiting');
+      p1.style.opacity = '1';
+      p1.style.transform = 'none';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 300);
+  }
+
+  function scrollTo2(anchorId) {
+    const target = document.getElementById(anchorId);
+    if (!target) return;
+    const navH = document.getElementById('page-2-nav').offsetHeight;
+    const top = target.getBoundingClientRect().top + window.scrollY - navH - 24;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+
+  const bcSections = [
+    'build-overview','build-stage1','build-stage2','build-stage3',
+    'run-overview','ai-section','principles-section'
+  ];
+  const navMap = {
+    'build-overview':'Build','build-stage1':'Build','build-stage2':'Build','build-stage3':'Build',
+    'run-overview':'Run','ai-section':'AI','principles-section':'Principles'
+  };
+
+  function updateBreadcrumb() {
+    const navH = document.getElementById('page-2-nav').offsetHeight;
+    let active = null;
+    for (let i = bcSections.length - 1; i >= 0; i--) {
+      const el = document.getElementById(bcSections[i]);
+      if (!el) continue;
+      if (el.getBoundingClientRect().top <= navH + 48) { active = bcSections[i]; break; }
+    }
+    document.querySelectorAll('#breadcrumb .bc-item').forEach(item => {
+      item.classList.toggle('active', item.dataset.section === active);
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.toggle('active', active ? navMap[active] === link.textContent.trim() : false);
+    });
+  }
+
+  window.addEventListener('scroll', updateBreadcrumb, { passive: true });
 </script>
 </body>
 </html>
