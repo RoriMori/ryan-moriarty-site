@@ -251,26 +251,6 @@
   .nav-link:hover { color: var(--primary); background: var(--surface-off); }
   .nav-link.active { color: var(--primary); font-weight: 700; }
 
-  /* Breadcrumb */
-  .breadcrumb-bar {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 40px 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 28px;
-  }
-  .bc-item {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--border-hi);
-    transition: color var(--transition), font-weight var(--transition);
-  }
-  .bc-item.active { color: var(--primary); font-weight: 700; }
-  .bc-sep { font-size: 10px; color: var(--border); }
-
-
   /* ═══════════ PAGE 2 CONTENT ═══════════ */
 
   .p2-content { max-width: 860px; margin: 0 auto; padding: 0 40px 120px; }
@@ -614,17 +594,6 @@
     .nav-brand { font-size: 12px; }
     .nav-link { font-size: 12px; padding: 6px 9px; }
 
-    /* Breadcrumb */
-    .breadcrumb-bar {
-      padding: 0 20px 10px;
-      overflow-x: auto;
-      flex-wrap: nowrap;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .breadcrumb-bar::-webkit-scrollbar { display: none; }
-    .bc-item { white-space: nowrap; }
-
     /* Page 2 content */
     .p2-content { padding: 0 20px 80px; }
     .section { padding-top: 56px; }
@@ -722,25 +691,11 @@
       <div class="nav-links">
         <a class="nav-link" onclick="scrollTo2('build-overview')">Build</a>
         <a class="nav-link" onclick="scrollTo2('run-overview')">Run</a>
+        <a class="nav-link" onclick="scrollTo2('people-section')">People</a>
         <a class="nav-link" onclick="scrollTo2('ai-section')">AI</a>
         <a class="nav-link" onclick="scrollTo2('principles-section')">Principles</a>
       </div>
     </nav>
-    <div class="breadcrumb-bar" id="breadcrumb">
-      <span class="bc-item" data-section="build-overview">Build</span>
-      <span class="bc-sep">·</span>
-      <span class="bc-item" data-section="build-stage1">Before the work</span>
-      <span class="bc-sep">·</span>
-      <span class="bc-item" data-section="build-stage2">The work</span>
-      <span class="bc-sep">·</span>
-      <span class="bc-item" data-section="build-stage3">After the work</span>
-      <span class="bc-sep">·</span>
-      <span class="bc-item" data-section="run-overview">Run</span>
-      <span class="bc-sep">·</span>
-      <span class="bc-item" data-section="ai-section">AI</span>
-      <span class="bc-sep">·</span>
-      <span class="bc-item" data-section="principles-section">Principles</span>
-    </div>
   </div>
 
   <div class="p2-content">
@@ -853,7 +808,7 @@
       <p class="section-intro">Setting creative team members and project stakeholders up for success. Clarity, efficiency, and frictionless workflows, with the foundation locked before anything else is layered on.</p>
 
       <div class="sublabel" style="margin-top:0">Foundation: locked before anything else</div>
-      <div class="detail-grid three">
+      <div class="detail-grid">
         <div class="detail-card">
           <h4>Intake + brief readiness</h4>
           <ul class="card-bullets">
@@ -878,6 +833,14 @@
             <li>Set at intake, not mid-production</li>
           </ul>
         </div>
+        <div class="detail-card">
+          <h4>Team rituals</h4>
+          <ul class="card-bullets">
+            <li>Daily standups for visibility and unblocking</li>
+            <li>Weekly creative shares to build culture and alignment</li>
+            <li>Brainstorms and trainings as structured space to grow</li>
+          </ul>
+        </div>
       </div>
 
       <div class="ai-callout">
@@ -889,7 +852,9 @@
               <li>Form routing, auto-tagging, tier assignment at intake</li>
               <li>Kickoff scheduler handles logistics automatically</li>
               <li>Tier-based load tracking at triage</li>
-              <li>Resizing, export, and variations in production</li>
+              <li>Auto-status updates as work moves through stages</li>
+              <li>File delivery and handoff notifications on completion</li>
+              <li>Naming convention enforcement on export</li>
               <li>Review routing and notifications</li>
               <li>DAM auto-tagging at delivery</li>
             </ul>
@@ -1086,6 +1051,30 @@
 
     <hr class="section-rule">
 
+    <!-- PEOPLE LEADERSHIP -->
+    <section class="section" id="people-section">
+      <div class="eyebrow neutral">People leadership</div>
+      <h2 class="section-headline">Built on people</h2>
+      <p class="section-intro">Tools and processes only go as far as the people running them. Building a confident, trusted, and well-supported team, including PM-level direct reports, is the work that makes everything else land.</p>
+
+      <div class="principles-list">
+        <div class="principle-item" data-n="01">
+          <strong>Goal setting + milestones.</strong> Clear goals with defined checkpoints. Not just what to achieve, but a realistic path to get there, with regular check-ins to course correct when needed.
+        </div>
+        <div class="principle-item" data-n="02">
+          <strong>Space to grow.</strong> Regular 1:1s that go beyond status updates. A trusted space to work through challenges, build confidence, and develop craft, inside the work and outside of it.
+        </div>
+        <div class="principle-item" data-n="03">
+          <strong>Inside the work.</strong> Hands-on support on process, output quality, and how to navigate complexity. The best growth happens through the actual work, not just around it.
+        </div>
+        <div class="principle-item" data-n="04">
+          <strong>Outside the work.</strong> Career conversations, trajectory, and the bigger picture. Helping people understand where they're headed and how to get there, with someone genuinely invested in the answer.
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-rule">
+
     <!-- AI SECTION -->
     <section class="section" id="ai-section">
       <div class="eyebrow amber">AI + Automation</div>
@@ -1120,7 +1109,7 @@
           <tr><td>Intake</td><td>Form routing, auto-tagging, tier assignment</td></tr>
           <tr><td>Triage</td><td>Tier-based load tracking</td></tr>
           <tr><td>Brief + KO</td><td>Kickoff scheduling</td></tr>
-          <tr><td>Production</td><td>Resizing, export, asset variations</td></tr>
+          <tr><td>Production</td><td>Auto-status updates, handoff notifications, naming convention enforcement</td></tr>
           <tr><td>Review</td><td>Routing and stakeholder notifications</td></tr>
           <tr><td>Delivery + archive</td><td>DAM auto-tagging</td></tr>
         </tbody>
@@ -1236,32 +1225,29 @@
     window.scrollTo({ top, behavior: 'smooth' });
   }
 
-  const bcSections = [
+  const sections = [
     'build-overview','build-stage1','build-stage2','build-stage3',
-    'run-overview','ai-section','principles-section'
+    'run-overview','people-section','ai-section','principles-section'
   ];
   const navMap = {
     'build-overview':'Build','build-stage1':'Build','build-stage2':'Build','build-stage3':'Build',
-    'run-overview':'Run','ai-section':'AI','principles-section':'Principles'
+    'run-overview':'Run','people-section':'People','ai-section':'AI','principles-section':'Principles'
   };
 
-  function updateBreadcrumb() {
+  function updateNav() {
     const navH = document.getElementById('page-2-nav').offsetHeight;
     let active = null;
-    for (let i = bcSections.length - 1; i >= 0; i--) {
-      const el = document.getElementById(bcSections[i]);
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const el = document.getElementById(sections[i]);
       if (!el) continue;
-      if (el.getBoundingClientRect().top <= navH + 48) { active = bcSections[i]; break; }
+      if (el.getBoundingClientRect().top <= navH + 48) { active = sections[i]; break; }
     }
-    document.querySelectorAll('#breadcrumb .bc-item').forEach(item => {
-      item.classList.toggle('active', item.dataset.section === active);
-    });
     document.querySelectorAll('.nav-link').forEach(link => {
       link.classList.toggle('active', active ? navMap[active] === link.textContent.trim() : false);
     });
   }
 
-  window.addEventListener('scroll', updateBreadcrumb, { passive: true });
+  window.addEventListener('scroll', updateNav, { passive: true });
 </script>
 </body>
 </html>
