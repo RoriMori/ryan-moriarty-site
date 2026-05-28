@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cooper Studio — Platform Proposal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #1A1A1A;
+    --off-white: #F5F4F0;
+    --mid: #888780;
+    --border: #DDDBD4;
+    --orange: #FF4500;
+    --orange-light: #FFF0EB;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 60px 40px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .studio-name {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .doc-meta {
+    text-align: right;
+    font-size: 13px;
+    color: var(--mid);
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  h1 span {
+    color: var(--orange);
+  }
+
+  .intro {
+    font-size: 16px;
+    color: var(--mid);
+    max-width: 560px;
+    margin-bottom: 56px;
+    line-height: 1.7;
+  }
+
+  .section {
+    margin-bottom: 52px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 20px;
+  }
+
+  .cost-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 0;
+  }
+
+  .cost-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 24px 20px;
+    border-radius: 4px;
+  }
+
+  .cost-card.accent {
+    background: var(--orange-light);
+    border-color: var(--orange);
+  }
+
+  .cost-label {
+    font-size: 12px;
+    color: var(--mid);
+    margin-bottom: 8px;
+  }
+
+  .cost-value {
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .cost-sub {
+    font-size: 12px;
+    color: var(--mid);
+  }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .compare-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .compare-card.recommended {
+    border-color: var(--orange);
+  }
+
+  .compare-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .compare-title {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .rec-badge {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--orange);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  .compare-rows {
+    padding: 4px 0;
+  }
+
+  .compare-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .compare-row:last-child {
+    border-bottom: none;
+  }
+
+  .row-label {
+    color: var(--mid);
+  }
+
+  .row-value {
+    font-weight: 500;
+  }
+
+  .row-value.good { color: #2E7D4F; }
+  .row-value.bad { color: #A32D2D; }
+
+  .steps {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .step {
+    display: flex;
+    gap: 20px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .step:last-child {
+    border-bottom: none;
+  }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+    margin-top: 1px;
+  }
+
+  .step-body {}
+
+  .step-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .difficulty {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .easy {
+    background: #EAF5EE;
+    color: #2E7D4F;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  .locked-note {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--orange);
+    border-radius: 4px;
+    padding: 20px 24px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--mid);
+  }
+
+  .locked-note strong {
+    color: var(--black);
+    font-weight: 500;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .service-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .service-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .service-title {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .service-price {
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+
+  .service-body {
+    padding: 16px 20px;
+  }
+
+  .service-item {
+    display: flex;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    align-items: flex-start;
+  }
+
+  .service-item:last-child { border-bottom: none; }
+
+  .service-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--mid);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .service-item-text { line-height: 1.5; }
+  .service-item-note { font-size: 12px; color: var(--mid); margin-top: 2px; }
+
+  .total-bar {
+    background: var(--black);
+    border-radius: 4px;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .total-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .total-value {
+    font-size: 28px;
+    font-weight: 300;
+    color: white;
+    letter-spacing: -0.02em;
+  }
+
+  .total-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+
+  .payment-note {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .payment-item-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 6px;
+  }
+
+  .payment-item-value {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .payment-item-sub {
+    font-size: 12px;
+    color: var(--mid);
+    margin-top: 2px;
+  }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--mid);
+  }
+
+  .brief-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .brief-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .brief-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .brief-card-header {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .brief-card-body {
+    padding: 16px 20px;
+  }
+
+  .brief-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    gap: 16px;
+  }
+
+  .brief-row:last-child { border-bottom: none; }
+  .brief-row-label { color: var(--mid); flex-shrink: 0; }
+  .brief-row-value { font-weight: 500; text-align: right; line-height: 1.5; }
+
+  .quote-block {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--black);
+    border-radius: 4px;
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--black);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .quote-attr {
+    font-size: 12px;
+    color: var(--mid);
+    font-style: normal;
+    margin-top: 10px;
+    font-weight: 400;
+  }
+
+  .ref-sites {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ref-site {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .ref-site:last-child { border-bottom: none; }
+  .ref-site-name { font-weight: 500; }
+  .ref-site-note { font-size: 12px; color: var(--mid); }
+
+  .feel-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 4px 0;
+  }
+
+  .feel-tag {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: var(--off-white);
+    color: var(--black);
+  }
+
+  .feel-tag.highlight {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+  }
+
+  .ds-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .ds-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .ds-card-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .ds-card-body {
+    padding: 20px;
+  }
+
+  .type-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+
+  .type-row:last-child { border-bottom: none; }
+
+  .type-label { font-size: 12px; color: var(--mid); flex-shrink: 0; }
+  .type-spec { font-size: 12px; color: var(--mid); font-family: 'DM Mono', monospace; text-align: right; }
+
+  .type-sample-h1 { font-size: 28px; font-weight: 300; letter-spacing: -0.02em; line-height: 1; }
+  .type-sample-h2 { font-size: 18px; font-weight: 400; letter-spacing: -0.01em; }
+  .type-sample-h3 { font-size: 14px; font-weight: 500; letter-spacing: 0.02em; }
+  .type-sample-body { font-size: 14px; font-weight: 300; line-height: 1.6; }
+  .type-sample-caption { font-size: 12px; color: var(--mid); letter-spacing: 0.02em; }
+  .type-sample-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); }
+
+  .swatch-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .swatch-color {
+    height: 48px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .swatch-name { font-size: 11px; font-weight: 500; color: var(--black); }
+  .swatch-hex { font-size: 11px; color: var(--mid); font-family: 'DM Mono', monospace; }
+
+  .page-list {
+    list-style: none;
+  }
+
+  .page-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    gap: 16px;
+  }
+
+  .page-item:last-child { border-bottom: none; }
+  .page-name { font-weight: 500; white-space: nowrap; }
+  .page-desc { font-size: 12px; color: var(--mid); text-align: right; line-height: 1.5; }
+
+  .nav-preview {
+    background: var(--black);
+    border-radius: 4px;
+    padding: 24px 20px;
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  .nav-studio {
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    letter-spacing: 0.04em;
+    margin-bottom: 24px;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-link {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-link.active {
+    color: white;
+  }
+
+  .nav-link.active::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .nav-link:not(.active)::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+  }
+
+  .nav-note {
+    font-size: 12px;
+    color: var(--mid);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  .cms-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .cms-field {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .field-name { font-weight: 500; margin-bottom: 2px; }
+  .field-type { color: var(--mid); font-family: 'DM Mono', monospace; font-size: 11px; }
+
+  .ds-full {
+    grid-column: 1 / -1;
+  }
+
+  @media print {
+    body { padding: 40px; background: white; }
+    .cost-card.accent { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="studio-name">Moriform — Cooper Studio</div>
+  <div class="doc-meta">Platform Proposal<br>May 2026</div>
+</header>
+
+<div class="section">
+  <div class="section-label">Project brief summary</div>
+
+  <div class="brief-grid">
+    <div class="brief-card">
+      <div class="brief-card-header">Practicalities</div>
+      <div class="brief-card-body">
+        <div class="brief-row"><span class="brief-row-label">Client</span><span class="brief-row-value">Cam Cooper</span></div>
+        <div class="brief-row"><span class="brief-row-label">Domain</span><span class="brief-row-value">cooper-studio.com</span></div>
+        <div class="brief-row"><span class="brief-row-label">Budget</span><span class="brief-row-value">$1,000</span></div>
+        <div class="brief-row"><span class="brief-row-label">Timeline</span><span class="brief-row-value">Framework in 2-3 months</span></div>
+        <div class="brief-row"><span class="brief-row-label">Updates</span><span class="brief-row-value">Self-serve, 1-2x/year</span></div>
+      </div>
+    </div>
+
+    <div class="brief-card">
+      <div class="brief-card-header">The work</div>
+      <div class="brief-card-body">
+        <div class="brief-row"><span class="brief-row-label">Projects</span><span class="brief-row-value">10-15 featured</span></div>
+        <div class="brief-row"><span class="brief-row-label">Focus</span><span class="brief-row-value">Residential primary</span></div>
+        <div class="brief-row"><span class="brief-row-label">Also</span><span class="brief-row-value">Hospitality, Commercial, Institutional, Unbuilt</span></div>
+        <div class="brief-row"><span class="brief-row-label">Assets</span><span class="brief-row-value">Professional photos + renderings</span></div>
+      </div>
+    </div>
+
+    <div class="brief-card">
+      <div class="brief-card-header">Audience</div>
+      <div class="brief-card-body">
+        <div class="brief-row"><span class="brief-row-label">Primary</span><span class="brief-row-value">Potential clients</span></div>
+        <div class="brief-row"><span class="brief-row-label">Secondary</span><span class="brief-row-value">Collaborators, firms</span></div>
+        <div class="brief-row"><span class="brief-row-label">Goal</span><span class="brief-row-value">Understand the work, the person, the process</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brief-grid-2" style="margin-bottom: 16px;">
+    <div class="brief-card">
+      <div class="brief-card-header">Site feel</div>
+      <div class="brief-card-body">
+        <div class="feel-tags">
+          <span class="feel-tag highlight">Minimal</span>
+          <span class="feel-tag highlight">Quiet</span>
+          <span class="feel-tag highlight">Neutral</span>
+          <span class="feel-tag">Crisp color pop</span>
+          <span class="feel-tag">Work is the focus</span>
+          <span class="feel-tag">Not overdesigned</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="brief-card">
+      <div class="brief-card-header">Reference sites</div>
+      <div class="brief-card-body" style="padding: 0 20px;">
+        <div class="ref-sites">
+          <div class="ref-site"><span class="ref-site-name">hellandarchitecture.com</span><span class="ref-site-note">Simple, structured</span></div>
+          <div class="ref-site"><span class="ref-site-name">studioovo.com</span><span class="ref-site-note">Work-forward</span></div>
+          <div class="ref-site"><span class="ref-site-name">nickpolansky.com</span><span class="ref-site-note">Navigable, quiet</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    "Architecture is a complex engagement between people and the things which surround them. The architect's task is to make places and buildings that nurture and enrich that engagement, bringing imaginative, critical, responsible thought to the making of things — so that they will stand, stir, accommodate, intrigue, sustain attention, and take a rightful place in people's lives."
+    <div class="quote-attr">Cam's framing of his architectural approach — the tone the site should carry.</div>
+  </div>
+
+</div>
+
+<h1>Building on <span>Framer.</span></h1>
+<p class="intro">Platform recommendation, cost breakdown, self-serve update walkthrough, and proposed design system for cooper-studio.com.</p>
+
+<div class="section">
+  <div class="section-label">Annual cost</div>
+  <div class="cost-grid">
+    <div class="cost-card">
+      <div class="cost-label">Squarespace Business</div>
+      <div class="cost-value">$276</div>
+      <div class="cost-sub">$23/mo, billed annually</div>
+    </div>
+    <div class="cost-card">
+      <div class="cost-label">Framer Pro</div>
+      <div class="cost-value">$360</div>
+      <div class="cost-sub">$30/mo, billed annually</div>
+    </div>
+    <div class="cost-card accent">
+      <div class="cost-label">Difference</div>
+      <div class="cost-value">$84/yr</div>
+      <div class="cost-sub">More for significantly better output</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Platform comparison</div>
+  <div class="compare-grid">
+    <div class="compare-card">
+      <div class="compare-header">
+        <div class="compare-title">Squarespace</div>
+      </div>
+      <div class="compare-rows">
+        <div class="compare-row"><span class="row-label">Design control</span><span class="row-value bad">Template-bound</span></div>
+        <div class="compare-row"><span class="row-label">CSS overrides needed</span><span class="row-value bad">Constantly</span></div>
+        <div class="compare-row"><span class="row-label">Visual output</span><span class="row-value bad">Looks like Squarespace</span></div>
+        <div class="compare-row"><span class="row-label">Staging environment</span><span class="row-value bad">Not included</span></div>
+        <div class="compare-row"><span class="row-label">Custom interactions</span><span class="row-value bad">Very limited</span></div>
+        <div class="compare-row"><span class="row-label">Self-serve updates</span><span class="row-value">Block editor</span></div>
+      </div>
+    </div>
+    <div class="compare-card recommended">
+      <div class="compare-header">
+        <div class="compare-title">Framer Pro</div>
+        <div class="rec-badge">Recommended</div>
+      </div>
+      <div class="compare-rows">
+        <div class="compare-row"><span class="row-label">Design control</span><span class="row-value good">Pixel precise</span></div>
+        <div class="compare-row"><span class="row-label">CSS overrides needed</span><span class="row-value good">None</span></div>
+        <div class="compare-row"><span class="row-label">Visual output</span><span class="row-value good">Looks like the work</span></div>
+        <div class="compare-row"><span class="row-label">Staging environment</span><span class="row-value good">Included</span></div>
+        <div class="compare-row"><span class="row-label">Custom interactions</span><span class="row-value good">Full React support</span></div>
+        <div class="compare-row"><span class="row-label">Self-serve updates</span><span class="row-value good">CMS content editor</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Adding a new project — what it looks like for you</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <div class="step-title">Log in <span class="difficulty easy">30 seconds</span></div>
+        <div class="step-desc">Go to framer.com, sign in. Your site is there. No hosting dashboard, no plugins to update, nothing to maintain.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <div class="step-title">Open the content editor <span class="difficulty easy">easy</span></div>
+        <div class="step-desc">Click "Content" in the sidebar. You see a clean list of all your projects. Each row is one project, same as a spreadsheet.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <div class="step-title">Add the project <span class="difficulty easy">easy</span></div>
+        <div class="step-desc">Click "New item." Fill in the fields: project name, year, category, short description. Drag photos in. The layout is handled automatically — no design decisions on your end.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <div class="step-title">Preview before publishing <span class="difficulty easy">easy</span></div>
+        <div class="step-desc">Hit "Preview" to see exactly how the new project looks on the live site. If something's off, edit the content. The design stays untouched.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <div class="step-title">Publish <span class="difficulty easy">one click</span></div>
+        <div class="step-desc">One button. The site updates instantly. No code, no calls, nothing to break.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">What you never touch</div>
+  <div class="locked-note">
+    <strong>Typography, spacing, colors, hover effects, mobile layout, navigation, page structure, International Orange accents</strong> — all locked in the design layer. Your updates are content only: text, images, project details. The site cannot break from your end.
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Recommended design system</div>
+  <div class="ds-grid">
+
+    <div class="ds-card">
+      <div class="ds-card-header">Typography — DM Sans</div>
+      <div class="ds-card-body">
+        <div class="type-row">
+          <div>
+            <div class="type-sample-h1">Project Title</div>
+          </div>
+          <div class="type-spec">36px / 300</div>
+        </div>
+        <div class="type-row">
+          <div>
+            <div class="type-sample-h2">Section heading</div>
+          </div>
+          <div class="type-spec">20px / 400</div>
+        </div>
+        <div class="type-row">
+          <div>
+            <div class="type-sample-h3">Subsection</div>
+          </div>
+          <div class="type-spec">14px / 500</div>
+        </div>
+        <div class="type-row">
+          <div>
+            <div class="type-sample-body">Body copy — project descriptions,<br>about text, process copy.</div>
+          </div>
+          <div class="type-spec">15px / 300</div>
+        </div>
+        <div class="type-row">
+          <div>
+            <div class="type-sample-caption">Residential · San Francisco · 2024</div>
+          </div>
+          <div class="type-spec">12px / 400</div>
+        </div>
+        <div class="type-row">
+          <div>
+            <div class="type-sample-label">Section label</div>
+          </div>
+          <div class="type-spec">11px / 500 / UC</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-card">
+      <div class="ds-card-header">Color</div>
+      <div class="ds-card-body">
+        <div class="swatch-row">
+          <div class="swatch">
+            <div class="swatch-color" style="background: #F5F4F0;"></div>
+            <div class="swatch-name">Off-white</div>
+            <div class="swatch-hex">#F5F4F0</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #1A1A1A;"></div>
+            <div class="swatch-name">Near-black</div>
+            <div class="swatch-hex">#1A1A1A</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #888780;"></div>
+            <div class="swatch-name">Mid gray</div>
+            <div class="swatch-hex">#888780</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-color" style="background: #FF4500; border-color: #FF4500;"></div>
+            <div class="swatch-name">Intl. Orange</div>
+            <div class="swatch-hex">#FF4500</div>
+          </div>
+        </div>
+        <p style="font-size: 12px; color: var(--mid); margin-top: 16px; line-height: 1.6;">Orange is used sparingly: active nav indicator, hover states, one detail per page. Never decorative. The rest of the palette is deliberately neutral so the photography carries the color.</p>
+      </div>
+    </div>
+
+    <div class="ds-card">
+      <div class="ds-card-header">Navigation — left sidebar</div>
+      <div class="ds-card-body" style="padding: 0;">
+        <div class="nav-preview">
+          <div>
+            <div class="nav-studio">Cooper Studio</div>
+            <div class="nav-links">
+              <a class="nav-link active">Work</a>
+              <a class="nav-link">About</a>
+              <a class="nav-link">Process</a>
+              <a class="nav-link">Services</a>
+              <a class="nav-link">Contact</a>
+            </div>
+          </div>
+        </div>
+        <p class="nav-note" style="padding: 14px 20px;">Fixed left sidebar on desktop. Orange dot marks the active page. Collapses to a top bar on mobile. Studio name doubles as the home link.</p>
+      </div>
+    </div>
+
+    <div class="ds-card">
+      <div class="ds-card-header">Pages</div>
+      <div class="ds-card-body" style="padding: 0 20px;">
+        <ul class="page-list">
+          <li class="page-item"><span class="page-name">Work</span><span class="page-desc">Curated project grid, 2-col desktop</span></li>
+          <li class="page-item"><span class="page-name">Project (template)</span><span class="page-desc">Full-width hero, gallery, description</span></li>
+          <li class="page-item"><span class="page-name">About</span><span class="page-desc">Photo, bio, philosophy</span></li>
+          <li class="page-item"><span class="page-name">Process</span><span class="page-desc">3-4 steps, no fluff</span></li>
+          <li class="page-item"><span class="page-name">Services</span><span class="page-desc">Clean list, residential focus first</span></li>
+          <li class="page-item"><span class="page-name">Contact</span><span class="page-desc">Email, location, simple form</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ds-card ds-full">
+      <div class="ds-card-header">Image treatment</div>
+      <div class="ds-card-body">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;">
+
+          <div>
+            <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--mid); margin-bottom: 14px;">Grid card (work page)</div>
+            <div style="background: var(--off-white); border: 1px solid var(--border); border-radius: 3px; aspect-ratio: 3/2; margin-bottom: 10px; display: flex; align-items: center; justify-content: center;">
+              <div style="width: 100%; height: 100%; background: repeating-linear-gradient(45deg, var(--border) 0px, var(--border) 1px, transparent 1px, transparent 8px); border-radius: 3px; display: flex; align-items: flex-end; padding: 10px;">
+                <div style="font-size: 10px; color: var(--mid); font-family: 'DM Mono', monospace;">3:2 ratio</div>
+              </div>
+            </div>
+            <div style="font-size: 12px; color: var(--mid); line-height: 1.6;">Fixed 3:2 crop. All cards uniform height. Project title and category appear below — never over the image. 2-column grid, generous gap.</div>
+          </div>
+
+          <div>
+            <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--mid); margin-bottom: 14px;">Hero (project page)</div>
+            <div style="background: var(--off-white); border: 1px solid var(--border); border-radius: 3px; aspect-ratio: 16/7; margin-bottom: 10px; display: flex; align-items: center; justify-content: center;">
+              <div style="width: 100%; height: 100%; background: repeating-linear-gradient(45deg, var(--border) 0px, var(--border) 1px, transparent 1px, transparent 8px); border-radius: 3px; display: flex; align-items: flex-end; padding: 10px;">
+                <div style="font-size: 10px; color: var(--mid); font-family: 'DM Mono', monospace;">16:7 ratio — full bleed</div>
+              </div>
+            </div>
+            <div style="font-size: 12px; color: var(--mid); line-height: 1.6;">Full viewport width, no padding. Wide cinematic crop. No text overlay. Title and metadata sit below in the content zone.</div>
+          </div>
+
+          <div>
+            <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--mid); margin-bottom: 14px;">Gallery (project page)</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 10px;">
+              <div style="background: var(--off-white); border: 1px solid var(--border); border-radius: 2px; aspect-ratio: 1; background-image: repeating-linear-gradient(45deg, var(--border) 0px, var(--border) 1px, transparent 1px, transparent 8px);"></div>
+              <div style="background: var(--off-white); border: 1px solid var(--border); border-radius: 2px; aspect-ratio: 1; background-image: repeating-linear-gradient(45deg, var(--border) 0px, var(--border) 1px, transparent 1px, transparent 8px);"></div>
+              <div style="background: var(--off-white); border: 1px solid var(--border); border-radius: 2px; aspect-ratio: 16/9; grid-column: 1 / -1; background-image: repeating-linear-gradient(45deg, var(--border) 0px, var(--border) 1px, transparent 1px, transparent 8px);"></div>
+            </div>
+            <div style="font-size: 12px; color: var(--mid); line-height: 1.6;">Alternating full-width and 2-column rows. Lets the photography breathe. Exact pattern TBD once Cam's images are in hand.</div>
+          </div>
+
+        </div>
+
+        <div style="border-top: 1px solid var(--border); margin-top: 20px; padding-top: 16px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--mid); margin-bottom: 8px;">Hover (grid)</div>
+            <div style="font-size: 13px; color: var(--black); line-height: 1.6;">Subtle opacity shift. No overlays, no zoom. Clean fade to title prominence.</div>
+          </div>
+          <div>
+            <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--mid); margin-bottom: 8px;">Captions</div>
+            <div style="font-size: 13px; color: var(--black); line-height: 1.6;">Below image only. Never overlaid. 12px, mid-gray, minimal.</div>
+          </div>
+          <div>
+            <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--mid); margin-bottom: 8px;">Delivery spec</div>
+            <div style="font-size: 13px; color: var(--black); line-height: 1.6;">JPG, sRGB, 2400px on long edge. Framer handles responsive resizing.</div>
+          </div>
+          <div style="border-left: 3px solid var(--orange); padding-left: 12px;">
+            <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--mid); margin-bottom: 8px;">To confirm</div>
+            <div style="font-size: 13px; color: var(--black); line-height: 1.6;">Gallery layout TBD pending sample photos from Cam.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-card ds-full">
+      <div class="ds-card-header">CMS fields — each project entry</div>
+      <div class="ds-card-body">
+        <div class="cms-fields">
+          <div class="cms-field"><div class="field-name">Title</div><div class="field-type">text</div></div>
+          <div class="cms-field"><div class="field-name">Category</div><div class="field-type">select: Residential / Commercial / Hospitality / Institutional / Unbuilt</div></div>
+          <div class="cms-field"><div class="field-name">Location</div><div class="field-type">text</div></div>
+          <div class="cms-field"><div class="field-name">Year</div><div class="field-type">number</div></div>
+          <div class="cms-field"><div class="field-name">Status</div><div class="field-type">select: Built / Under construction / Unbuilt</div></div>
+          <div class="cms-field"><div class="field-name">Hero image</div><div class="field-type">image</div></div>
+          <div class="cms-field"><div class="field-name">Gallery</div><div class="field-type">image gallery</div></div>
+          <div class="cms-field"><div class="field-name">Description</div><div class="field-type">rich text</div></div>
+          <div class="cms-field"><div class="field-name">Featured</div><div class="field-type">toggle — controls homepage grid</div></div>
+          <div class="cms-field"><div class="field-name">Sort order</div><div class="field-type">number — controls display sequence</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Services &amp; cost breakdown</div>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-header">
+        <div>
+          <div class="service-title">Phase 1 — Design</div>
+        </div>
+        <div style="text-align: right;">
+          <div class="service-price">$400</div>
+        </div>
+      </div>
+      <div class="service-body">
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div class="service-item-text">Design system definition
+            <div class="service-item-note">Typography, color, spacing, grid, component specs</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div class="service-item-text">Page layout design
+            <div class="service-item-note">All six pages: Work, Project template, About, Process, Services, Contact</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div class="service-item-text">Navigation and mobile patterns
+            <div class="service-item-note">Left sidebar desktop, collapsed mobile</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div class="service-item-text">One round of design revisions
+            <div class="service-item-note">Feedback incorporated before build begins</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-header">
+        <div>
+          <div class="service-title">Phase 2 — Build</div>
+        </div>
+        <div style="text-align: right;">
+          <div class="service-price">$600</div>
+        </div>
+      </div>
+      <div class="service-body">
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div class="service-item-text">Framer build — all pages
+            <div class="service-item-note">Fully responsive, desktop and mobile</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div class="service-item-text">CMS setup and configuration
+            <div class="service-item-note">Projects collection, all fields, category filtering</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div class="service-item-text">Content entry — initial project load
+            <div class="service-item-note">Up to 15 projects populated from assets Cam provides</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div class="service-item-text">Domain connection and launch
+            <div class="service-item-note">cooper-studio.com pointed to Framer, live QA</div>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-dot"></div>
+          <div class="service-item-text">CMS walkthrough session
+            <div class="service-item-note">30-min handoff so Cam can update confidently</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="total-bar">
+    <div>
+      <div class="total-label">Total project fee</div>
+      <div class="total-sub">Excludes Framer Pro subscription ($30/mo, Cam's account)</div>
+    </div>
+    <div style="text-align: right;">
+      <div class="total-value">$1,000</div>
+    </div>
+  </div>
+
+  <div class="payment-note">
+    <div>
+      <div class="payment-item-label">Payment method</div>
+      <div class="payment-item-value">Venmo</div>
+      <div class="payment-item-sub">@Ryan-Moriarty-4 — other arrangements can be discussed</div>
+    </div>
+    <div>
+      <div class="payment-item-label">Schedule</div>
+      <div class="payment-item-value">$1,000 on completion</div>
+      <div class="payment-item-sub">Full payment due at launch</div>
+    </div>
+    <div>
+      <div class="payment-item-label">Not included</div>
+      <div class="payment-item-value">Framer Pro subscription</div>
+      <div class="payment-item-sub">Stock photography, copywriting, logo design</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section">
+  <div class="section-label">My process</div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <div class="step-title">Contract + kickoff</div>
+        <div class="step-desc">We sign the project agreement, confirm scope and timeline, and you create your Framer account. I'm added as a collaborator. From here, everything lives in your account.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <div class="step-title">Wireframes — in batches, with approval at each stage</div>
+        <div class="step-desc">We work through page layouts in three passes: homepage and navigation first, then the project template (the most important page — it repeats across all your work), then the remaining static pages (About, Process, Services, Contact). You approve each batch before the next begins. Nothing moves forward without your sign-off.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <div class="step-title">Content delivery — your call on timing</div>
+        <div class="step-desc">You have two options here. Option A: deliver the full content template and all project photos before build begins — site launches complete. Option B: deliver content for a defined starter set of projects (we agree on the number at contract time) and the static pages — site launches with that, you add the rest yourself after handoff. Either way, whatever you commit to needs to be fully delivered before build starts. Partial content mid-build creates rework.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <div class="step-title">Build + content population</div>
+        <div class="step-desc">I build the site in Framer against the approved wires and populate it with your content and photos. The design system, CMS structure, and all page layouts are locked in. You won't need to touch any of this layer after launch.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <div class="step-title">Your review — staging before anything goes live</div>
+        <div class="step-desc">You review the full site in Framer's staging environment before a single change hits the live URL. One round of revisions is included. Feedback goes in, changes are made, you approve.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">06</div>
+      <div class="step-body">
+        <div class="step-title">DNS switch + launch</div>
+        <div class="step-desc">We do a 20-minute screen share. You log into Squarespace, I tell you exactly what to enter. cooper-studio.com points to Framer. Propagation takes 1-24 hours. Site goes live.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">07</div>
+      <div class="step-body">
+        <div class="step-title">CMS walkthrough + handoff</div>
+        <div class="step-desc">A 30-minute session where I walk you through exactly how to add a new project, update content, and publish changes. By the end you can do it confidently on your own. This is the clean close — after this, the site is yours.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div>moriform.co &mdash; ryan@moriform.co</div>
+  <div>cooper-studio.com &mdash; May 2026</div>
+</footer>
+
+</body>
+</html>

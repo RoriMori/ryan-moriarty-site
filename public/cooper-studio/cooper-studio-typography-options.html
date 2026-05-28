@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cooper Studio — Typography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Neue+Haas+Grotesk+Display:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600&family=Geist:wght@300;400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #1A1A1A;
+    --off-white: #F5F4F0;
+    --mid: #888780;
+    --border: #DDDBD4;
+    --orange: #FF4500;
+    --orange-light: #FFF0EB;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--black);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ---- NAV ---- */
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 56px;
+  }
+
+  .nav-brand {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--black);
+  }
+
+  .nav-brand span { color: var(--orange); }
+
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+  }
+
+  .nav-tab {
+    padding: 0 20px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: var(--mid);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    white-space: nowrap;
+    user-select: none;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .nav-tab:hover { color: var(--black); }
+
+  .nav-tab.active {
+    color: var(--black);
+    border-bottom-color: var(--orange);
+    font-weight: 500;
+  }
+
+  .nav-rec {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--orange);
+    color: white;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-left: 8px;
+  }
+
+  /* ---- PANELS ---- */
+  .panel {
+    display: none;
+    padding: 48px 40px 80px;
+    max-width: 940px;
+    margin: 0 auto;
+  }
+
+  .panel.active { display: block; }
+
+  /* ---- SHARED ---- */
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 20px;
+  }
+
+  .section { margin-bottom: 52px; }
+
+  /* ---- PRIMARY PANEL ---- */
+  .primary-hero {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .primary-hero-top {
+    padding: 40px 40px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .font-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+
+  .font-name-display {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 52px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .font-tagline {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.6;
+    max-width: 540px;
+  }
+
+  .primary-hero-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid var(--border);
+  }
+
+  .reason-card {
+    padding: 24px 28px;
+    border-right: 1px solid var(--border);
+  }
+
+  .reason-card:last-child { border-right: none; }
+
+  .reason-title {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+
+  .reason-body {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--black);
+  }
+
+  /* ---- TYPE SCALE ---- */
+  .scale-table {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .scale-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 160px;
+    align-items: center;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+    gap: 24px;
+  }
+
+  .scale-row:last-child { border-bottom: none; }
+
+  .scale-row-head {
+    background: var(--off-white);
+    padding: 10px 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .scale-col-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .scale-meta {
+    font-size: 11px;
+    color: var(--mid);
+    font-family: 'Geist', monospace;
+    line-height: 1.8;
+  }
+
+  .scale-use {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  /* ---- WEIGHT SHOWCASE ---- */
+  .weight-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .weight-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+  }
+
+  .weight-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .weight-sample {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .weight-use {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  /* ---- LIVE PREVIEW ---- */
+  .preview-frame {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .preview-bar {
+    background: var(--off-white);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .preview-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .preview-content {
+    padding: 48px 56px;
+  }
+
+  .preview-nav-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 32px;
+  }
+
+  .preview-h1 { letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 12px; }
+  .preview-meta { color: var(--mid); margin-bottom: 32px; }
+  .preview-body { max-width: 560px; line-height: 1.75; margin-bottom: 28px; }
+  .preview-caption { font-size: 12px; color: var(--mid); letter-spacing: 0.01em; }
+
+  /* ---- ALTERNATE PANELS ---- */
+  .alt-header {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .alt-font-name {
+    font-size: 40px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .alt-desc {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.7;
+    max-width: 420px;
+  }
+
+  .alt-vs {
+    flex-shrink: 0;
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 20px;
+    text-align: right;
+  }
+
+  .alt-vs-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 8px;
+  }
+
+  .alt-vs-row {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.9;
+  }
+
+  .alt-vs-row strong { color: var(--black); font-weight: 500; }
+
+  .pro-con-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .pro-con-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+  }
+
+  .pro-con-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .pro-con-title.pro { color: #2E7D4F; }
+  .pro-con-title.con { color: #A32D2D; }
+
+  .pro-con-item {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: var(--black);
+  }
+
+  .pro-con-item:last-child { margin-bottom: 0; }
+  .pro-icon { flex-shrink: 0; color: #2E7D4F; }
+  .con-icon { flex-shrink: 0; color: #A32D2D; }
+
+  /* fonts per panel */
+  .font-dm    { font-family: 'DM Sans', sans-serif; }
+  .font-instr { font-family: 'Instrument Sans', sans-serif; }
+  .font-geist { font-family: 'Geist', sans-serif; }
+  .font-outft { font-family: 'Outfit', sans-serif; }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  .page-title {
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .page-sub {
+    font-size: 14px;
+    color: var(--mid);
+    margin-bottom: 40px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-brand">Cooper Studio — <span>Typography</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPanel('primary')">
+      DM Sans <span class="nav-rec">Recommended</span>
+    </button>
+    <button class="nav-tab" onclick="showPanel('alt1')">Instrument Sans</button>
+    <button class="nav-tab" onclick="showPanel('alt2')">Geist</button>
+    <button class="nav-tab" onclick="showPanel('alt3')">Outfit</button>
+  </div>
+</nav>
+
+<!-- ===================== PRIMARY: DM SANS ===================== -->
+<div id="panel-primary" class="panel active">
+
+  <h1 class="page-title font-dm">DM Sans — Primary Recommendation</h1>
+  <p class="page-sub">Why this font earns its place on an architect's portfolio.</p>
+
+  <div class="section">
+    <div class="primary-hero">
+      <div class="primary-hero-top">
+        <div class="font-eyebrow">Recommended typeface</div>
+        <div class="font-name-display font-dm">DM Sans</div>
+        <div class="font-tagline">A geometric sans-serif with measured proportions and quiet authority. Designed for digital interfaces, naturally at home in precise, considered environments.</div>
+      </div>
+      <div class="primary-hero-body">
+        <div class="reason-card">
+          <div class="reason-title">Aesthetic fit</div>
+          <div class="reason-body">DM Sans carries the same design values Cam described: minimal, neutral, structured. Its geometry feels architectural — grids, proportions, restraint. It doesn't perform. It holds space.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-title">Web performance</div>
+          <div class="reason-body">Designed specifically for screen rendering. Excellent legibility at small sizes. Hosted on Google Fonts — no self-hosting required, fast CDN delivery, zero additional cost.</div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-title">Weight range</div>
+          <div class="reason-body">300 (Light) through 700 (Bold) with optical sizing support. The 300–500 range is the sweet spot for this site: thin enough to be refined, readable enough for body copy at any size.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Type scale — all sizes used on the site</div>
+    <div class="scale-table">
+      <div class="scale-row scale-row-head">
+        <div class="scale-col-label">Role</div>
+        <div class="scale-col-label">Sample</div>
+        <div class="scale-col-label">Spec</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Page title<br>Project name</div>
+        <div class="font-dm" style="font-size: 42px; font-weight: 300; letter-spacing: -0.02em; line-height: 1;">Residential House<br>San Francisco</div>
+        <div class="scale-meta">42px / weight 300<br>tracking −0.02em<br>leading 1.1</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Section heading</div>
+        <div class="font-dm" style="font-size: 24px; font-weight: 400; letter-spacing: -0.01em;">About the project</div>
+        <div class="scale-meta">24px / weight 400<br>tracking −0.01em</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Nav links<br>Subheadings</div>
+        <div class="font-dm" style="font-size: 15px; font-weight: 500; letter-spacing: 0.01em;">Work · About · Process · Services</div>
+        <div class="scale-meta">15px / weight 500<br>tracking +0.01em</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Body copy<br>Descriptions</div>
+        <div class="font-dm" style="font-size: 15px; font-weight: 300; line-height: 1.75; max-width: 480px;">The project explores the relationship between materiality and light in a dense urban context. Stone, glass, and steel are organized to frame specific views and moments throughout the day.</div>
+        <div class="scale-meta">15px / weight 300<br>leading 1.75</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Project meta<br>Captions</div>
+        <div class="font-dm" style="font-size: 13px; font-weight: 400; color: var(--mid);">Residential · San Francisco, CA · 2024 · Built</div>
+        <div class="scale-meta">13px / weight 400<br>color: mid gray</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Section labels<br>Eyebrows</div>
+        <div class="font-dm" style="font-size: 11px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid);">Selected work</div>
+        <div class="scale-meta">11px / weight 500<br>tracking +0.09em<br>uppercase</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Weights in use</div>
+    <div class="weight-grid">
+      <div class="weight-card">
+        <div class="weight-label"><span>Light — 300</span><span style="font-family: 'Geist'; font-size: 11px;">wght:300</span></div>
+        <div class="weight-sample font-dm" style="font-weight: 300;">Architecture<br>as a discipline</div>
+        <div class="weight-use">Page titles, hero text, large display. The primary expressive weight — gives the site its refined, considered tone.</div>
+      </div>
+      <div class="weight-card">
+        <div class="weight-label"><span>Regular — 400</span><span style="font-family: 'Geist'; font-size: 11px;">wght:400</span></div>
+        <div class="weight-sample font-dm" style="font-weight: 400;">Making places<br>that endure</div>
+        <div class="weight-use">Section headings, meta information, captions. The neutral workhorse — readable without competing with body copy.</div>
+      </div>
+      <div class="weight-card">
+        <div class="weight-label"><span>Medium — 500</span><span style="font-family: 'Geist'; font-size: 11px;">wght:500</span></div>
+        <div class="weight-sample font-dm" style="font-weight: 500;">Navigation<br>and labels</div>
+        <div class="weight-use">Navigation links, section labels, UI elements. Creates hierarchy without relying on bold — keeps everything quiet and consistent.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Live preview — project page context</div>
+    <div class="preview-frame">
+      <div class="preview-bar">
+        <div class="preview-dot"></div>
+        <div class="preview-dot"></div>
+        <div class="preview-dot"></div>
+      </div>
+      <div class="preview-content">
+        <div class="preview-nav-label font-dm">Cooper Studio</div>
+        <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid); margin-bottom: 16px;" class="font-dm">Residential</div>
+        <div class="preview-h1 font-dm" style="font-size: 44px; font-weight: 300;">Twin Peaks Residence</div>
+        <div class="preview-meta font-dm" style="font-size: 13px;">San Francisco, CA &nbsp;·&nbsp; 2023 &nbsp;·&nbsp; Built</div>
+        <div style="width: 100%; height: 220px; background: var(--off-white); border-radius: 4px; margin-bottom: 28px; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 12px; color: var(--border); font-family: 'Geist';">[ hero image ]</span>
+        </div>
+        <div class="preview-body font-dm" style="font-size: 15px; font-weight: 300;">The project occupies a narrow lot on the eastern slope of Twin Peaks, organizing a sequence of spaces that respond to the topography, light, and views. The street facade is deliberately restrained — a single plane of board-formed concrete punctuated by a recessed entry.</div>
+        <div class="preview-caption font-dm">Photography: James Ewing &nbsp;·&nbsp; Structural: Tipping Point</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===================== ALT 1: INSTRUMENT SANS ===================== -->
+<div id="panel-alt1" class="panel">
+
+  <h1 class="page-title font-instr">Instrument Sans — Alternate 1</h1>
+  <p class="page-sub">A warmer, more humanist alternative with strong editorial character.</p>
+
+  <div class="alt-header">
+    <div>
+      <div class="font-eyebrow" style="font-family: 'Instrument Sans';">Alternate option</div>
+      <div class="alt-font-name font-instr">Instrument Sans</div>
+      <div class="alt-desc">Developed by Rodrigo Fuenzalida and used extensively by Figma, Instrument Sans sits between geometric and humanist — slightly warmer than DM Sans, with subtle optical corrections that give it more personality at display sizes. Strong editorial feel.</div>
+    </div>
+    <div class="alt-vs">
+      <div class="alt-vs-label">vs. DM Sans</div>
+      <div class="alt-vs-row"><strong>Warmer</strong> — slightly more expressive</div>
+      <div class="alt-vs-row"><strong>More optical</strong> — less purely geometric</div>
+      <div class="alt-vs-row"><strong>Bolder presence</strong> at large sizes</div>
+      <div class="alt-vs-row"><strong>Same</strong> Google Fonts delivery</div>
+    </div>
+  </div>
+
+  <div class="pro-con-grid">
+    <div class="pro-con-card">
+      <div class="pro-con-title pro">Strengths</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>More distinctive at headline sizes — gives the site a stronger visual signature</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>Humanist details make long-form text (process, about) feel more considered</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>Pairs beautifully with International Orange — the warmth complements</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>Used on high-end creative and design sites — positioned well for the audience</div>
+    </div>
+    <div class="pro-con-card">
+      <div class="pro-con-title con">Considerations</div>
+      <div class="pro-con-item"><span class="con-icon">−</span>Slightly more opinionated — may compete with the work if not set carefully</div>
+      <div class="pro-con-item"><span class="con-icon">−</span>Weight 300 is less readable at small sizes than DM Sans Light</div>
+      <div class="pro-con-item"><span class="con-icon">−</span>Newer font — less tested across older browsers and OS rendering</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Full type scale — Instrument Sans</div>
+    <div class="scale-table">
+      <div class="scale-row scale-row-head">
+        <div class="scale-col-label">Role</div>
+        <div class="scale-col-label">Sample</div>
+        <div class="scale-col-label">Spec</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Page title<br>Project name</div>
+        <div class="font-instr" style="font-size: 42px; font-weight: 300; letter-spacing: -0.02em; line-height: 1;">Residential House<br>San Francisco</div>
+        <div class="scale-meta">42px / weight 300<br>tracking −0.02em</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Section heading</div>
+        <div class="font-instr" style="font-size: 24px; font-weight: 400; letter-spacing: -0.01em;">About the project</div>
+        <div class="scale-meta">24px / weight 400<br>tracking −0.01em</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Nav / Subheadings</div>
+        <div class="font-instr" style="font-size: 15px; font-weight: 500;">Work · About · Process · Services</div>
+        <div class="scale-meta">15px / weight 500</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Body copy</div>
+        <div class="font-instr" style="font-size: 15px; font-weight: 300; line-height: 1.75; max-width: 480px;">The project explores the relationship between materiality and light in a dense urban context. Stone, glass, and steel are organized to frame specific views and moments throughout the day.</div>
+        <div class="scale-meta">15px / weight 300<br>leading 1.75</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Project meta</div>
+        <div class="font-instr" style="font-size: 13px; color: var(--mid);">Residential · San Francisco, CA · 2024 · Built</div>
+        <div class="scale-meta">13px / weight 400</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Section labels</div>
+        <div class="font-instr" style="font-size: 11px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid);">Selected work</div>
+        <div class="scale-meta">11px / weight 500<br>uppercase</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Live preview — project page context</div>
+    <div class="preview-frame">
+      <div class="preview-bar">
+        <div class="preview-dot"></div><div class="preview-dot"></div><div class="preview-dot"></div>
+      </div>
+      <div class="preview-content">
+        <div class="preview-nav-label font-instr">Cooper Studio</div>
+        <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid); margin-bottom: 16px;" class="font-instr">Residential</div>
+        <div class="preview-h1 font-instr" style="font-size: 44px; font-weight: 300;">Twin Peaks Residence</div>
+        <div class="preview-meta font-instr" style="font-size: 13px;">San Francisco, CA &nbsp;·&nbsp; 2023 &nbsp;·&nbsp; Built</div>
+        <div style="width: 100%; height: 220px; background: var(--off-white); border-radius: 4px; margin-bottom: 28px; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 12px; color: var(--border); font-family: 'Geist';">[ hero image ]</span>
+        </div>
+        <div class="preview-body font-instr" style="font-size: 15px; font-weight: 300;">The project occupies a narrow lot on the eastern slope of Twin Peaks, organizing a sequence of spaces that respond to the topography, light, and views. The street facade is deliberately restrained — a single plane of board-formed concrete punctuated by a recessed entry.</div>
+        <div class="preview-caption font-instr">Photography: James Ewing &nbsp;·&nbsp; Structural: Tipping Point</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===================== ALT 2: GEIST ===================== -->
+<div id="panel-alt2" class="panel">
+
+  <h1 class="page-title font-geist">Geist — Alternate 2</h1>
+  <p class="page-sub">Vercel's type system: technical precision with quiet confidence.</p>
+
+  <div class="alt-header">
+    <div>
+      <div class="font-eyebrow" style="font-family: 'Geist';">Alternate option</div>
+      <div class="alt-font-name font-geist">Geist</div>
+      <div class="alt-desc">Designed by Vercel for developer and technical interfaces, Geist is unusually clean for a sans-serif — near-zero ink traps, extremely consistent stroke width, excellent at both display and caption sizes. The technical precision makes it an interesting choice for an architect who values exactness.</div>
+    </div>
+    <div class="alt-vs">
+      <div class="alt-vs-label">vs. DM Sans</div>
+      <div class="alt-vs-row"><strong>More technical</strong> — sharper, colder</div>
+      <div class="alt-vs-row"><strong>More consistent</strong> stroke width</div>
+      <div class="alt-vs-row"><strong>Less warm</strong> — needs careful pairing</div>
+      <div class="alt-vs-row"><strong>Same</strong> Google Fonts delivery</div>
+    </div>
+  </div>
+
+  <div class="pro-con-grid">
+    <div class="pro-con-card">
+      <div class="pro-con-title pro">Strengths</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>Extremely precise — mirrors the rigor of technical architectural drawing</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>Exceptional at small sizes — captions and metadata read with unusual clarity</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>Strong differentiation — not commonly used on architecture sites</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>International Orange accent pops harder against its cooler neutrality</div>
+    </div>
+    <div class="pro-con-card">
+      <div class="pro-con-title con">Considerations</div>
+      <div class="pro-con-item"><span class="con-icon">−</span>Can read as "software product" rather than "design practice" if not handled carefully</div>
+      <div class="pro-con-item"><span class="con-icon">−</span>Less warmth — the "quiet" Cam asked for could tip toward cold</div>
+      <div class="pro-con-item"><span class="con-icon">−</span>Newer font, less established rendering history across all devices</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Full type scale — Geist</div>
+    <div class="scale-table">
+      <div class="scale-row scale-row-head">
+        <div class="scale-col-label">Role</div>
+        <div class="scale-col-label">Sample</div>
+        <div class="scale-col-label">Spec</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Page title<br>Project name</div>
+        <div class="font-geist" style="font-size: 42px; font-weight: 300; letter-spacing: -0.02em; line-height: 1;">Residential House<br>San Francisco</div>
+        <div class="scale-meta">42px / weight 300<br>tracking −0.02em</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Section heading</div>
+        <div class="font-geist" style="font-size: 24px; font-weight: 400; letter-spacing: -0.01em;">About the project</div>
+        <div class="scale-meta">24px / weight 400</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Nav / Subheadings</div>
+        <div class="font-geist" style="font-size: 15px; font-weight: 500;">Work · About · Process · Services</div>
+        <div class="scale-meta">15px / weight 500</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Body copy</div>
+        <div class="font-geist" style="font-size: 15px; font-weight: 300; line-height: 1.75; max-width: 480px;">The project explores the relationship between materiality and light in a dense urban context. Stone, glass, and steel are organized to frame specific views and moments throughout the day.</div>
+        <div class="scale-meta">15px / weight 300<br>leading 1.75</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Project meta</div>
+        <div class="font-geist" style="font-size: 13px; color: var(--mid);">Residential · San Francisco, CA · 2024 · Built</div>
+        <div class="scale-meta">13px / weight 400</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Section labels</div>
+        <div class="font-geist" style="font-size: 11px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid);">Selected work</div>
+        <div class="scale-meta">11px / weight 500<br>uppercase</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Live preview — project page context</div>
+    <div class="preview-frame">
+      <div class="preview-bar">
+        <div class="preview-dot"></div><div class="preview-dot"></div><div class="preview-dot"></div>
+      </div>
+      <div class="preview-content">
+        <div class="preview-nav-label font-geist">Cooper Studio</div>
+        <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid); margin-bottom: 16px;" class="font-geist">Residential</div>
+        <div class="preview-h1 font-geist" style="font-size: 44px; font-weight: 300;">Twin Peaks Residence</div>
+        <div class="preview-meta font-geist" style="font-size: 13px;">San Francisco, CA &nbsp;·&nbsp; 2023 &nbsp;·&nbsp; Built</div>
+        <div style="width: 100%; height: 220px; background: var(--off-white); border-radius: 4px; margin-bottom: 28px; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 12px; color: var(--border); font-family: 'Geist';">[ hero image ]</span>
+        </div>
+        <div class="preview-body font-geist" style="font-size: 15px; font-weight: 300;">The project occupies a narrow lot on the eastern slope of Twin Peaks, organizing a sequence of spaces that respond to the topography, light, and views. The street facade is deliberately restrained — a single plane of board-formed concrete punctuated by a recessed entry.</div>
+        <div class="preview-caption font-geist">Photography: James Ewing &nbsp;·&nbsp; Structural: Tipping Point</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===================== ALT 3: OUTFIT ===================== -->
+<div id="panel-alt3" class="panel">
+
+  <h1 class="page-title font-outft">Outfit — Alternate 3</h1>
+  <p class="page-sub">The most approachable option: geometric warmth with broad appeal.</p>
+
+  <div class="alt-header">
+    <div>
+      <div class="font-eyebrow" style="font-family: 'Outfit';">Alternate option</div>
+      <div class="alt-font-name font-outft">Outfit</div>
+      <div class="alt-desc">A geometric sans-serif with rounder terminals and friendlier proportions than DM Sans. More accessible in tone, less austere. A good choice if Cam wants the site to feel welcoming to residential clients who may not have a design background — the warmth lowers the barrier without sacrificing clarity.</div>
+    </div>
+    <div class="alt-vs">
+      <div class="alt-vs-label">vs. DM Sans</div>
+      <div class="alt-vs-row"><strong>Warmer</strong> — rounder, more approachable</div>
+      <div class="alt-vs-row"><strong>Less austere</strong> — friendlier proportions</div>
+      <div class="alt-vs-row"><strong>More accessible</strong> for non-design audience</div>
+      <div class="alt-vs-row"><strong>Same</strong> Google Fonts delivery</div>
+    </div>
+  </div>
+
+  <div class="pro-con-grid">
+    <div class="pro-con-card">
+      <div class="pro-con-title pro">Strengths</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>Most accessible option — residential clients will find it familiar and inviting</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>Geometric but warm — complements International Orange well</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>Excellent at body copy weights — long project descriptions read naturally</div>
+      <div class="pro-con-item"><span class="pro-icon">+</span>Variable font — single file, great performance</div>
+    </div>
+    <div class="pro-con-card">
+      <div class="pro-con-title con">Considerations</div>
+      <div class="pro-con-item"><span class="con-icon">−</span>Least distinctive of the four — trades precision for warmth</div>
+      <div class="pro-con-item"><span class="con-icon">−</span>Can feel more "startup" than "studio" at larger sizes if not set tightly</div>
+      <div class="pro-con-item"><span class="con-icon">−</span>May not signal the level of design rigor Cam wants to convey to collaborators and firms</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Full type scale — Outfit</div>
+    <div class="scale-table">
+      <div class="scale-row scale-row-head">
+        <div class="scale-col-label">Role</div>
+        <div class="scale-col-label">Sample</div>
+        <div class="scale-col-label">Spec</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Page title<br>Project name</div>
+        <div class="font-outft" style="font-size: 42px; font-weight: 300; letter-spacing: -0.02em; line-height: 1;">Residential House<br>San Francisco</div>
+        <div class="scale-meta">42px / weight 300<br>tracking −0.02em</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Section heading</div>
+        <div class="font-outft" style="font-size: 24px; font-weight: 400; letter-spacing: -0.01em;">About the project</div>
+        <div class="scale-meta">24px / weight 400</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Nav / Subheadings</div>
+        <div class="font-outft" style="font-size: 15px; font-weight: 500;">Work · About · Process · Services</div>
+        <div class="scale-meta">15px / weight 500</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Body copy</div>
+        <div class="font-outft" style="font-size: 15px; font-weight: 300; line-height: 1.75; max-width: 480px;">The project explores the relationship between materiality and light in a dense urban context. Stone, glass, and steel are organized to frame specific views and moments throughout the day.</div>
+        <div class="scale-meta">15px / weight 300<br>leading 1.75</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Project meta</div>
+        <div class="font-outft" style="font-size: 13px; color: var(--mid);">Residential · San Francisco, CA · 2024 · Built</div>
+        <div class="scale-meta">13px / weight 400</div>
+      </div>
+      <div class="scale-row">
+        <div class="scale-meta">Section labels</div>
+        <div class="font-outft" style="font-size: 11px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid);">Selected work</div>
+        <div class="scale-meta">11px / weight 500<br>uppercase</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Live preview — project page context</div>
+    <div class="preview-frame">
+      <div class="preview-bar">
+        <div class="preview-dot"></div><div class="preview-dot"></div><div class="preview-dot"></div>
+      </div>
+      <div class="preview-content">
+        <div class="preview-nav-label font-outft">Cooper Studio</div>
+        <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid); margin-bottom: 16px;" class="font-outft">Residential</div>
+        <div class="preview-h1 font-outft" style="font-size: 44px; font-weight: 300;">Twin Peaks Residence</div>
+        <div class="preview-meta font-outft" style="font-size: 13px;">San Francisco, CA &nbsp;·&nbsp; 2023 &nbsp;·&nbsp; Built</div>
+        <div style="width: 100%; height: 220px; background: var(--off-white); border-radius: 4px; margin-bottom: 28px; display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 12px; color: var(--border); font-family: 'Geist';">[ hero image ]</span>
+        </div>
+        <div class="preview-body font-outft" style="font-size: 15px; font-weight: 300;">The project occupies a narrow lot on the eastern slope of Twin Peaks, organizing a sequence of spaces that respond to the topography, light, and views. The street facade is deliberately restrained — a single plane of board-formed concrete punctuated by a recessed entry.</div>
+        <div class="preview-caption font-outft">Photography: James Ewing &nbsp;·&nbsp; Structural: Tipping Point</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showPanel(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
