@@ -1,0 +1,163 @@
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #F5F4F0; font-family: 'DM Sans', sans-serif; color: #1A1A1A; }
+
+  #top-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 56px;
+    background: rgba(245, 244, 240, 0.96);
+    border-bottom: 0.5px solid #DDDBD4;
+    transform: translateY(0);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    opacity: 1;
+  }
+  #top-nav.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  .nav-logo {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+    text-transform: uppercase; color: #1A1A1A; text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-size: 13px; font-weight: 400; color: #888780;
+    text-decoration: none; transition: color 0.15s ease;
+  }
+  .nav-links a:hover { color: #1A1A1A; }
+  .nav-links a.active { color: #FF4500; }
+
+  #content { padding: 0 48px; padding-top: 56px; }
+
+  #projects-grid { padding: 48px 0 80px; }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .project-card { cursor: pointer; }
+  .project-thumb {
+    width: 100%; aspect-ratio: 3/2;
+    background: #DDDBD4; position: relative; overflow: hidden;
+  }
+  .project-thumb-inner {
+    position: absolute; inset: 0;
+    background: #1A1A1A; opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .project-card:hover .project-thumb-inner { opacity: 0.18; }
+  .thumb-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: #888780; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .project-title {
+    margin-top: 12px;
+    font-size: 14px; font-weight: 400; color: #1A1A1A;
+  }
+
+  #footer {
+    border-top: 0.5px solid #DDDBD4;
+    padding: 28px 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  #footer span { font-size: 12px; color: #888780; }
+
+  .scroll-hint {
+    text-align: center; padding: 12px 0 0;
+    font-size: 11px; color: #888780; letter-spacing: 0.04em;
+  }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Cooper Studio projects page wireframe</h2>
+
+<div id="app">
+
+  <nav id="top-nav">
+    <a class="nav-logo" href="cooper_studio_homepage_v2.html">Cooper Studio</a>
+    <div class="nav-links">
+      <a href="cooper_studio_projects_page_v1.html" class="active">Projects</a>
+      <a href="#">Services</a>
+      <a href="#">Process</a>
+      <a href="#">About</a>
+    </div>
+  </nav>
+
+  <div id="content">
+    <p class="scroll-hint">↓ scroll to see nav hide / ↑ scroll up to reveal</p>
+    <div id="projects-grid">
+      <div class="project-grid">
+
+        <div class="project-card" onclick="location.href='cooper_studio_project_detail_v2_3.html'">
+          <div class="project-thumb"><div class="thumb-placeholder">1200 × 800</div><div class="project-thumb-inner"></div></div>
+          <div class="project-title">Hayes Valley Residence</div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb"><div class="thumb-placeholder">1200 × 800</div><div class="project-thumb-inner"></div></div>
+          <div class="project-title">Mission Bay Mixed-Use</div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb"><div class="thumb-placeholder">1200 × 800</div><div class="project-thumb-inner"></div></div>
+          <div class="project-title">Marin County Retreat</div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb"><div class="thumb-placeholder">1200 × 800</div><div class="project-thumb-inner"></div></div>
+          <div class="project-title">Dogpatch Studio</div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb"><div class="thumb-placeholder">1200 × 800</div><div class="project-thumb-inner"></div></div>
+          <div class="project-title">Potrero Hill Townhouse</div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb"><div class="thumb-placeholder">1200 × 800</div><div class="project-thumb-inner"></div></div>
+          <div class="project-title">Noe Valley Addition</div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb"><div class="thumb-placeholder">1200 × 800</div><div class="project-thumb-inner"></div></div>
+          <div class="project-title">Embarcadero Office Fit-Out</div>
+        </div>
+        <div class="project-card">
+          <div class="project-thumb"><div class="thumb-placeholder">1200 × 800</div><div class="project-thumb-inner"></div></div>
+          <div class="project-title">Tiburon Waterfront</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="footer">
+      <span>Cooper Studio</span>
+      <span>San Francisco, CA</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const nav = document.getElementById('top-nav');
+  let lastY = 0;
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y <= 10) {
+          nav.classList.remove('hidden');
+        } else if (y > lastY) {
+          nav.classList.add('hidden');
+        } else {
+          nav.classList.remove('hidden');
+        }
+        lastY = y;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+</script>

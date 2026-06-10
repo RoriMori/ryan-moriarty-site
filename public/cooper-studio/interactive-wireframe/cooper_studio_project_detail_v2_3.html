@@ -1,0 +1,211 @@
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #F5F4F0; font-family: 'DM Sans', sans-serif; color: #1A1A1A; }
+
+  #top-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 56px;
+    background: rgba(245, 244, 240, 0.96);
+    border-bottom: 0.5px solid #DDDBD4;
+    transform: translateY(0);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  #top-nav.hidden { transform: translateY(-100%); opacity: 0; }
+  .nav-logo { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: #1A1A1A; text-decoration: none; }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a { font-size: 13px; font-weight: 400; color: #888780; text-decoration: none; transition: color 0.15s ease; }
+  .nav-links a:hover { color: #1A1A1A; }
+  .nav-links a.active { color: #FF4500; }
+
+  /* SIDEBAR PROJECT NAV */
+  .sidebar-nav { margin-top: 16px; padding-top: 16px; border-top: 0.5px solid #DDDBD4; display: flex; flex-direction: row; justify-content: space-between; align-items: center; }
+  .sidebar-nav-link {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 400; color: #888780;
+    text-decoration: none; transition: color 0.15s ease; width: 100%;
+  }
+  .sidebar-nav-link:hover { color: #1A1A1A; }
+  .sidebar-nav-link:hover .snav-arrow { transform: translateX(3px); }
+  .sidebar-nav-link.prev:hover .snav-arrow { transform: translateX(-3px); }
+  .sidebar-nav-link i { font-size: 13px; transition: transform 0.15s ease; flex-shrink: 0; }
+  .snav-meta { display: flex; flex-direction: column; gap: 1px; }
+  .snav-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #888780; }
+  .snav-title { font-size: 12px; font-weight: 400; color: #1A1A1A; }
+
+  /* HERO */
+  #project-hero {
+    margin-top: 56px; width: 100%; aspect-ratio: 16/7;
+    background: #DDDBD4; display: flex; align-items: center; justify-content: center;
+  }
+
+  /* LAYOUT */
+  #project-content {
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 56px;
+    margin-top: 48px;
+  }
+
+  /* META SIDEBAR */
+  #project-meta { position: sticky; top: 72px; align-self: start; }
+  .meta-title { font-size: 20px; font-weight: 300; line-height: 1.3; margin-bottom: 24px; letter-spacing: -0.01em; }
+  .meta-block { margin-bottom: 10px; }
+  .meta-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #888780; margin-bottom: 2px; }
+  .meta-value { font-size: 13px; font-weight: 400; color: #1A1A1A; }
+  .meta-divider { border: none; border-top: 0.5px solid #DDDBD4; margin: 16px 0; }
+  .meta-credits { font-size: 12px; font-weight: 300; color: #888780; line-height: 1.6; }
+
+
+  /* PROJECT BODY */
+  #project-body { padding-bottom: 64px; }
+  .project-description { font-size: 15px; font-weight: 300; line-height: 1.75; color: #1A1A1A; max-width: 600px; margin-bottom: 48px; }
+
+  /* GALLERY */
+  .gallery { display: flex; flex-direction: column; gap: 24px; }
+  .img-full { width: 100%; aspect-ratio: 16/7; background: #DDDBD4; display: flex; align-items: center; justify-content: center; }
+  .img-row { display: grid; gap: 24px; }
+  .img-row.two-landscape { grid-template-columns: 1fr 1fr; }
+  .img-row.two-portrait { grid-template-columns: 1fr 1fr; }
+  .img-row.one-portrait { grid-template-columns: 1fr; justify-items: center; }
+  .img-cell { background: #DDDBD4; display: flex; align-items: center; justify-content: center; width: 100%; }
+  .img-cell.landscape { aspect-ratio: 3/2; }
+  .img-cell.portrait { aspect-ratio: 2/3; }
+  .img-row.one-portrait .img-cell.portrait { width: 50%; }
+  .img-placeholder { font-size: 10px; color: #888780; letter-spacing: 0.06em; text-transform: uppercase; text-align: center; padding: 8px; }
+
+  /* TEXT COMPONENT */
+  .text-component { padding: 40px 10%; text-align: center; }
+  .text-component p { font-size: 18px; font-weight: 300; line-height: 1.75; color: #1A1A1A; }
+
+
+
+  .ph { font-size: 10px; color: #888780; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* BOTTOM NAV */
+  #bottom-nav {
+    border-top: 0.5px solid #DDDBD4;
+    padding: 32px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .bnav-prev { display: flex; align-items: center; gap: 16px; cursor: pointer; }
+  .bnav-next { display: flex; align-items: center; justify-content: flex-end; gap: 16px; cursor: pointer; text-align: right; }
+  .bnav-arrow {
+    width: 34px; height: 34px; border: 0.5px solid #DDDBD4; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.15s ease;
+  }
+  .bnav-prev:hover .bnav-arrow,
+  .bnav-next:hover .bnav-arrow { border-color: #FF4500; }
+  .bnav-prev:hover .bnav-arrow i,
+  .bnav-next:hover .bnav-arrow i { color: #FF4500; }
+  .bnav-arrow i { font-size: 14px; color: #888780; transition: color 0.15s ease; }
+  .bnav-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #888780; margin-bottom: 4px; }
+  .bnav-title { font-size: 15px; font-weight: 300; color: #1A1A1A; }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Cooper Studio project detail page wireframe v3</h2>
+
+<div id="app">
+
+  <nav id="top-nav">
+    <a class="nav-logo" href="cooper_studio_homepage_v2.html">Cooper Studio</a>
+    <div class="nav-links">
+      <a href="cooper_studio_projects_page_v1.html" class="active">Projects</a>
+      <a href="#">Services</a>
+      <a href="#">Process</a>
+      <a href="#">About</a>
+    </div>
+  </nav>
+
+  <div id="project-hero">
+    <img src="Cooper-studio-mock-images/project-hero-example.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+  </div>
+
+  <div id="project-content">
+    <aside id="project-meta">
+      <h1 class="meta-title">Hayes Valley Residence</h1>
+      <div class="meta-block"><div class="meta-label">Category</div><div class="meta-value">Residential</div></div>
+      <div class="meta-block"><div class="meta-label">Location</div><div class="meta-value">San Francisco, CA</div></div>
+      <div class="meta-block"><div class="meta-label">Year</div><div class="meta-value">2024</div></div>
+      <div class="meta-block"><div class="meta-label">Status</div><div class="meta-value">Built</div></div>
+      <div class="meta-block"><div class="meta-label">Area</div><div class="meta-value">2,400 sq ft</div></div>
+      <hr class="meta-divider">
+      <div class="meta-label" style="margin-bottom:6px;">Credits</div>
+      <div class="meta-credits">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.</div>
+      <div class="sidebar-nav">
+        <a class="sidebar-nav-link prev" href="#"><i class="ti ti-arrow-left"></i> Previous</a>
+        <a class="sidebar-nav-link next" href="#">Next <i class="ti ti-arrow-right"></i></a>
+      </div>
+    </aside>
+
+    <main id="project-body">
+      <p class="project-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+      <div class="gallery">
+        <div class="img-row two-landscape">
+          <div class="img-cell landscape"><img src="Cooper-studio-mock-images/project-01-landscape-example-01.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <div class="img-cell landscape"><img src="Cooper-studio-mock-images/project-01-landscape-example-02.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        </div>
+        <div class="img-full"><img src="Cooper-studio-mock-images/project-01-full%20width.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="text-component">
+          <p>The brief called for a complete reorganization of the ground floor, opening the kitchen toward the garden while preserving the original street facade. Material choices were guided by what was already there.</p>
+        </div>
+        <div class="img-full"><img src="Cooper-studio-mock-images/project-01-full%20width.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="img-row two-portrait">
+          <div class="img-cell portrait"><img src="Cooper-studio-mock-images/project-01-portrait-example-01.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <div class="img-cell portrait"><img src="Cooper-studio-mock-images/project-01-portrait-example-02.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        </div>
+        <div class="img-row one-portrait">
+          <div class="img-cell portrait"><img src="Cooper-studio-mock-images/project-01-portrait-example-01.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        </div>
+        <div class="img-row two-landscape">
+          <div class="img-cell landscape"><img src="Cooper-studio-mock-images/project-01-landscape-example-01.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <div class="img-cell landscape"><img src="Cooper-studio-mock-images/project-01-landscape-example-02.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="bottom-nav">
+    <div class="bnav-prev">
+      <div class="bnav-arrow"><i class="ti ti-arrow-left"></i></div>
+      <div>
+        <div class="bnav-label">Previous</div>
+        <div class="bnav-title">Tiburon Waterfront</div>
+      </div>
+    </div>
+    <div class="bnav-next">
+      <div>
+        <div class="bnav-label">Next</div>
+        <div class="bnav-title">Mission Bay Mixed-Use</div>
+      </div>
+      <div class="bnav-arrow"><i class="ti ti-arrow-right"></i></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const nav = document.getElementById('top-nav');
+  let lastY = 0, ticking = false;
+
+  function update() {
+    const y = window.scrollY;
+    if (y <= 10) nav.classList.remove('hidden');
+    else if (y > lastY) nav.classList.add('hidden');
+    else nav.classList.remove('hidden');
+    lastY = y;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  });
+</script>
