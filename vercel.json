@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/interactive-wireframe",
+      "destination": "/cooper-studio/interactive-wireframe/cooper_studio_homepage_v2.html",
+      "permanent": false
+    }
+  ]
+}
