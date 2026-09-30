@@ -24,3 +24,21 @@ export interface Essay extends EssayListItem {
   attribution?: 'general' | 'ai' | 'custom'
   customAttributionText?: string
 }
+
+export interface Track {
+  _id: string
+  title: string
+  description?: string
+  releasedAt?: string
+  audioUrl: string
+  coverArt?: SanityImageAsset
+}
+
+export interface VideoItem {
+  _id: string
+  title: string
+  series?: string
+  description?: string
+  youtubeUrl: string
+  publishedAt?: string
+}

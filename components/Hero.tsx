@@ -105,7 +105,7 @@ export default function Hero() {
               backgroundClip: 'text',
             }}
           >
-            A spot for the thought, a rest for the note
+            Making room for all of it.
           </p>
         </div>
       </div>

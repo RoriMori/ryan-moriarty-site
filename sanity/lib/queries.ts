@@ -49,3 +49,25 @@ export const essayBySlugQuery = groq`
     customAttributionText
   }
 `
+
+export const trackListQuery = groq`
+  *[_type == "track" && defined(releasedAt)] | order(releasedAt desc) {
+    _id,
+    title,
+    description,
+    releasedAt,
+    "audioUrl": audioFile.asset->url,
+    coverArt
+  }
+`
+
+export const videoListQuery = groq`
+  *[_type == "video" && defined(publishedAt)] | order(publishedAt desc) {
+    _id,
+    title,
+    series,
+    description,
+    youtubeUrl,
+    publishedAt
+  }
+`

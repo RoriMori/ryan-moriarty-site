@@ -2,6 +2,8 @@ import Link from 'next/link'
 
 const NAV_LINKS = [
   { href: '/writing', label: 'Writing' },
+  { href: '/music',   label: 'Music'   },
+  { href: '/video',   label: 'Video'   },
   { href: '/about',   label: 'About'   },
   { href: '/links',   label: 'Links'   },
 ]
