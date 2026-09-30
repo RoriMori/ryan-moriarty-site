@@ -22,6 +22,16 @@ const staticPages: MetadataRoute.Sitemap = [
     priority: 0.8,
   },
   {
+    url: 'https://www.rorimori.com/music',
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  },
+  {
+    url: 'https://www.rorimori.com/video',
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  },
+  {
     url: 'https://www.rorimori.com/about',
     changeFrequency: 'monthly',
     priority: 0.5,
