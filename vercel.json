@@ -1,9 +1,1 @@
-{
-  "redirects": [
-    {
-      "source": "/interactive-wireframe",
-      "destination": "/cooper-studio/interactive-wireframe/",
-      "permanent": false
-    }
-  ]
-}
+{}
