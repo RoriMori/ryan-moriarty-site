@@ -31,9 +31,28 @@ export const video = defineType({
       validation: Rule => Rule.required(),
     }),
     defineField({
+      name: 'instagramUrl',
+      title: 'Instagram URL',
+      type: 'url',
+      description: 'Instagram Reel or post URL (optional)',
+    }),
+    defineField({
+      name: 'tiktokUrl',
+      title: 'TikTok URL',
+      type: 'url',
+      description: 'TikTok video URL (optional)',
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published Date',
       type: 'date',
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Featured on Homepage',
+      type: 'boolean',
+      description: 'Check to feature this on the homepage. Only one item across all types should be featured at a time.',
+      initialValue: false,
     }),
   ],
   preview: {

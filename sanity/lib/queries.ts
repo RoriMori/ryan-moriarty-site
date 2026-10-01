@@ -31,6 +31,24 @@ export const featuredEssayQuery = groq`
   }
 `
 
+export const featuredContentQuery = groq`
+  *[featured == true][0] {
+    _id,
+    _type,
+    title,
+    description,
+    "date": coalesce(publishedAt, releasedAt),
+    "slug": slug.current,
+    subhead,
+    excerpt,
+    estimatedReadTime,
+    contentType,
+    series,
+    youtubeUrl,
+    "audioUrl": audioFile.asset->url
+  }
+`
+
 export const essayBySlugQuery = groq`
   *[_type == "essay" && slug.current == $slug][0] {
     _id,
@@ -68,6 +86,8 @@ export const videoListQuery = groq`
     series,
     description,
     youtubeUrl,
+    instagramUrl,
+    tiktokUrl,
     publishedAt
   }
 `

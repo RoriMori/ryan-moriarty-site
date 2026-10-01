@@ -1,6 +1,7 @@
 import { client, isSanityConfigured } from '@/sanity/lib/client'
 import { videoListQuery } from '@/sanity/lib/queries'
 import type { VideoItem } from '@/sanity/lib/types'
+import VideoPlayer from './VideoPlayer'
 
 export const metadata = {
   title: 'Video — RoriMori',
@@ -13,13 +14,6 @@ const SOCIALS = [
   { name: 'Instagram',  href: 'https://www.instagram.com/hello.rorimori/' },
   { name: 'TikTok',     href: 'https://www.tiktok.com/@_rorimori' },
 ]
-
-function getYouTubeEmbedUrl(url: string): string | null {
-  const match = url.match(
-    /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([a-zA-Z0-9_-]{11})/
-  )
-  return match ? `https://www.youtube.com/embed/${match[1]}` : null
-}
 
 export default async function Video() {
   const videos: VideoItem[] = isSanityConfigured
@@ -36,7 +30,7 @@ export default async function Video() {
 
         <div className="essay-body mb-2xl">
           <p>
-            I&rsquo;m making a show. It&rsquo;s called <em>It&rsquo;s Oona</em> and it features
+            I&rsquo;m making a show. It&rsquo;s called <em>It&rsquo;s Oona</em>{' '}and it features
             my dog. There&rsquo;s more to it than that, but she is genuinely very compelling on
             camera. Episodes go here first.
           </p>
@@ -50,7 +44,6 @@ export default async function Video() {
         ) : (
           <div className="flex flex-col gap-2xl mb-3xl">
             {videos.map(v => {
-              const embedUrl = getYouTubeEmbedUrl(v.youtubeUrl)
               const date = v.publishedAt
                 ? new Date(v.publishedAt).toLocaleDateString('en-US', {
                     month: 'long',
@@ -69,25 +62,59 @@ export default async function Video() {
                   <h2 className="font-sans font-medium text-h5 text-text-primary mb-md leading-snug">
                     {v.title}
                   </h2>
-                  {embedUrl ? (
-                    <div className="relative w-full mb-md" style={{ paddingBottom: '56.25%' }}>
-                      <iframe
-                        src={embedUrl}
-                        title={v.title}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="absolute inset-0 w-full h-full rounded-sm border border-text-primary/10"
-                      />
-                    </div>
-                  ) : null}
+                  <VideoPlayer url={v.youtubeUrl} title={v.title} />
                   {v.description && (
                     <p className="font-serif text-p1 text-text-primary/70 leading-relaxed mb-xs">
                       {v.description}
                     </p>
                   )}
-                  {date && (
-                    <p className="font-sans text-caption text-text-primary/35">{date}</p>
-                  )}
+                  <div className="flex items-center gap-md mt-xs flex-wrap">
+                    {date && (
+                      <p className="font-sans text-caption text-text-primary/35">{date}</p>
+                    )}
+                    <div className="flex items-center gap-sm">
+                      <a
+                        href={v.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Watch on YouTube"
+                        className="text-text-primary/30 hover:text-text-primary transition-colors duration-200"
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <rect x="2" y="5" width="20" height="14" rx="3"/>
+                          <polygon points="10,9 16,12 10,15" fill="currentColor" stroke="none"/>
+                        </svg>
+                      </a>
+                      {v.instagramUrl && (
+                        <a
+                          href={v.instagramUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Watch on Instagram"
+                          className="text-text-primary/30 hover:text-text-primary transition-colors duration-200"
+                        >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <rect x="2" y="2" width="20" height="20" rx="5"/>
+                            <circle cx="12" cy="12" r="5"/>
+                            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                          </svg>
+                        </a>
+                      )}
+                      {v.tiktokUrl && (
+                        <a
+                          href={v.tiktokUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Watch on TikTok"
+                          className="text-text-primary/30 hover:text-text-primary transition-colors duration-200"
+                        >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+                          </svg>
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )
             })}

@@ -46,6 +46,13 @@ export const essay = defineType({
       type: 'date',
     }),
     defineField({
+      name: 'featured',
+      title: 'Featured on Homepage',
+      type: 'boolean',
+      description: 'Check to feature this on the homepage. Only one item across all types should be featured at a time.',
+      initialValue: false,
+    }),
+    defineField({
       name: 'heroImage',
       title: 'Hero Image',
       type: 'image',

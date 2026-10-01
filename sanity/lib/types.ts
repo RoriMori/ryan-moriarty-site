@@ -34,11 +34,32 @@ export interface Track {
   coverArt?: SanityImageAsset
 }
 
+export interface FeaturedItem {
+  _id: string
+  _type: 'essay' | 'video' | 'track'
+  title: string
+  description?: string
+  date?: string
+  // essay
+  slug?: string
+  subhead?: string
+  excerpt?: string
+  estimatedReadTime?: number
+  contentType?: string
+  // video
+  youtubeUrl?: string
+  series?: string
+  // track
+  audioUrl?: string
+}
+
 export interface VideoItem {
   _id: string
   title: string
   series?: string
   description?: string
   youtubeUrl: string
+  instagramUrl?: string
+  tiktokUrl?: string
   publishedAt?: string
 }

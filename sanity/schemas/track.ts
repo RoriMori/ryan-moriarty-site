@@ -45,6 +45,13 @@ export const track = defineType({
       title: 'Release Date',
       type: 'date',
     }),
+    defineField({
+      name: 'featured',
+      title: 'Featured on Homepage',
+      type: 'boolean',
+      description: 'Check to feature this on the homepage. Only one item across all types should be featured at a time.',
+      initialValue: false,
+    }),
   ],
   preview: {
     select: { title: 'title', date: 'releasedAt', media: 'coverArt' },
