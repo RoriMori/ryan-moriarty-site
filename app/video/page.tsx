@@ -3,6 +3,8 @@ import { videoListQuery } from '@/sanity/lib/queries'
 import type { VideoItem } from '@/sanity/lib/types'
 import VideoPlayer from './VideoPlayer'
 
+export const revalidate = 60
+
 export const metadata = {
   title: 'Video — RoriMori',
   description: 'Videos by RoriMori.',

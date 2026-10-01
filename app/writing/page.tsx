@@ -1,3 +1,5 @@
+export const revalidate = 60
+
 import Link from 'next/link'
 import { client, isSanityConfigured } from '@/sanity/lib/client'
 import { essayListQuery } from '@/sanity/lib/queries'

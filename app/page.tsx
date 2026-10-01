@@ -5,6 +5,8 @@ import { client, isSanityConfigured } from '@/sanity/lib/client'
 import { featuredContentQuery } from '@/sanity/lib/queries'
 import type { FeaturedItem } from '@/sanity/lib/types'
 
+export const revalidate = 60
+
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
 }

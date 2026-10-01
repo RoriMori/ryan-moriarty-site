@@ -1,3 +1,5 @@
+export const revalidate = 60
+
 import { client, isSanityConfigured } from '@/sanity/lib/client'
 import { trackListQuery } from '@/sanity/lib/queries'
 import type { Track } from '@/sanity/lib/types'

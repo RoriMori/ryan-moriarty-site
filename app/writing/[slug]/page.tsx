@@ -1,3 +1,5 @@
+export const revalidate = 60
+
 import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import { client, isSanityConfigured } from '@/sanity/lib/client'
 import { essaySlugsQuery, essayBySlugQuery } from '@/sanity/lib/queries'
