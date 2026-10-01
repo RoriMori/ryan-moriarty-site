@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { FeaturedItem } from '@/sanity/lib/types'
+import VideoPlayer from '@/app/video/VideoPlayer'
 
 export default function FeaturedContent({ item }: { item: FeaturedItem | null }) {
   if (!item) return null
@@ -19,8 +20,8 @@ export default function FeaturedContent({ item }: { item: FeaturedItem | null })
     href = `/writing/${item.slug}`
   } else if (item._type === 'video') {
     label = item.series ? `Featured — ${item.series}` : 'Featured Video'
-    cta = 'Watch episode →'
-    href = '/video'
+    cta = 'Watch on YouTube →'
+    href = item.youtubeUrl ?? '/video'
   } else {
     label = 'Featured Track'
     cta = 'Listen →'
@@ -50,6 +51,12 @@ export default function FeaturedContent({ item }: { item: FeaturedItem | null })
           </p>
         )}
 
+        {item._type === 'video' && item.youtubeUrl && (
+          <div className="mt-lg max-w-2xl">
+            <VideoPlayer url={item.youtubeUrl} title={item.title} />
+          </div>
+        )}
+
         {blurb && (
           <p className="font-sans text-p2 text-text-primary/40 mt-md">
             {blurb}
@@ -62,12 +69,14 @@ export default function FeaturedContent({ item }: { item: FeaturedItem | null })
           </p>
         )}
 
-        <Link
-          href={href}
-          className="inline-block font-sans text-p1 text-text-primary mt-lg underline decoration-accent decoration-2 underline-offset-4 hover:decoration-[3px] transition-all"
-        >
-          {cta}
-        </Link>
+        {item._type !== 'video' && (
+          <Link
+            href={href}
+            className="inline-block font-sans text-p1 text-text-primary mt-lg underline decoration-accent decoration-2 underline-offset-4 hover:decoration-[3px] transition-all"
+          >
+            {cta}
+          </Link>
+        )}
 
       </div>
     </section>
