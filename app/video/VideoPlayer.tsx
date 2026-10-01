@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 function getYouTubeId(url: string): string | null {
   const match = url.match(
-    /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([a-zA-Z0-9_-]{11})/
+    /(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|shorts\/))([a-zA-Z0-9_-]{11})/
   )
   return match ? match[1] : null
 }
@@ -13,7 +13,19 @@ export default function VideoPlayer({ url, title }: { url: string; title: string
   const [playing, setPlaying] = useState(false)
   const videoId = getYouTubeId(url)
 
-  if (!videoId) return null
+  // Fallback: URL didn't match any known YouTube format — just link out
+  if (!videoId) {
+    return (
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block font-sans text-p1 text-text-primary mb-md underline decoration-accent decoration-2 underline-offset-4 hover:decoration-[3px] transition-all"
+      >
+        Watch on YouTube →
+      </a>
+    )
+  }
 
   if (playing) {
     return (
