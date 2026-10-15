@@ -32,9 +32,8 @@ export default async function Video() {
 
         <div className="essay-body mb-2xl">
           <p>
-            I&rsquo;m making a show. It&rsquo;s called <em>It&rsquo;s Oona</em>{' '}and it features
-            my dog. There&rsquo;s more to it than that, but she is genuinely very compelling on
-            camera. Episodes go here first.
+            Oona is my dog. We both have thoughts. Me and her, trying to figure out the world.
+            Between sniffs.
           </p>
         </div>
 
