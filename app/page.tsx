@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const featured = isSanityConfigured
-    ? await client.fetch<FeaturedItem | null>(featuredContentQuery).catch(() => null)
+    ? await client.fetch<FeaturedItem | null>(featuredContentQuery, {}, { next: { revalidate: 60 } }).catch(() => null)
     : null
 
   return (

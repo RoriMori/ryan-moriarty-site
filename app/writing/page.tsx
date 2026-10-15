@@ -13,7 +13,7 @@ export const metadata = {
 
 export default async function Writing() {
   const essays: EssayListItem[] = isSanityConfigured
-    ? await client.fetch<EssayListItem[]>(essayListQuery).catch(() => [])
+    ? await client.fetch<EssayListItem[]>(essayListQuery, {}, { next: { revalidate: 60 } }).catch(() => [])
     : []
 
   return (

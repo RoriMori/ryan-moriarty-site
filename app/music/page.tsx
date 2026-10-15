@@ -27,7 +27,7 @@ const PLATFORMS = [
 
 export default async function Music() {
   const tracks: Track[] = isSanityConfigured
-    ? await client.fetch<Track[]>(trackListQuery).catch(() => [])
+    ? await client.fetch<Track[]>(trackListQuery, {}, { next: { revalidate: 60 } }).catch(() => [])
     : []
 
   return (

@@ -13,7 +13,7 @@ type Props = {
 
 export async function generateStaticParams() {
   if (!isSanityConfigured) return [{ slug: 'the-long-way-in' }]
-  const slugs = await client.fetch<string[]>(essaySlugsQuery).catch(() => [])
+  const slugs = await client.fetch<string[]>(essaySlugsQuery, {}, { next: { revalidate: 60 } }).catch(() => [])
   return slugs.map(slug => ({ slug }))
 }
 
@@ -155,7 +155,7 @@ export default async function EssayPage({ params }: Props) {
   const { slug } = await params
 
   const essay: Essay | null = isSanityConfigured
-    ? await client.fetch<Essay | null>(essayBySlugQuery, { slug }).catch(() => null)
+    ? await client.fetch<Essay | null>(essayBySlugQuery, { slug }, { next: { revalidate: 60 } }).catch(() => null)
     : null
 
   const date = essay?.publishedAt

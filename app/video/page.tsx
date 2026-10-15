@@ -19,7 +19,7 @@ const SOCIALS = [
 
 export default async function Video() {
   const videos: VideoItem[] = isSanityConfigured
-    ? await client.fetch<VideoItem[]>(videoListQuery).catch(() => [])
+    ? await client.fetch<VideoItem[]>(videoListQuery, {}, { next: { revalidate: 60 } }).catch(() => [])
     : []
 
   return (
