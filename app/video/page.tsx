@@ -1,7 +1,7 @@
 import { client, isSanityConfigured } from '@/sanity/lib/client'
 import { videoListQuery } from '@/sanity/lib/queries'
 import type { VideoItem } from '@/sanity/lib/types'
-import VideoPlayer from './VideoPlayer'
+import VideoPlayer from '@/components/VideoPlayer'
 
 export const revalidate = 60
 

@@ -6,6 +6,7 @@ import { essaySlugsQuery, essayBySlugQuery } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
 import type { Essay } from '@/sanity/lib/types'
 import ShareIcons from '@/components/ShareRow'
+import VideoPlayer from '@/components/VideoPlayer'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -53,6 +54,17 @@ const ptComponents: PortableTextComponents = {
     pullQuote: ({ value }) => (
       <blockquote className="pull-quote">{value.text}</blockquote>
     ),
+    videoEmbed: ({ value }) => {
+      if (!value?.url) return null
+      return (
+        <figure className="essay-figure my-xl">
+          <VideoPlayer url={value.url} title={value.caption ?? 'Video'} />
+          {value.caption && (
+            <figcaption>{value.caption}</figcaption>
+          )}
+        </figure>
+      )
+    },
     externalEmbed: ({ value }) => {
       if (!value?.url) return null
       return (
@@ -126,6 +138,7 @@ const poemPtComponents: PortableTextComponents = {
   types: {
     image: ptComponents.types!.image,
     pullQuote: ptComponents.types!.pullQuote,
+    videoEmbed: ptComponents.types!.videoEmbed,
     externalEmbed: ptComponents.types!.externalEmbed,
   },
   block: {

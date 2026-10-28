@@ -142,19 +142,36 @@ export const essay = defineType({
             prepare: ({ title }) => ({ title: `"${title}"`, subtitle: 'Pull Quote' }),
           },
         }),
-        // External embed (SoundCloud, YouTube, etc.)
+        // Inline video embed (YouTube)
         defineArrayMember({
           type: 'object',
-          name: 'externalEmbed',
-          title: 'External Embed',
+          name: 'videoEmbed',
+          title: 'Video Embed',
           fields: [
-            defineField({ name: 'url', type: 'url', title: 'URL' }),
+            defineField({ name: 'url', type: 'url', title: 'YouTube URL' }),
             defineField({ name: 'caption', type: 'string', title: 'Caption (optional)' }),
           ],
           preview: {
             select: { title: 'url', subtitle: 'caption' },
             prepare: ({ title, subtitle }) => ({
-              title: subtitle || 'External Embed',
+              title: subtitle || 'Video Embed',
+              subtitle: title,
+            }),
+          },
+        }),
+        // Audio embed (SoundCloud iframe)
+        defineArrayMember({
+          type: 'object',
+          name: 'externalEmbed',
+          title: 'Audio Embed (SoundCloud)',
+          fields: [
+            defineField({ name: 'url', type: 'url', title: 'SoundCloud embed URL' }),
+            defineField({ name: 'caption', type: 'string', title: 'Caption (optional)' }),
+          ],
+          preview: {
+            select: { title: 'url', subtitle: 'caption' },
+            prepare: ({ title, subtitle }) => ({
+              title: subtitle || 'Audio Embed',
               subtitle: title,
             }),
           },

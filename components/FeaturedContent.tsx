@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import type { FeaturedItem } from '@/sanity/lib/types'
-import VideoPlayer from '@/app/video/VideoPlayer'
+import VideoPlayer from '@/components/VideoPlayer'
 
 export default function FeaturedContent({ item }: { item: FeaturedItem | null }) {
   if (!item) return null
